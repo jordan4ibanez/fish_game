@@ -1,0 +1,1 @@
+{"libs" : ["raylib"], "lflags-posix" : ["-L."], "lflags-osx" : ["-rpath", "@executable_path/"], "lflags-linux" : ["-rpath=$$ORIGIN"], "description" : "A fish game.", "name" : "fish_game", "dependencies" : {"raylib-d" : "~>5.5.1"}, "authors" : ["jordan4ibanez"], "copyright" : "Copyright © 2025, jordan4ibanez", "license" : "MIT"}

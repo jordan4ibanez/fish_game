@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/fish_game
+fish_game.so
+fish_game.dylib
+fish_game.dll
+fish_game.a
+fish_game.lib
+fish_game-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
