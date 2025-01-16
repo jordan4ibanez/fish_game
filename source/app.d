@@ -1,19 +1,24 @@
 import raylib;
 import std;
 import world.heightmap;
+import core.sys.posix.syslog;
 
 void main()
 {
 
-	Heightmap.initialize();
-	
 	validateRaylibBinding();
+
+	SetTraceLogLevel(TraceLogLevel.LOG_ERROR);
 
 	InitWindow(800, 600, "Hello, Raylib-D!");
 
 	SetTargetFPS(60);
 
-	while (!WindowShouldClose())
+	//* Begin testing heightmap.
+	Heightmap.initialize();
+	//* End testing heightmap.
+
+	while (WindowShouldClose())
 	{
 		BeginDrawing();
 		ClearBackground(Colors.RAYWHITE);
