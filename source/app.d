@@ -1,7 +1,21 @@
-import std.stdio;
 import raylib;
+import std;
 
 void main()
 {
 
+	validateRaylibBinding();
+
+	InitWindow(800, 600, "Hello, Raylib-D!");
+
+	SetTargetFPS(60);
+
+	while (!WindowShouldClose())
+	{
+		BeginDrawing();
+		ClearBackground(Colors.RAYWHITE);
+		DrawText("Hello, World!", 400, 300, 28, Colors.BLACK);
+		EndDrawing();
+	}
+	CloseWindow();
 }
