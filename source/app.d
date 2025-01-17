@@ -8,7 +8,7 @@ void main() {
 
 	validateRaylibBinding();
 
-	SetTraceLogLevel(TraceLogLevel.LOG_ERROR);
+	// SetTraceLogLevel(TraceLogLevel.LOG_ERROR);
 
 	InitWindow(800, 600, "Hello, Raylib-D!");
 
@@ -28,10 +28,10 @@ void main() {
 
 	foreach (x; 0 .. mapSize.width) {
 		foreach (y; 0 .. mapSize.height) {
-			const float heightTopLeft = Heightmap.getHeight(x, y + 1);
-			const float heightBottomLeft = Heightmap.getHeight(x, y);
-			const float heightBottomRight = Heightmap.getHeight(x + 1, y);
-			const float heightTopRight = Heightmap.getHeight(x + 1, y + 1);
+			const float heightTopLeft = Heightmap.getHeight(x, y + 1) * 0.0;
+			const float heightBottomLeft = Heightmap.getHeight(x, y) * 0.0;
+			const float heightBottomRight = Heightmap.getHeight(x + 1, y) * 0.0;
+			const float heightTopRight = Heightmap.getHeight(x + 1, y + 1) * 0.0;
 
 			vertices ~= [
 				x, heightTopLeft, y + 1, // top left.
@@ -64,9 +64,14 @@ void main() {
 		}
 	}
 
-	Texture2D* sandTexture = new Texture2D();
-	*sandTexture = LoadTexture("textures/sand.png");
+	// Sand texture.
+	Image* sandImage = new Image();
+	*sandImage = LoadImage("textures/sand.png");
 
+	Texture2D* sandTexture = new Texture2D();
+	*sandTexture = LoadTextureFromImage(*sandImage);
+
+	// Uploading the model.
 	Mesh* groundMesh = new Mesh();
 	groundMesh.vertexCount = cast(int) vertices.length / 3;
 	groundMesh.triangleCount = cast(int) indices.length / 3;
@@ -82,12 +87,33 @@ void main() {
 
 	//* End testing heightmap.
 
+	Camera* camera = new Camera();
+	camera.position = Vector3(3, 1, 0);
+	camera.up = Vector3(0, 1, 0);
+	camera.target = Vector3(0, 0, 0);
+	camera.fovy = 45.0;
+	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
+
 	while (!WindowShouldClose()) {
+
+		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+
 		BeginDrawing();
-		ClearBackground(Colors.RAYWHITE);
+		{
 
-		DrawText("Hello, World!", 400, 300, 28, Colors.BLACK);
+			ClearBackground(Colors.RAYWHITE);
 
+			DrawText("Hello, World!", 400, 300, 28, Colors.BLACK);
+
+			BeginMode3D(*camera);
+			{
+
+				// DrawSphere(Vector3(0, 0, 0), 1, Colors.BEIGE);
+				DrawModel(*groundModel, Vector3(0, 0, 0), 2, Colors.WHITE);
+
+			}
+			EndMode3D();
+		}
 		EndDrawing();
 	}
 	CloseWindow();
