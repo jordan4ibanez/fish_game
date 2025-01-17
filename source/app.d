@@ -22,7 +22,7 @@ void main() {
 
 	float[] vertices = new float[](0);
 	float[] textureCoordinates = new float[](0);
-	int[] indices = new int[](0);
+	ushort[] indices = new ushort[](0);
 
 	int i = 0;
 
@@ -48,12 +48,12 @@ void main() {
 			];
 
 			indices ~= [
-				0 + i,
-				1 + i,
-				2 + i,
-				2 + i,
-				3 + i,
-				0 + i,
+				cast(ushort)(0 + i),
+				cast(ushort)(1 + i),
+				cast(ushort)(2 + i),
+				cast(ushort)(2 + i),
+				cast(ushort)(3 + i),
+				cast(ushort)(0 + i)
 			];
 
 			i += 4;
