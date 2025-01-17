@@ -1,8 +1,9 @@
 module world.heightmap;
 
-import std.stdio;
 import gamut.image;
 import gamut.types;
+import std.stdio;
+import std.string;
 
 static final const class Heightmap {
 static:
@@ -11,9 +12,13 @@ static:
 
         Image image;
 
-        image.loadFromFile("levels/4square.png");
+        loadImage("levels/4square.png", &image);
 
-        rawImageCheck(&image);
+        checkImage(&image);
+
+        for (int y = 0; y < image.height; y++) {
+
+        }
 
     }
 
@@ -21,7 +26,25 @@ static:
 
 private:
 
-    void rawImageCheck(Image* image) {
+    void loadImage(string location, Image* image) {
+
+        if (!endsWith(location, ".png")) {
+            throw new Exception("[Heightmap]: Not .png");
+        }
+
+        string fileName = () {
+            string[] data = split(location, "/");
+            if (data.length <= 1) {
+                throw new Exception("[Heightmap]: Do not put heightmaps in the root.");
+            }
+            return data[cast(long) data.length - 1];
+        }();
+
+        image.loadFromFile(location);
+
+    }
+
+    void checkImage(Image* image) {
         if (image.isError()) {
             throw new Exception(cast(string) image.errorMessage());
         }
