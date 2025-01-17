@@ -2,16 +2,18 @@ module level.heightmap;
 
 import gamut.image;
 import gamut.types;
+import raylib.raylib_types;
 import std.stdio;
 import std.string;
+import std.typecons;
 
 static final const class Heightmap {
 static:
 private:
 
     float[][] mapData;
-    uint mapWidth = 0;
-    uint mapHeight = 0;
+    int mapWidth = 0;
+    int mapHeight = 0;
     string currentMap = null;
 
     //* BEGIN PUBLIC API.
@@ -48,6 +50,7 @@ private:
             }
         }
 
+        //? I just left this here in case I need more testing.
         // foreach (x; 0 .. image.width) {
         //     foreach (y; 0 .. image.height) {
         //         writeln(x, " ", y, " ", mapData[x][y]);
@@ -57,6 +60,10 @@ private:
 
     public float getHeight(int x, int y) {
         return mapData[x][y];
+    }
+
+    public Tuple!(int, int) getSize() {
+        return tuple(mapWidth, mapHeight);
     }
 
     //* BEGIN INTERNAL API.
