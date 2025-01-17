@@ -1,7 +1,8 @@
 import core.sys.posix.syslog;
 import level.heightmap;
 import raylib;
-import std;
+import std.stdio;
+import std.typecons;
 
 void main() {
 
