@@ -3,8 +3,7 @@ import std;
 import world.heightmap;
 import core.sys.posix.syslog;
 
-void main()
-{
+void main() {
 
 	validateRaylibBinding();
 
@@ -18,8 +17,7 @@ void main()
 	Heightmap.initialize();
 	//* End testing heightmap.
 
-	while (WindowShouldClose())
-	{
+	while (WindowShouldClose()) {
 		BeginDrawing();
 		ClearBackground(Colors.RAYWHITE);
 		DrawText("Hello, World!", 400, 300, 28, Colors.BLACK);
