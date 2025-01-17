@@ -14,7 +14,9 @@ void main() {
 	SetTargetFPS(60);
 
 	//* Begin testing heightmap.
-	Heightmap.initialize();
+
+	Heightmap.initialize("levels/4square.png");
+
 	//* End testing heightmap.
 
 	while (WindowShouldClose()) {

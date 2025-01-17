@@ -8,27 +8,32 @@ import std.string;
 static final const class Heightmap {
 static:
 
-    void initialize() {
+    void initialize(string location) {
 
         Image image;
 
-        const string fileName = loadImage("levels/4square.png", &image);
+        const string fileName = loadImage(location, &image);
 
         checkImage(&image);
 
+        writeln("image height:", image.height);
+
         for (int y = 0; y < image.height; y++) {
+
             ushort* scan = cast(ushort*) image.scanptr(y);
 
             for (int x = 0; x < image.width(); x++) {
 
-                ushort rawPixelValue = scan[(ushort.sizeof * 8) * x];
-                float floatingPixelValue = cast(float) rawPixelValue;
+                ushort rawPixelValue = scan[16 * x];
 
-                float finalValue = floatingPixelValue / (cast(float) ushort.max);
-                writeln(finalValue);
+                // float floatingPixelValue = cast(float) rawPixelValue;
+
+                // float finalValue = floatingPixelValue / (cast(float) ushort.max);
+
+                writeln(x, " ", y, " ", rawPixelValue);
+
             }
         }
-
     }
 
     //* BEGIN INTERNAL API.
