@@ -1,6 +1,6 @@
 module level.level;
 
-import world.heightmap;
+import level.heightmap;
 
 static final const class Level {
 static:

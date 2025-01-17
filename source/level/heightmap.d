@@ -1,4 +1,4 @@
-module world.heightmap;
+module level.heightmap;
 
 import gamut.image;
 import gamut.types;

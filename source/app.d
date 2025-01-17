@@ -1,7 +1,7 @@
 import core.sys.posix.syslog;
+import level.heightmap;
 import raylib;
 import std;
-import world.heightmap;
 
 void main() {
 
