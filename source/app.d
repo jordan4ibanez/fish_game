@@ -64,12 +64,30 @@ void main() {
 		}
 	}
 
+	Texture2D* sandTexture = new Texture2D();
+	*sandTexture = LoadTexture("textures/sand.png");
+
+	Mesh* groundMesh = new Mesh();
+	groundMesh.vertexCount = cast(int) vertices.length / 3;
+	groundMesh.triangleCount = cast(int) indices.length / 3;
+
+	groundMesh.vertices = vertices.ptr;
+	groundMesh.texcoords = textureCoordinates.ptr;
+	groundMesh.indices = indices.ptr;
+
+	Model* groundModel = new Model();
+	*groundModel = LoadModelFromMesh(*groundMesh);
+
+	groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *sandTexture;
+
 	//* End testing heightmap.
 
-	while (WindowShouldClose()) {
+	while (!WindowShouldClose()) {
 		BeginDrawing();
 		ClearBackground(Colors.RAYWHITE);
+
 		DrawText("Hello, World!", 400, 300, 28, Colors.BLACK);
+
 		EndDrawing();
 	}
 	CloseWindow();
