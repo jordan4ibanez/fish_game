@@ -12,12 +12,21 @@ static:
 
         Image image;
 
-        loadImage("levels/4square.png", &image);
+        const string fileName = loadImage("levels/4square.png", &image);
 
         checkImage(&image);
 
         for (int y = 0; y < image.height; y++) {
+            ushort* scan = cast(ushort*) image.scanptr(y);
 
+            for (int x = 0; x < image.width(); x++) {
+
+                ushort rawPixelValue = scan[(ushort.sizeof * 8) * x];
+                float floatingPixelValue = cast(float) rawPixelValue;
+
+                float finalValue = floatingPixelValue / (cast(float) ushort.max);
+                writeln(finalValue);
+            }
         }
 
     }
@@ -26,22 +35,27 @@ static:
 
 private:
 
-    void loadImage(string location, Image* image) {
+    string loadImage(string location, Image* image) {
 
         if (!endsWith(location, ".png")) {
             throw new Exception("[Heightmap]: Not .png");
         }
 
-        string fileName = () {
+        const string fileName = () {
             string[] data = split(location, "/");
             if (data.length <= 1) {
                 throw new Exception("[Heightmap]: Do not put heightmaps in the root.");
             }
-            return data[cast(long) data.length - 1];
+            const string output = data[cast(long) data.length - 1];
+            if (output.length <= 0) {
+                throw new Exception("[Heightmap]: String became 0 length.");
+            }
+            return output;
         }();
 
         image.loadFromFile(location);
 
+        return fileName;
     }
 
     void checkImage(Image* image) {
