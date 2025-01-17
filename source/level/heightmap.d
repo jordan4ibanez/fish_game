@@ -12,10 +12,11 @@ private:
     float[][] mapData;
     uint mapWidth = 0;
     uint mapHeight = 0;
+    string currentMap = null;
 
     //* BEGIN PUBLIC API.
 
-    public void initialize(string location) {
+    public void load(string location) {
 
         Image image;
 
@@ -23,7 +24,9 @@ private:
 
         checkImage(&image);
 
-        writeln("image height:", image.height);
+        // -1 because these pixels make quads.
+        mapWidth = image.width - 1;
+        mapHeight = image.height - 1;
 
         mapData = new float[][](image.width, image.height);
 
@@ -39,17 +42,21 @@ private:
 
                 float finalValue = floatingPixelValue / (cast(float) ushort.max);
 
-                uint invertedY = (image.height - 1) - y;
+                int invertedY = (image.height - 1) - y;
 
                 mapData[x][invertedY] = finalValue;
             }
         }
 
-        foreach (x; 0 .. image.width) {
-            foreach (y; 0 .. image.height) {
-                writeln(x, " ", y, " ", mapData[x][y]);
-            }
-        }
+        // foreach (x; 0 .. image.width) {
+        //     foreach (y; 0 .. image.height) {
+        //         writeln(x, " ", y, " ", mapData[x][y]);
+        //     }
+        // }
+    }
+
+    public float getHeight(int x, int y) {
+        return mapData[x][y];
     }
 
     //* BEGIN INTERNAL API.

@@ -15,7 +15,7 @@ void main() {
 
 	//* Begin testing heightmap.
 
-	Heightmap.initialize("levels/4square.png");
+	Heightmap.load("levels/4square.png");
 
 	//* End testing heightmap.
 
