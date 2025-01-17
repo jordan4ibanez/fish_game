@@ -7,8 +7,15 @@ import std.string;
 
 static final const class Heightmap {
 static:
+private:
 
-    void initialize(string location) {
+    float[][] mapData;
+    uint mapWidth = 0;
+    uint mapHeight = 0;
+
+    //* BEGIN PUBLIC API.
+
+    public void initialize(string location) {
 
         Image image;
 
@@ -18,27 +25,34 @@ static:
 
         writeln("image height:", image.height);
 
+        mapData = new float[][](image.width, image.height);
+
         for (int y = 0; y < image.height; y++) {
 
             ushort* scan = cast(ushort*) image.scanptr(y);
 
             for (int x = 0; x < image.width(); x++) {
 
-                ushort rawPixelValue = scan[16 * x];
+                ushort rawPixelValue = scan[x];
 
-                // float floatingPixelValue = cast(float) rawPixelValue;
+                float floatingPixelValue = cast(float) rawPixelValue;
 
-                // float finalValue = floatingPixelValue / (cast(float) ushort.max);
+                float finalValue = floatingPixelValue / (cast(float) ushort.max);
 
-                writeln(x, " ", y, " ", rawPixelValue);
+                uint invertedY = (image.height - 1) - y;
 
+                mapData[x][invertedY] = finalValue;
+            }
+        }
+
+        foreach (x; 0 .. image.width) {
+            foreach (y; 0 .. image.height) {
+                writeln(x, " ", y, " ", mapData[x][y]);
             }
         }
     }
 
     //* BEGIN INTERNAL API.
-
-private:
 
     string loadImage(string location, Image* image) {
 
