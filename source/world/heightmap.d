@@ -1,46 +1,73 @@
 module world.heightmap;
 
-import gamut.image;
-import gamut.types;
+import dimage.base;
+import dimage.png;
+import std.container.array;
+import std.file;
 import std.stdio;
 import std.string;
+import std.typecons;
 
 static final const class Heightmap {
 static:
+private:
 
-    void initialize(string location) {
+    double[][] mapData;
+    uint mapWidth = 0;
+    uint mapHeight = 0;
 
-        Image image;
+    //* BEGIN PUBLIC API.
 
-        const string fileName = loadImage(location, &image);
+    public void initialize(string location) {
 
-        checkImage(&image);
+        // Image image;
 
-        writeln("image height:", image.height);
+        Tuple!(string, PNG) data = loadImage(location);
 
-        for (int y = 0; y < image.height; y++) {
+        string fileName = data[0];
 
-            ushort* scan = cast(ushort*) image.scanptr(y);
+        PNG texture = data[1];
 
-            for (int x = 0; x < image.width(); x++) {
+        texture.flipVertical();
 
-                ushort rawPixelValue = scan[16 * x];
+        mapData = new double[][](texture.width, texture.height);
 
-                // float floatingPixelValue = cast(float) rawPixelValue;
+        // Subtract 1 because these points are making quads.
+        mapWidth = texture.width - 1;
+        mapHeight = texture.height - 1;
 
-                // float finalValue = floatingPixelValue / (cast(float) ushort.max);
+        // This is the max value I can get with pure white in gimp.
+        const F64_MAX_GIMP = 429_4963_018;
 
-                writeln(x, " ", y, " ", rawPixelValue);
+        foreach (x; 0 .. texture.width) {
+            foreach (y; 0 .. texture.height) {
+                // Use the base for the pure brightness data.
+                uint rawValue = texture.readPixel(x, y).base;
+                double rawFloating = cast(double) rawValue;
+                double scaled = rawFloating / F64_MAX_GIMP;
 
+                // Outputs data as a range in between [-0.5] to [0.5].
+                double shifted = scaled - 0.5;
+
+                uint flippedX = (texture.width - 1) - x;
+                uint flippedY = (texture.height - 1) - y;
+
+                mapData[x][y] = scaled; //shifted;
             }
         }
+
+        foreach (x; 0 .. texture.width) {
+            foreach (y; 0 .. texture.height) {
+                write(x, " ", y);
+                writef(" | %.10f\n", mapData[x][y]);
+            }
+        }
+
     }
 
     //* BEGIN INTERNAL API.
 
-private:
-
-    string loadImage(string location, Image* image) {
+    Tuple!(string, PNG) loadImage(string location) {
 
         if (!endsWith(location, ".png")) {
             throw new Exception("[Heightmap]: Not .png");
@@ -58,27 +85,14 @@ private:
             return output;
         }();
 
-        image.loadFromFile(location);
+        File source = File(location);
 
-        return fileName;
-    }
+        PNG texture = PNG.load(source);
 
-    void checkImage(Image* image) {
-        if (image.isError()) {
-            throw new Exception(cast(string) image.errorMessage());
-        }
-
-        if (!image.isValid) {
-            throw new Exception("[Heightmap]: Invalid image.");
-        }
-
-        if (!image.is16Bit()) {
+        if (texture.getBitdepth() != 16) {
             throw new Exception("[Heightmap]: Not 16 bit.");
         }
 
-        if (image.type() != PixelType.l16) {
-            throw new Exception("[Heightmap]: Wrong endianness.");
-        }
+        return tuple(fileName, texture);
     }
-
 }
