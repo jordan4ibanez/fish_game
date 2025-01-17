@@ -8,9 +8,8 @@ private:
 
     //* BEGIN PUBLIC API.
 
-    void load(string levelDirectory) {
-        
-        
+    public void load(string levelDirectory) {
+        Heightmap.load(levelDirectory);
     }
 
     //* BEGIN INTERNAL API.
