@@ -22,67 +22,75 @@ void main() {
 
 	float[] vertices = new float[](0);
 	float[] textureCoordinates = new float[](0);
-	ushort[] indices = new ushort[](0);
 
 	int i = 0;
 
-	const float scale = 0;
+	const float scale = 4;
 
 	foreach (x; 0 .. mapSize.width) {
 		foreach (y; 0 .. mapSize.height) {
 
 			// Raylib is still absolutely ancient with ushort as the indices so I have to convert this mess into raw vertex tris.
 
-			const float heightTopLeft = Heightmap.getHeight(x, y + 1) * scale; // 0
-			const float heightBottomLeft = Heightmap.getHeight(x, y) * scale; // 1
-			const float heightBottomRight = Heightmap.getHeight(x + 1, y) * scale; // 2
-			const float heightTopRight = Heightmap.getHeight(x + 1, y + 1) * scale; // 3
+			const float[4] heightData = [
+				Heightmap.getHeight(x, y) * scale, // 1 - Top Left.
+				Heightmap.getHeight(x, y + 1) * scale, // 0 - Bottom Left.
+				Heightmap.getHeight(x + 1, y + 1) * scale, // 3 - Bottom Right.
+				Heightmap.getHeight(x + 1, y) * scale, // 2 - Top Right.
+			];
+
+			const Vector3[4] vData = [
+				Vector3(x, heightData[0], y), // 0
+				Vector3(x, heightData[1], y + 1), // 1
+				Vector3(x + 1, heightData[2], y + 1), // 2
+				Vector3(x + 1, heightData[3], y) // 3
+			];
 
 			vertices ~= [
-				x, heightBottomLeft, y, // top left.
-				x, heightTopLeft, y + 1, // bottom left.
-				x + 1, heightTopRight, y + 1, // bottom right.
-				x + 1, heightBottomRight, y, // top right.
+				// Tri 1.
+				vData[0].x, vData[0].y, vData[0].z,
+				vData[1].x, vData[1].y, vData[1].z,
+				vData[2].x, vData[2].y, vData[2].z,
+				// Tri 2.
+				vData[2].x, vData[2].y, vData[2].z,
+				vData[3].x, vData[3].y, vData[3].z,
+				vData[0].x, vData[0].y, vData[0].z,
+			];
+
+			// Same with the texture coordinate data.
+
+			// todo: make this read from a texture map.
+			const Vector2[4] tData = [
+				Vector2(0.0, 0.0), // 0 top left.
+				Vector2(0.0, 1.0), // 1 bottom left
+				Vector2(1.0, 1.0), // 2 bottom right.
+				Vector2(1.0, 0.0), // 3 top right.
 			];
 
 			textureCoordinates ~= [
-				0.0, 0.0, // top left.
-				0.0, 1.0, // bottom left
-				1.0, 1.0, // bottom right.
-				1.0, 0.0, // top right.
+				// Tri 1.
+				tData[0].x, tData[0].y,
+				tData[1].x, tData[1].y,
+				tData[2].x, tData[2].y,
+				// Tri 2.
+				tData[2].x, tData[2].y,
+				tData[3].x, tData[3].y,
+				tData[0].x, tData[0].y,
 			];
-
-			indices ~= [
-				cast(ushort)(0 + i),
-				cast(ushort)(1 + i),
-				cast(ushort)(2 + i),
-				cast(ushort)(2 + i),
-				cast(ushort)(3 + i),
-				cast(ushort)(0 + i)
-			];
-
-			i += 4;
-
-			if (i > ushort.max) {
-				throw new Error("Map is too big. This needs to be broken up.");
-			}
 		}
 	}
 
 	// Sand texture.
 	Texture2D* sandTexture = new Texture2D();
-	*sandTexture = LoadTexture("textures/sand.png");
+	*sandTexture = LoadTexture("textures/test.png");
 
 	// Uploading the model.
 	Mesh* groundMesh = new Mesh();
 	groundMesh.vertexCount = cast(int) vertices.length / 3;
-	groundMesh.triangleCount = cast(int) indices.length / 3;
+	groundMesh.triangleCount = groundMesh.vertexCount / 3;
 
 	groundMesh.vertices = vertices.ptr;
 	groundMesh.texcoords = textureCoordinates.ptr;
-	groundMesh.indices = indices.ptr;
-
-	writeln("AHHH ", indices.length);
 
 	UploadMesh(groundMesh, false);
 
@@ -95,7 +103,7 @@ void main() {
 
 	Camera* camera = new Camera();
 	const float scalarOut = 4;
-	camera.position = Vector3(-1, 5, 6);
+	camera.position = Vector3(0, 5, 9);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -103,7 +111,7 @@ void main() {
 
 	while (!WindowShouldClose()) {
 
-		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
 		BeginDrawing();
 		{
