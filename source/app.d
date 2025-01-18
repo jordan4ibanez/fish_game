@@ -23,9 +23,7 @@ void main() {
 	float[] vertices = new float[](0);
 	float[] textureCoordinates = new float[](0);
 
-	int i = 0;
-
-	const float scale = 4;
+	const float scale = 10;
 
 	foreach (x; 0 .. mapSize.width) {
 		foreach (y; 0 .. mapSize.height) {
@@ -82,7 +80,7 @@ void main() {
 
 	// Sand texture.
 	Texture2D* sandTexture = new Texture2D();
-	*sandTexture = LoadTexture("textures/test.png");
+	*sandTexture = LoadTexture("textures/sand.png");
 
 	// Uploading the model.
 	Mesh* groundMesh = new Mesh();
@@ -103,7 +101,7 @@ void main() {
 
 	Camera* camera = new Camera();
 	const float scalarOut = 4;
-	camera.position = Vector3(0, 5, 9);
+	camera.position = Vector3(0, 50, 9);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
