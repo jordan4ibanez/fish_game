@@ -8,15 +8,15 @@ void main() {
 
 	validateRaylibBinding();
 
-	// SetTraceLogLevel(TraceLogLevel.LOG_ERROR);
+	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
-	InitWindow(800, 600, "Hello, Raylib-D!");
+	InitWindow(2000, 2000, "Hello, Raylib-D!");
 
 	SetTargetFPS(60);
 
 	//* Begin testing heightmap.
 
-	Heightmap.load("levels/4square.png");
+	Heightmap.load("levels/big_map_test.png");
 
 	Tuple!(int, "width", int, "height") mapSize = Heightmap.getSize();
 
@@ -26,18 +26,23 @@ void main() {
 
 	int i = 0;
 
+	const float scale = 0;
+
 	foreach (x; 0 .. mapSize.width) {
 		foreach (y; 0 .. mapSize.height) {
-			const float heightTopLeft = Heightmap.getHeight(x, y + 1) * 0.0;
-			const float heightBottomLeft = Heightmap.getHeight(x, y) * 0.0;
-			const float heightBottomRight = Heightmap.getHeight(x + 1, y) * 0.0;
-			const float heightTopRight = Heightmap.getHeight(x + 1, y + 1) * 0.0;
+
+			// Raylib is still absolutely ancient with ushort as the indices so I have to convert this mess into raw vertex tris.
+
+			const float heightTopLeft = Heightmap.getHeight(x, y + 1) * scale; // 0
+			const float heightBottomLeft = Heightmap.getHeight(x, y) * scale; // 1
+			const float heightBottomRight = Heightmap.getHeight(x + 1, y) * scale; // 2
+			const float heightTopRight = Heightmap.getHeight(x + 1, y + 1) * scale; // 3
 
 			vertices ~= [
-				x, heightTopLeft, y + 1, // top left.
-				x, heightBottomLeft, y, // bottom left.
-				x + 1, heightBottomRight, y, // bottom right.
-				x + 1, heightTopRight, y + 1, // top right.
+				x, heightBottomLeft, y, // top left.
+				x, heightTopLeft, y + 1, // bottom left.
+				x + 1, heightTopRight, y + 1, // bottom right.
+				x + 1, heightBottomRight, y, // top right.
 			];
 
 			textureCoordinates ~= [
@@ -65,11 +70,8 @@ void main() {
 	}
 
 	// Sand texture.
-	Image* sandImage = new Image();
-	*sandImage = LoadImage("textures/sand.png");
-
 	Texture2D* sandTexture = new Texture2D();
-	*sandTexture = LoadTextureFromImage(*sandImage);
+	*sandTexture = LoadTexture("textures/sand.png");
 
 	// Uploading the model.
 	Mesh* groundMesh = new Mesh();
@@ -80,6 +82,10 @@ void main() {
 	groundMesh.texcoords = textureCoordinates.ptr;
 	groundMesh.indices = indices.ptr;
 
+	writeln("AHHH ", indices.length);
+
+	UploadMesh(groundMesh, false);
+
 	Model* groundModel = new Model();
 	*groundModel = LoadModelFromMesh(*groundMesh);
 
@@ -88,7 +94,8 @@ void main() {
 	//* End testing heightmap.
 
 	Camera* camera = new Camera();
-	camera.position = Vector3(3, 1, 0);
+	const float scalarOut = 4;
+	camera.position = Vector3(-1, 5, 6);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -101,15 +108,16 @@ void main() {
 		BeginDrawing();
 		{
 
-			ClearBackground(Colors.RAYWHITE);
+			ClearBackground(Colors.SKYBLUE);
 
-			DrawText("Hello, World!", 400, 300, 28, Colors.BLACK);
+			DrawText("Hello, World!", 0, 0, 28, Colors.BLACK);
 
 			BeginMode3D(*camera);
 			{
 
+				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
 				// DrawSphere(Vector3(0, 0, 0), 1, Colors.BEIGE);
-				DrawModel(*groundModel, Vector3(0, 0, 0), 2, Colors.WHITE);
+				DrawModel(*groundModel, Vector3(-1, 0, -1), 2, Colors.WHITE);
 
 			}
 			EndMode3D();
