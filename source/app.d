@@ -10,6 +10,7 @@ void main() {
 
 	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
+	SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 	InitWindow(2000, 2000, "Hello, Raylib-D!");
 
 	SetTargetFPS(60);
