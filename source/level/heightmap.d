@@ -44,9 +44,9 @@ private:
 
                 float finalValue = floatingPixelValue / (cast(float) ushort.max);
 
-                int invertedY = (image.height - 1) - y;
+                // int invertedY = (image.height - 1) - y;
 
-                mapData[x][invertedY] = finalValue;
+                mapData[x][y] = finalValue;
             }
         }
 
