@@ -31,13 +31,21 @@ private:
         }();
 
         if (fileName in database) {
-            throw new Error("[TextureManager]: ");
+            throw new Error("[TextureManager]: Tried to overwrite [" ~ fileName ~ "]");
         }
 
         Texture2D* thisTexture = new Texture2D();
         *thisTexture = LoadTexture(toStringz(location));
 
         database[fileName] = thisTexture;
+    }
+
+    public Texture2D* getTexturePointer(string textureName) {
+        if (textureName !in database) {
+            throw new Error("[TextureManager]: Texture does not exist. " ~ textureName);
+        }
+
+        return database[textureName];
     }
 
     public void terminate() {
