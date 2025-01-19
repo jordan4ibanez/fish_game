@@ -2,6 +2,7 @@ module level.ground;
 
 import gamut.image;
 import gamut.types;
+import graphics.model_manager;
 import std.stdio;
 import std.string;
 import std.typecons;
@@ -92,6 +93,10 @@ private:
                 ];
             }
         }
+
+        ModelManager.newModelFromMesh("ground", vertices, textureCoordinates);
+
+        //todo: set the ground texture from a pallete thing.
     }
 
     void loadMapData(string location) {
