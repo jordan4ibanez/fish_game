@@ -7,10 +7,11 @@ import std.typecons;
 
 void main() {
 
-	scope (exit)
-		ModelManager.terminate();
-	scope (exit)
+	scope (exit) {
 		TextureManager.terminate();
+		ModelManager.terminate();
+		CloseWindow();
+	}
 
 	validateRaylibBinding();
 
@@ -78,5 +79,5 @@ void main() {
 		}
 		EndDrawing();
 	}
-	CloseWindow();
+
 }
