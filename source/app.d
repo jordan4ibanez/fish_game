@@ -22,31 +22,10 @@ void main() {
 
 	SetTargetFPS(60);
 
-	//* Begin testing heightmap.
-
-	Heightmap.load("levels/big_map_test.png");
-
-	Tuple!(int, "width", int, "height") mapSize = Heightmap.getSize();
-
-	// Sand texture.
+	Ground.load("levels/big_map_test.png");
 	TextureManager.newTexture("textures/sand.png");
 
-	// Uploading the model.
-	// Mesh* groundMesh = new Mesh();
-	// groundMesh.vertexCount = cast(int) vertices.length / 3;
-	// groundMesh.triangleCount = groundMesh.vertexCount / 3;
-
-	// groundMesh.vertices = vertices.ptr;
-	// groundMesh.texcoords = textureCoordinates.ptr;
-
-	// UploadMesh(groundMesh, false);
-
-	// Model* groundModel = new Model();
-	// *groundModel = LoadModelFromMesh(*groundMesh);
-
-	// groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *sandTexture;
-
-	//* End testing heightmap.
+	ModelManager.setModelTexture("ground", "sand.png");
 
 	Camera* camera = new Camera();
 	const float scalarOut = 4;
