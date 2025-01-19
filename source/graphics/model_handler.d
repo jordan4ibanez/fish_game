@@ -15,14 +15,17 @@ private:
 
     //* BEGIN PUBLIC API.
 
-    public void draw(string modelName, Vector3 position, Vector3 rotation, float scale) {
+    public void draw(
+        string modelName, Vector3 position, Vector3 rotation = Vector3(0, 0, 0),
+        float scale = 1.0, Color color = Colors.WHITE) {
+
         if (modelName !in database) {
             throw new Error("[ModelManager]: Cannot draw model that does not exist. " ~ modelName);
         }
 
         Model* thisModel = database[modelName];
 
-        DrawModelEx(*thisModel, position, rotation, 1, Vector3(scale, scale, scale), Colors.WHITE);
+        DrawModelEx(*thisModel, position, rotation, 1, Vector3(scale, scale, scale), color);
     }
 
     public void newModelFromMesh(string modelName, float[] vertices, float[] textureCoordinates) {

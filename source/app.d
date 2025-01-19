@@ -35,7 +35,7 @@ void main() {
 	camera.fovy = 45.0;
 	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
 
-	while (WindowShouldClose()) {
+	while (!WindowShouldClose()) {
 
 		UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
@@ -52,6 +52,8 @@ void main() {
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
 				// DrawSphere(Vector3(0, 0, 0), 1, Colors.BEIGE);
 				// DrawModel(*groundModel, Vector3(-1, 0, -1), 2, Colors.WHITE);
+
+				ModelHandler.draw("ground", Vector3(0, 0, 0));
 
 			}
 			EndMode3D();
