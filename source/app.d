@@ -1,4 +1,5 @@
 import core.sys.posix.syslog;
+import graphics.texture_manager;
 import level.ground;
 import raylib;
 import std.stdio;
@@ -22,23 +23,22 @@ void main() {
 	Tuple!(int, "width", int, "height") mapSize = Heightmap.getSize();
 
 	// Sand texture.
-	Texture2D* sandTexture = new Texture2D();
-	*sandTexture = LoadTexture("textures/sand.png");
+	TextureManager.newTexture("textures/sand.png");
 
 	// Uploading the model.
-	Mesh* groundMesh = new Mesh();
-	groundMesh.vertexCount = cast(int) vertices.length / 3;
-	groundMesh.triangleCount = groundMesh.vertexCount / 3;
+	// Mesh* groundMesh = new Mesh();
+	// groundMesh.vertexCount = cast(int) vertices.length / 3;
+	// groundMesh.triangleCount = groundMesh.vertexCount / 3;
 
-	groundMesh.vertices = vertices.ptr;
-	groundMesh.texcoords = textureCoordinates.ptr;
+	// groundMesh.vertices = vertices.ptr;
+	// groundMesh.texcoords = textureCoordinates.ptr;
 
-	UploadMesh(groundMesh, false);
+	// UploadMesh(groundMesh, false);
 
-	Model* groundModel = new Model();
-	*groundModel = LoadModelFromMesh(*groundMesh);
+	// Model* groundModel = new Model();
+	// *groundModel = LoadModelFromMesh(*groundMesh);
 
-	groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *sandTexture;
+	// groundModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *sandTexture;
 
 	//* End testing heightmap.
 
@@ -50,7 +50,7 @@ void main() {
 	camera.fovy = 45.0;
 	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
 
-	while (!WindowShouldClose()) {
+	while (WindowShouldClose()) {
 
 		UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
@@ -66,7 +66,7 @@ void main() {
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
 				// DrawSphere(Vector3(0, 0, 0), 1, Colors.BEIGE);
-				DrawModel(*groundModel, Vector3(-1, 0, -1), 2, Colors.WHITE);
+				// DrawModel(*groundModel, Vector3(-1, 0, -1), 2, Colors.WHITE);
 
 			}
 			EndMode3D();
