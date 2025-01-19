@@ -7,7 +7,7 @@ import std.stdio;
 import std.string;
 import std.typecons;
 
-static final const class Heightmap {
+static final const class Ground {
 static:
 private:
 
@@ -47,10 +47,10 @@ private:
                 // Raylib is still absolutely ancient with ushort as the indices so I have to convert this mess into raw vertex tris.
 
                 const float[4] heightData = [
-                    Heightmap.getHeight(x, y) * scale, // 1 - Top Left.
-                    Heightmap.getHeight(x, y + 1) * scale, // 0 - Bottom Left.
-                    Heightmap.getHeight(x + 1, y + 1) * scale, // 3 - Bottom Right.
-                    Heightmap.getHeight(x + 1, y) * scale, // 2 - Top Right.
+                    Ground.getHeight(x, y) * scale, // 1 - Top Left.
+                    Ground.getHeight(x, y + 1) * scale, // 0 - Bottom Left.
+                    Ground.getHeight(x + 1, y + 1) * scale, // 3 - Bottom Right.
+                    Ground.getHeight(x + 1, y) * scale, // 2 - Top Right.
                 ];
 
                 const Vector3[4] vData = [
