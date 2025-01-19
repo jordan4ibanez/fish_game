@@ -51,6 +51,10 @@ private:
         isCustomDatabase[modelName] = true;
     }
 
+    public void loadModelFromFile(string location) {
+        
+    }
+
     public void setModelTexture(string modelName, string textureName) {
 
         if (modelName !in database) {
