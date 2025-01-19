@@ -15,6 +15,16 @@ private:
 
     //* BEGIN PUBLIC API.
 
+    public void draw(string name, Vector3 position, Vector3 rotation, float scale) {
+        if (name !in database) {
+            throw new Error("[ModelManager]: Cannot draw model that does not exist. " ~ name);
+        }
+
+        Model* thisModel = database[name];
+
+
+    }
+
     public void newModelFromMesh(string name, float[] vertices, float[] textureCoordinates) {
 
         if (name in database) {
