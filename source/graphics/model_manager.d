@@ -1,5 +1,6 @@
 module graphics.model_manager;
 
+import graphics.texture_manager;
 import raylib;
 import std.container;
 import std.stdio;
@@ -45,7 +46,8 @@ private:
         }
 
         Model* thisModel = database[modelName];
-
+        Texture2D* thisTexture = TextureManager.getTexturePointer(textureName);
+        thisModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *thisTexture;
     }
 
     public void destroy(string modelName) {
