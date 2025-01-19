@@ -2,6 +2,7 @@ module graphics.model_manager;
 
 import raylib;
 import std.container;
+import std.stdio;
 import std.string;
 
 static final const class ModelManager {
@@ -43,6 +44,10 @@ private:
 
         Model* thisModel = database[modelName];
 
+    }
+
+    public void terminate() {
+        writeln("terminating model");
     }
 
     //* BEGIN INTERNAL API.

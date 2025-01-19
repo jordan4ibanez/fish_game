@@ -16,6 +16,7 @@ private:
 
     public void newTexture(string location) {
 
+        // Extract the file name from the location.
         string fileName = () {
             string[] items = location.split("/");
             int len = cast(int) items.length;
@@ -37,6 +38,10 @@ private:
         *thisTexture = LoadTexture(toStringz(location));
 
         database[fileName] = thisTexture;
+    }
+
+    public void terminate() {
+        writeln("terminating texture");
     }
 
     //* BEGIN INTERNAL API.
