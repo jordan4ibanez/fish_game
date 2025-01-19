@@ -6,7 +6,7 @@ import std.regex;
 import std.stdio;
 import std.string;
 
-static final const class TextureManager {
+static final const class TextureHandler {
 static:
 private:
 
