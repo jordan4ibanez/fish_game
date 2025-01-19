@@ -7,6 +7,11 @@ import std.typecons;
 
 void main() {
 
+	scope (exit)
+		ModelManager.terminate();
+	scope (exit)
+		TextureManager.terminate();
+
 	validateRaylibBinding();
 
 	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
