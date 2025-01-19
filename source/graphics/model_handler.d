@@ -15,21 +15,21 @@ private:
 
     //* BEGIN PUBLIC API.
 
-    public void draw(string name, Vector3 position, Vector3 rotation, float scale) {
-        if (name !in database) {
-            throw new Error("[ModelManager]: Cannot draw model that does not exist. " ~ name);
+    public void draw(string modelName, Vector3 position, Vector3 rotation, float scale) {
+        if (modelName !in database) {
+            throw new Error("[ModelManager]: Cannot draw model that does not exist. " ~ modelName);
         }
 
-        Model* thisModel = database[name];
+        Model* thisModel = database[modelName];
 
 
     }
 
-    public void newModelFromMesh(string name, float[] vertices, float[] textureCoordinates) {
+    public void newModelFromMesh(string modelName, float[] vertices, float[] textureCoordinates) {
 
-        if (name in database) {
+        if (modelName in database) {
             throw new Error(
-                "[ModelManager]: Tried to overwrite mesh [" ~ name ~ "]. Delete it first.");
+                "[ModelManager]: Tried to overwrite mesh [" ~ modelName ~ "]. Delete it first.");
         }
 
         Mesh* thisMesh = new Mesh();
@@ -44,8 +44,8 @@ private:
         Model* thisModel = new Model();
         *thisModel = LoadModelFromMesh(*thisMesh);
 
-        database[name] = thisModel;
-        isCustomDatabase[name] = true;
+        database[modelName] = thisModel;
+        isCustomDatabase[modelName] = true;
     }
 
     public void setModelTexture(string modelName, string textureName) {
