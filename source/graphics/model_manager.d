@@ -48,27 +48,44 @@ private:
 
     }
 
-    public void terminate() {
-        foreach (key, thisModel; database) {
-
-            // If we were using the D runtime to make this model, we'll customize
-            // the way we free the items. This makes the GC auto clear.
-            if (isCustomDatabase[key]) {
-                Mesh thisMeshInModel = thisModel.meshes[0];
-                thisMeshInModel.vertexCount = 0;
-                thisMeshInModel.vertices = null;
-                thisMeshInModel.texcoords = null;
-                UnloadMesh(thisMeshInModel);
-                thisModel.meshes = null;
-                thisModel.meshCount = 0;
-                UnloadModel(*thisModel);
-            }
+    public void destroy(string modelName) {
+        if (modelName !in database) {
+            throw new Error("[ModelManager]: Tried to destroy non-existent model. " ~ modelName);
         }
 
+        Model* thisModel = database[modelName];
+
+        destroyModel(modelName, thisModel);
+
+        database.remove(modelName);
+        isCustomDatabase.remove(modelName);
+    }
+
+    public void terminate() {
+        foreach (modelName, thisModel; database) {
+            destroyModel(modelName, thisModel);
+        }
         database.clear();
         isCustomDatabase.clear();
     }
 
     //* BEGIN INTERNAL API.
+
+    void destroyModel(string modelName, Model* thisModel) {
+        // If we were using the D runtime to make this model, we'll customize
+        // the way we free the items. This makes the GC auto clear.
+        if (isCustomDatabase[modelName]) {
+            Mesh thisMeshInModel = thisModel.meshes[0];
+            thisMeshInModel.vertexCount = 0;
+            thisMeshInModel.vertices = null;
+            thisMeshInModel.texcoords = null;
+            UnloadMesh(thisMeshInModel);
+            thisModel.meshes = null;
+            thisModel.meshCount = 0;
+            UnloadModel(*thisModel);
+        } else {
+            UnloadModel(*thisModel);
+        }
+    }
 
 }
