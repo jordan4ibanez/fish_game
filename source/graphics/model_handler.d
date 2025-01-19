@@ -1,4 +1,4 @@
-module graphics.model_manager;
+module graphics.model_handler;
 
 import graphics.texture_manager;
 import raylib;

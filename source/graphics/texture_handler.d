@@ -1,4 +1,4 @@
-module graphics.texture_manager;
+module graphics.texture_handler;
 
 import raylib;
 import std.container;
