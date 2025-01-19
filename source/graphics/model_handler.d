@@ -22,7 +22,7 @@ private:
 
         Model* thisModel = database[modelName];
 
-
+        DrawModelEx(*thisModel, position, rotation, 1, Vector3(scale, scale, scale), Colors.WHITE);
     }
 
     public void newModelFromMesh(string modelName, float[] vertices, float[] textureCoordinates) {
