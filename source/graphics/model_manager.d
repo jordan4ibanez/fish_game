@@ -10,6 +10,7 @@ static:
 private:
 
     Model*[string] database;
+    bool[string] isCustomDatabase;
 
     //* BEGIN PUBLIC API.
 
@@ -33,6 +34,7 @@ private:
         *thisModel = LoadModelFromMesh(*thisMesh);
 
         database[name] = thisModel;
+        isCustomDatabase[name] = true;
     }
 
     public void setModelTexture(string modelName, string textureName) {
@@ -47,7 +49,24 @@ private:
     }
 
     public void terminate() {
-        writeln("terminating model");
+        foreach (key, thisModel; database) {
+
+            // If we were using the D runtime to make this model, we'll customize
+            // the way we free the items. This makes the GC auto clear.
+            if (isCustomDatabase[key]) {
+                Mesh thisMeshInModel = thisModel.meshes[0];
+                thisMeshInModel.vertexCount = 0;
+                thisMeshInModel.vertices = null;
+                thisMeshInModel.texcoords = null;
+                UnloadMesh(thisMeshInModel);
+                thisModel.meshes = null;
+                thisModel.meshCount = 0;
+                UnloadModel(*thisModel);
+            }
+        }
+
+        database.clear();
+        isCustomDatabase.clear();
     }
 
     //* BEGIN INTERNAL API.
