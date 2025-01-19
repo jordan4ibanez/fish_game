@@ -6,7 +6,7 @@ import std.container;
 import std.stdio;
 import std.string;
 
-static final const class ModelManager {
+static final const class ModelHandler {
 static:
 private:
 
