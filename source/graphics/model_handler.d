@@ -1,6 +1,6 @@
 module graphics.model_handler;
 
-import graphics.texture_manager;
+import graphics.texture_handler;
 import raylib;
 import std.container;
 import std.stdio;
@@ -46,7 +46,7 @@ private:
         }
 
         Model* thisModel = database[modelName];
-        Texture2D* thisTexture = TextureManager.getTexturePointer(textureName);
+        Texture2D* thisTexture = TextureHandler.getTexturePointer(textureName);
         thisModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *thisTexture;
     }
 

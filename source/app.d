@@ -1,5 +1,5 @@
-import graphics.model_manager;
-import graphics.texture_manager;
+import graphics.model_handler;
+import graphics.texture_handler;
 import level.ground;
 import raylib;
 import std.stdio;
@@ -8,8 +8,8 @@ import std.typecons;
 void main() {
 
 	scope (exit) {
-		TextureManager.terminate();
-		ModelManager.terminate();
+		TextureHandler.terminate();
+		ModelHandler.terminate();
 		CloseWindow();
 	}
 
@@ -23,9 +23,9 @@ void main() {
 	SetTargetFPS(60);
 
 	Ground.load("levels/big_map_test.png");
-	TextureManager.newTexture("textures/sand.png");
+	TextureHandler.newTexture("textures/sand.png");
 
-	ModelManager.setModelTexture("ground", "sand.png");
+	ModelHandler.setModelTexture("ground", "sand.png");
 
 	Camera* camera = new Camera();
 	const float scalarOut = 4;
