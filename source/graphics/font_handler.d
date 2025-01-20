@@ -41,6 +41,10 @@ private:
         DrawTextEx(*font, toStringz(text), Vector2(x, y), font.baseSize, spacing, color);
     }
 
+    public void drawShadowed(string text, float x, float y, Color foregroundColor = Colors.WHITE) {
+        DrawTextEx(*font, toStringz(text), Vector2(x, y), font.baseSize, spacing, Colors.BLACK);
+        DrawTextEx(*font, toStringz(text), Vector2(x - 1, y - 1), font.baseSize, spacing, foregroundColor);
+    }
     //* BEGIN INTERNAL API.
 
 }
