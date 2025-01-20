@@ -6,6 +6,7 @@ import level.ground;
 import raylib;
 import std.stdio;
 import std.typecons;
+import utility.window;
 
 void main() {
 
@@ -70,8 +71,13 @@ void main() {
 
 			ClearBackground(Colors.SKYBLUE);
 
-		
-			FontHandler.draw("© METABASS GENERAL LURES INC.", 0, 0);
+			Vector2 windowSize = Window.getSize();
+			Vector2 textSize = FontHandler.getTextSize("© METABASS GENERAL LURES INC.");
+
+			// FontHandler.draw("© METABASS GENERAL LURES INC.", 0, windowSize.y - textSize.y);
+			// FontHandler.draw("© METABASS GENERAL LURES INC.", 0, windowSize.y - textSize.y);
+
+			FontHandler.drawShadowed("© METABASS GENERAL LURES INC.", 1, windowSize.y - textSize.y + 5);
 
 			BeginMode3D(*camera);
 			{
