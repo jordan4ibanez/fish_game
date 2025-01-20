@@ -1,5 +1,6 @@
 module utility.window;
 
+import graphics.font_handler;
 import raylib;
 
 static final const class Window {
@@ -28,5 +29,9 @@ private:
     }
 
     //* BEGIN INTERNAL API.
+
+    void updateSystem() {
+        FontHandler.__update();
+    }
 
 }
