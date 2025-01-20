@@ -1,3 +1,4 @@
+import graphics.font_handler;
 import graphics.model_handler;
 import graphics.texture_handler;
 import level.fish_definitions;
@@ -9,6 +10,7 @@ import std.typecons;
 void main() {
 
 	scope (exit) {
+		// FontHandler.terminate();
 		TextureHandler.terminate();
 		ModelHandler.terminate();
 		CloseWindow();
@@ -53,6 +55,8 @@ void main() {
 	camera.fovy = 45.0;
 	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
 
+	FontHandler.initialize();
+
 	while (!WindowShouldClose()) {
 
 		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
@@ -66,7 +70,8 @@ void main() {
 
 			ClearBackground(Colors.SKYBLUE);
 
-			DrawText("Hello, World!", 0, 0, 28, Colors.BLACK);
+		
+			FontHandler.draw("© METABASS GENERAL LURES INC.", 0, 0);
 
 			BeginMode3D(*camera);
 			{
