@@ -30,16 +30,19 @@ void main() {
 
 	SetTargetFPS(60);
 
-	Ground.load("levels/big_map_test.png");
-	TextureHandler.newTexture("textures/sand.png");
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
 	rlDisableBackfaceCulling();
 
+	Ground.load("levels/big_map_test.png");
+	TextureHandler.loadTexture("textures/sand.png");
 	ModelHandler.setModelTexture("ground", "sand.png");
 
+	ModelHandler.loadModelFromFile("models/largemouth.glb");
+	TextureHandler.loadTexture("models/largemouth.png");
+	ModelHandler.setModelTexture("largemouth.glb", "largemouth.png");
+
 	Camera* camera = new Camera();
-	const float scalarOut = 4;
-	camera.position = Vector3(0, 50, 9);
+	camera.position = Vector3(0, 2, 2);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -47,7 +50,11 @@ void main() {
 
 	while (!WindowShouldClose()) {
 
-		UpdateCamera(camera, CameraMode.CAMERA_FREE);
+		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
+		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
 
 		BeginDrawing();
 		{
@@ -63,7 +70,9 @@ void main() {
 				// DrawSphere(Vector3(0, 0, 0), 1, Colors.BEIGE);
 				// DrawModel(*groundModel, Vector3(-1, 0, -1), 2, Colors.WHITE);
 
-				ModelHandler.draw("ground", Vector3(0, 0, 0));
+				// ModelHandler.draw("ground", Vector3(0, 0, 0));
+
+				ModelHandler.draw("largemouth.glb", Vector3(0, 0, 0));
 
 			}
 			EndMode3D();
