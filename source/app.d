@@ -42,7 +42,7 @@ void main() {
 	ModelHandler.setModelTexture("largemouth.glb", "largemouth.png");
 
 	Camera* camera = new Camera();
-	camera.position = Vector3(0, 2, 2);
+	camera.position = Vector3(0, 2, 4);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -51,10 +51,10 @@ void main() {
 	while (!WindowShouldClose()) {
 
 		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
-		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
-		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
-		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
-		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+
+		foreach (i; 0 .. 10) {
+			UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		}
 
 		BeginDrawing();
 		{
