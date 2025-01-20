@@ -74,10 +74,9 @@ void main() {
 			Vector2 windowSize = Window.getSize();
 			Vector2 textSize = FontHandler.getTextSize("© METABASS GENERAL LURES INC.");
 
-			// FontHandler.draw("© METABASS GENERAL LURES INC.", 0, windowSize.y - textSize.y);
-			// FontHandler.draw("© METABASS GENERAL LURES INC.", 0, windowSize.y - textSize.y);
-
-			FontHandler.drawShadowed("© METABASS GENERAL LURES INC.", 1, windowSize.y - textSize.y + 5);
+			FontHandler.drawShadowed("© METABASS GENERAL LURES INC.", 1, windowSize.y - (
+					textSize.y * 2) + 10);
+			FontHandler.drawShadowed("PROTOTYPE BUILD. DO NOT DISTRIBUTE.", 2, windowSize.y - textSize.y + 5);
 
 			BeginMode3D(*camera);
 			{
