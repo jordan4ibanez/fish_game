@@ -14,7 +14,7 @@ private:
 
     //* BEGIN PUBLIC API.
 
-    public void newTexture(string location) {
+    public void loadTexture(string location) {
 
         // Extract the file name from the location.
         string fileName = () {
