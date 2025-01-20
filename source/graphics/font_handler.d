@@ -32,11 +32,6 @@ private:
         return MeasureTextEx(*font, toStringz(text), font.baseSize, spacing);
     }
 
-    public void terminate() {
-        UnloadFont(*font);
-        font = null;
-    }
-
     public void draw(string text, float x, float y, Color color = Colors.BLACK) {
         DrawTextEx(*font, toStringz(text), Vector2(x, y), font.baseSize, spacing, color);
     }
@@ -44,6 +39,11 @@ private:
     public void drawShadowed(string text, float x, float y, Color foregroundColor = Colors.WHITE) {
         DrawTextEx(*font, toStringz(text), Vector2(x, y), font.baseSize, spacing, Colors.BLACK);
         DrawTextEx(*font, toStringz(text), Vector2(x - 1, y - 1), font.baseSize, spacing, foregroundColor);
+    }
+
+    public void terminate() {
+        UnloadFont(*font);
+        font = null;
     }
     //* BEGIN INTERNAL API.
 
