@@ -18,7 +18,15 @@ void main() {
 	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
 	SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
-	InitWindow(2000, 2000, "Hello, Raylib-D!");
+
+	// This is a hack to get the resolution.
+	InitWindow(0, 0, "");
+	int currentMonitor = GetCurrentMonitor();
+	int monitorWidth = GetMonitorWidth(currentMonitor);
+	int monitorHeight = GetMonitorHeight(currentMonitor);
+	CloseWindow();
+
+	InitWindow(monitorWidth / 2, monitorHeight / 2, "Fish Game");
 
 	SetTargetFPS(60);
 
