@@ -25,7 +25,7 @@ private:
         // This calls the update system to automatically make common utilities run.
         updateSystem();
 
-        return WindowShouldClose();
+        return !WindowShouldClose();
     }
 
     //* BEGIN INTERNAL API.
