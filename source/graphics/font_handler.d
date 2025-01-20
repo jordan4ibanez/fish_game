@@ -28,17 +28,17 @@ private:
         UnloadFont(tempFont);
     }
 
+    public Vector2 getTextSize(string text) {
+        return MeasureTextEx(*font, toStringz(text), font.baseSize, spacing);
+    }
+
     public void terminate() {
         UnloadFont(*font);
         font = null;
     }
 
-    public void draw() {
-        // DrawText("©", 0, 0, 100, Colors.WHITE);
-
-        // DrawTextCodepoint(*font, 169, Vector2(0, 0), 100, Colors.WHITE);
-
-        DrawTextEx(*font, "© <-there is my copyright logo :) ", Vector2(0, 0), font.baseSize, -1, Colors
+    public void draw(string text, float x, float y) {
+        DrawTextEx(*font, text.ptr, Vector2(x, y), font.baseSize, spacing, Colors
                 .BLACK);
     }
 
