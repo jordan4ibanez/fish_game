@@ -19,9 +19,9 @@ void main() {
 
 	validateRaylibBinding();
 
-	LargeMouthBass blah2 = new LargeMouthBass();
+	// LargeMouthBass blah2 = new LargeMouthBass();
 
-	writeln(blah2.model);
+	// writeln(blah2.model);
 
 	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
@@ -50,7 +50,7 @@ void main() {
 	ModelHandler.setModelTexture("largemouth.glb", "largemouth.png");
 
 	Camera* camera = new Camera();
-	camera.position = Vector3(0, 2, 4);
+	camera.position = Vector3(0, 20, 4);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -58,13 +58,15 @@ void main() {
 
 	FontHandler.initialize();
 
+	DisableCursor();
+
 	while (Window.shouldStayOpen()) {
 
-		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
+		UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
-		foreach (i; 0 .. 13) {
-			UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
-		}
+		// foreach (i; 0 .. 13) {
+		// 	UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		// }
 
 		BeginDrawing();
 		{
@@ -88,9 +90,9 @@ void main() {
 				// DrawSphere(Vector3(0, 0, 0), 1, Colors.BEIGE);
 				// DrawModel(*groundModel, Vector3(-1, 0, -1), 2, Colors.WHITE);
 
-				// ModelHandler.draw("ground", Vector3(0, 0, 0));
+				ModelHandler.draw("ground", Vector3(0, 0, 0));
 
-				ModelHandler.draw(blah2.model, blah2.position);
+				// ModelHandler.draw(blah2.model, blah2.position);
 
 			}
 			EndMode3D();
