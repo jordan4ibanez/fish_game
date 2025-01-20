@@ -58,7 +58,7 @@ void main() {
 
 	FontHandler.initialize();
 
-	while (!WindowShouldClose()) {
+	while (Window.shouldStayOpen()) {
 
 		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
