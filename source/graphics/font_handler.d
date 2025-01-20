@@ -33,16 +33,16 @@ private:
     }
 
     public Vector2 getTextSize(string text) {
-        return MeasureTextEx(*font, toStringz(text), font.baseSize, spacing);
+        return MeasureTextEx(*font, toStringz(text), currentFontSize, spacing);
     }
 
     public void draw(string text, float x, float y, Color color = Colors.BLACK) {
-        DrawTextEx(*font, toStringz(text), Vector2(x, y), font.baseSize, spacing, color);
+        DrawTextEx(*font, toStringz(text), Vector2(x, y), currentFontSize, spacing, color);
     }
 
     public void drawShadowed(string text, float x, float y, Color foregroundColor = Colors.WHITE) {
-        DrawTextEx(*font, toStringz(text), Vector2(x, y), font.baseSize, spacing, Colors.BLACK);
-        DrawTextEx(*font, toStringz(text), Vector2(x - 1, y - 1), font.baseSize, spacing, foregroundColor);
+        DrawTextEx(*font, toStringz(text), Vector2(x, y), currentFontSize, spacing, Colors.BLACK);
+        DrawTextEx(*font, toStringz(text), Vector2(x - 1, y - 1), currentFontSize, spacing, foregroundColor);
     }
 
     public void terminate() {
