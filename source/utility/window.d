@@ -2,7 +2,7 @@ module utility.window;
 
 import raylib;
 
-static final const class FontHandler {
+static final const class Window {
 static:
 private:
 
