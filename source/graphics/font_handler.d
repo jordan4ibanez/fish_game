@@ -20,6 +20,7 @@ private:
         dstring codePointString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[]}|" ~
             "\\;:'\",<.>©";
 
+        // This is a small hack to get the base size.
         Font tempFont = LoadFont(toStringz("font/roboto_condensed.ttf"));
 
         *font = LoadFontEx(
