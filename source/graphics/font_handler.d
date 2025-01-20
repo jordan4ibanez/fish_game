@@ -37,9 +37,8 @@ private:
         font = null;
     }
 
-    public void draw(string text, float x, float y) {
-        DrawTextEx(*font, text.ptr, Vector2(x, y), font.baseSize, spacing, Colors
-                .BLACK);
+    public void draw(string text, float x, float y, Color color = Colors.BLACK) {
+        DrawTextEx(*font, toStringz(text), Vector2(x, y), font.baseSize, spacing, color);
     }
 
     //* BEGIN INTERNAL API.
