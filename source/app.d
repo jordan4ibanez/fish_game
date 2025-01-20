@@ -32,6 +32,8 @@ void main() {
 
 	Ground.load("levels/big_map_test.png");
 	TextureHandler.newTexture("textures/sand.png");
+	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
+	rlDisableBackfaceCulling();
 
 	ModelHandler.setModelTexture("ground", "sand.png");
 
