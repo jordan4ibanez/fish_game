@@ -56,7 +56,27 @@ private:
     }
 
     public void loadModelFromFile(string location) {
-        
+        Model* thisModel = new Model();
+
+        // Extract the file name from the location.
+        string fileName = () {
+            string[] items = location.split("/");
+            int len = cast(int) items.length;
+            if (len <= 1) {
+                throw new Error("[ModelManager]: Model must not be in root directory.");
+            }
+            string outputFileName = items[len - 1];
+            return outputFileName;
+        }();
+
+        *thisModel = LoadModel(toStringz(location));
+
+        if (!IsModelValid(*thisModel)) {
+            throw new Error("[ModelHandler]: Invalid model loaded from file. " ~ location);
+        }
+
+        database[fileName] = thisModel;
+        isCustomDatabase[fileName] = false;
     }
 
     public void setModelTexture(string modelName, string textureName) {
