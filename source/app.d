@@ -1,5 +1,6 @@
 import graphics.model_handler;
 import graphics.texture_handler;
+import level.fish_definitions;
 import level.ground;
 import raylib;
 import std.stdio;
@@ -14,6 +15,10 @@ void main() {
 	}
 
 	validateRaylibBinding();
+
+	LargeMouthBass blah2 = new LargeMouthBass();
+
+	writeln(blah2.model);
 
 	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
@@ -52,7 +57,7 @@ void main() {
 
 		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
-		foreach (i; 0 .. 10) {
+		foreach (i; 0 .. 13) {
 			UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
 		}
 
@@ -72,7 +77,7 @@ void main() {
 
 				// ModelHandler.draw("ground", Vector3(0, 0, 0));
 
-				ModelHandler.draw("largemouth.glb", Vector3(0, 0, 0));
+				ModelHandler.draw(blah2.model, blah2.position);
 
 			}
 			EndMode3D();
