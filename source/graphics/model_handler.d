@@ -47,6 +47,10 @@ private:
         Model* thisModel = new Model();
         *thisModel = LoadModelFromMesh(*thisMesh);
 
+        if (!IsModelValid(*thisModel)) {
+            throw new Error("[ModelHandler]: Invalid model loaded from mesh. " ~ modelName);
+        }
+
         database[modelName] = thisModel;
         isCustomDatabase[modelName] = true;
     }
