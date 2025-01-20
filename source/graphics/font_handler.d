@@ -45,6 +45,10 @@ private:
         UnloadFont(*font);
         font = null;
     }
+
+    public void __update() {
+        
+    }
     //* BEGIN INTERNAL API.
 
 }
