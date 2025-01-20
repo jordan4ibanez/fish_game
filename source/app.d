@@ -20,7 +20,7 @@ void main() {
 	SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 
 	// This is a hack to get the resolution.
-	InitWindow(0, 0, "");
+	InitWindow(1, 1, "");
 	int currentMonitor = GetCurrentMonitor();
 	int monitorWidth = GetMonitorWidth(currentMonitor);
 	int monitorHeight = GetMonitorHeight(currentMonitor);
