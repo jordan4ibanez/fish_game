@@ -49,7 +49,11 @@ private:
     }
 
     public void terminate() {
-        writeln("terminating texture");
+        foreach (textureName, thisTexture; database) {
+            UnloadTexture(*thisTexture);
+        }
+
+        database.clear();
     }
 
     //* BEGIN INTERNAL API.
