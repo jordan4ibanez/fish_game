@@ -27,7 +27,7 @@ private:
         Font tempFont = LoadFont(toStringz("font/roboto_condensed.ttf"));
 
         *font = LoadFontEx(
-            toStringz("font/roboto_condensed.ttf"), tempFont.baseSize, cast(int*) codePointString, 0);
+            toStringz("font/roboto_condensed.ttf"), tempFont.baseSize * 2, cast(int*) codePointString, 0);
 
         UnloadFont(tempFont);
     }
