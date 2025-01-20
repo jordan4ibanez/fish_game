@@ -1,6 +1,7 @@
 module utility.window;
 
 import graphics.font_handler;
+import graphics.gui;
 import raylib;
 
 static final const class Window {
@@ -31,6 +32,7 @@ private:
     //* BEGIN INTERNAL API.
 
     void updateSystem() {
+        GUI.__update(getSize());
         FontHandler.__update();
     }
 
