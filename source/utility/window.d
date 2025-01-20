@@ -20,6 +20,13 @@ private:
         return Vector2(getWidth(), getHeight());
     }
 
+    public bool shouldStayOpen() {
+        // This calls the update system to automatically make common utilities run.
+        updateSystem();
+
+        return WindowShouldClose();
+    }
+
     //* BEGIN INTERNAL API.
 
 }
