@@ -8,6 +8,8 @@ static final const class Window {
 static:
 private:
 
+    bool maximized = false;
+
     //* BEGIN PUBLIC API.
 
     public int getWidth() {
@@ -27,6 +29,14 @@ private:
         updateSystem();
 
         return !WindowShouldClose();
+    }
+
+    public void maximize() {
+        MaximizeWindow();
+    }
+
+    public void unmaximize() {
+        RestoreWindow();
     }
 
     //* BEGIN INTERNAL API.
