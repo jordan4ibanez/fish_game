@@ -24,12 +24,12 @@ private:
             "\\;:'\",<.>©";
 
         // This is a small hack to get the base size.
-        Font tempFont = LoadFont(toStringz("font/roboto_condensed.ttf"));
+        // Font tempFont = LoadFont(toStringz("font/roboto_condensed.ttf"));
 
         *font = LoadFontEx(
-            toStringz("font/roboto_condensed.ttf"), tempFont.baseSize * 2, cast(int*) codePointString, 0);
+            toStringz("font/roboto_condensed.ttf"), 64, cast(int*) codePointString, 0);
 
-        UnloadFont(tempFont);
+        // UnloadFont(tempFont);
     }
 
     public Vector2 getTextSize(string text) {
