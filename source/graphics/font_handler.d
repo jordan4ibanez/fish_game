@@ -3,7 +3,6 @@ module graphics.font_handler;
 import graphics.gui;
 import raylib;
 import std.math.rounding;
-import std.stdio;
 import std.string;
 
 static final const class FontHandler {
@@ -23,13 +22,8 @@ private:
         dstring codePointString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[]}|" ~
             "\\;:'\",<.>©";
 
-        // This is a small hack to get the base size.
-        // Font tempFont = LoadFont(toStringz("font/roboto_condensed.ttf"));
-
         *font = LoadFontEx(
             toStringz("font/roboto_condensed.ttf"), 64, cast(int*) codePointString, 0);
-
-        // UnloadFont(tempFont);
     }
 
     public Vector2 getTextSize(string text) {
@@ -51,7 +45,8 @@ private:
     }
 
     public void __update() {
-        
+        // This allows the font to look slightly off, like it's a texture font.
+        currentFontSize = font.baseSize * (GUI.getGUIScale() * 0.75);
     }
     //* BEGIN INTERNAL API.
 
