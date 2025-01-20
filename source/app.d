@@ -71,12 +71,15 @@ void main() {
 
 			ClearBackground(Colors.SKYBLUE);
 
+			/*
+			? This is the fake copyright info for this build. :P
 			Vector2 windowSize = Window.getSize();
 			Vector2 textSize = FontHandler.getTextSize("© METABASS GENERAL LURES INC.");
 
 			FontHandler.drawShadowed("© METABASS GENERAL LURES INC.", 1, windowSize.y - (
 					textSize.y * 2) + 10);
 			FontHandler.drawShadowed("PROTOTYPE BUILD. DO NOT DISTRIBUTE.", 2, windowSize.y - textSize.y + 5);
+			*/
 
 			BeginMode3D(*camera);
 			{
