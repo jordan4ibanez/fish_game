@@ -51,7 +51,7 @@ void main() {
 	ModelHandler.setModelTexture("largemouth.glb", "largemouth.png");
 
 	Camera* camera = new Camera();
-	camera.position = Vector3(0, -4, 4);
+	camera.position = Vector3(0, 4, 4);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -59,8 +59,8 @@ void main() {
 
 	FontHandler.initialize();
 
-	DisableCursor();
-	// Window.maximize();
+	// DisableCursor();
+	Window.maximize();
 
 	float point = 0;
 	Vector2 testPoint = Vector2(0, 0);
@@ -158,7 +158,7 @@ void main() {
 
 	while (Window.shouldStayOpen()) {
 
-		UpdateCamera(camera, CameraMode.CAMERA_FREE);
+		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
 		if (up) {
 			point += 0.01;
@@ -178,7 +178,7 @@ void main() {
 		// writeln("point: ", point);
 
 		// foreach (i; 0 .. 13) {
-		// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
 		// }
 
 		BeginDrawing();
@@ -192,11 +192,11 @@ void main() {
 				float yHeight = heightCalculation(testPoint);
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
-				DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.RED);
+				DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);
 
 				DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
 
-				ModelHandler.draw("ground", Vector3(0, 0, 0));
+				ModelHandler.draw("ground", Vector3(-0.5, 0, 0.5));
 
 				// ModelHandler.draw(blah2.model, blah2.position);
 
