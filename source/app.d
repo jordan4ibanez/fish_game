@@ -62,7 +62,6 @@ void main() {
 	// DisableCursor();
 	Window.maximize();
 
-	float point = 0;
 	Vector2 testPoint = Vector2(0, 0);
 	bool up = true;
 
@@ -156,24 +155,89 @@ void main() {
 		}
 	};
 
+	byte test = 0;
+
 	while (Window.shouldStayOpen()) {
 
 		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
-		if (up) {
-			point += 0.01;
-			if (point >= 0.99) {
-				point = 0.99;
-				up = false;
+		if (test == 0) {
+			if (up) {
+				testPoint.x += 0.01;
+				if (testPoint.x >= 0.99) {
+					testPoint.x = 0.99;
+					up = false;
+				}
+			} else {
+				testPoint.x -= 0.01;
+				if (testPoint.x <= 0.01) {
+					testPoint.x = 0.01;
+					up = !up;
+					test++;
+				}
 			}
-		} else {
-			point -= 0.01;
-			if (point <= 0.01) {
-				point = 0.01;
-				up = !up;
+			testPoint = Vector2(testPoint.x, 1.00 - testPoint.x);
+		} else if (test == 1) {
+			bool ignore = false;
+			if (up) {
+				testPoint.x += 0.01;
+				if (testPoint.x >= 0.99) {
+					testPoint.x = 0.99;
+					up = false;
+				}
+			} else {
+				testPoint.x -= 0.01;
+				if (testPoint.x <= 0.01) {
+					testPoint.x = 0.01;
+					up = !up;
+					test++;
+					testPoint.x = 0;
+					testPoint.y = 0;
+					ignore = true;
+				}
 			}
+			if (!ignore) {
+				testPoint = Vector2(testPoint.x, 0.5);
+			}
+		} else if (test == 2) {
+			bool ignore = false;
+			if (up) {
+				testPoint.y += 0.01;
+				if (testPoint.y >= 0.99) {
+					testPoint.y = 0.99;
+					up = false;
+				}
+			} else {
+				testPoint.y -= 0.01;
+				if (testPoint.y <= 0.01) {
+					testPoint.y = 0.01;
+					up = !up;
+					test++;
+					ignore = true;
+					testPoint.x = 0;
+					testPoint.y = 0;
+				}
+			}
+			if (!ignore) {
+				testPoint = Vector2(0.5, testPoint.y);
+			}
+		} else if (test == 3) {
+			if (up) {
+				testPoint.x += 0.01;
+				if (testPoint.x >= 0.99) {
+					testPoint.x = 0.99;
+					up = false;
+				}
+			} else {
+				testPoint.x -= 0.01;
+				if (testPoint.x <= 0.01) {
+					testPoint.x = 0.0;
+					up = !up;
+					test = 0;
+				}
+			}
+			testPoint = Vector2(testPoint.x, testPoint.x);
 		}
-		testPoint = Vector2(point, 1.00 - point);
 
 		// writeln("point: ", point);
 
@@ -185,7 +249,6 @@ void main() {
 		{
 
 			ClearBackground(Colors.SKYBLUE);
-
 			BeginMode3D(*camera);
 			{
 
