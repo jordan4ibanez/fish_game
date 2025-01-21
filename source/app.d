@@ -93,6 +93,21 @@ void main() {
 			a.z * b.x - a.x * b.z,
 			a.x * b.y - a.y * b.x);
 	};
+
+	// https://stackoverflow.com/a/5507832
+	float calcY(Vector3 point1, Vector3 point2, Vector3 point3, Vector2 position) {
+		float det = (point2.z - point3.z) * (point1.x - point3.x) + (
+			point3.x - point2.x) * (point1.z - point3.z);
+
+		float l1 = ((point2.z - point3.z) * (position.x - point3.x) + (
+				point3.x - point2.x) * (position.y - point3.z)) / det;
+		float l2 = ((point3.z - point1.z) * (position.x - point3.x) + (
+				point1.x - point3.x) * (position.y - point3.z)) / det;
+		float l3 = 1.0f - l1 - l2;
+
+		return l1 * point1.y + l2 * point2.y + l3 * point3.y;
+	}
+
 	// End stackoverflow.
 
 	auto triCalculation = (Vector3 point) {
