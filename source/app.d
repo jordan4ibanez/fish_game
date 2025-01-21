@@ -83,19 +83,8 @@ void main() {
 		return !(has_neg && has_pos);
 	};
 
-	//https://stackoverflow.com/a/23709352
-	auto normalCalculation = (Vector3 p1, Vector3 p2, Vector3 p3) {
-		Vector3 a = Vector3Subtract(p2, p1);
-		Vector3 b = Vector3Subtract(p3, p1);
-
-		return Vector3(
-			a.y * b.z - a.z * b.y,
-			a.z * b.x - a.x * b.z,
-			a.x * b.y - a.y * b.x);
-	};
-
 	// https://stackoverflow.com/a/5507832
-	float calcY(Vector3 point1, Vector3 point2, Vector3 point3, Vector2 position) {
+	float calculateY(Vector3 point1, Vector3 point2, Vector3 point3, Vector2 position) {
 		float det = (point2.z - point3.z) * (point1.x - point3.x) + (
 			point3.x - point2.x) * (point1.z - point3.z);
 
@@ -150,7 +139,7 @@ void main() {
 			DrawLine3D(positionData[1], positionData[2], Colors.RED);
 			DrawLine3D(positionData[0], positionData[2], Colors.RED);
 
-			return calcY(positionData[0], positionData[1], positionData[2], point);
+			return calculateY(positionData[0], positionData[1], positionData[2], point);
 
 		} else {
 			Vector3[3] positionData = [
@@ -163,7 +152,7 @@ void main() {
 			DrawLine3D(positionData[1], positionData[2], Colors.RED);
 			DrawLine3D(positionData[0], positionData[2], Colors.RED);
 
-			return calcY(positionData[0], positionData[1], positionData[2], point);
+			return calculateY(positionData[0], positionData[1], positionData[2], point);
 		}
 	};
 
