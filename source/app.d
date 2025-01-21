@@ -51,7 +51,7 @@ void main() {
 	ModelHandler.setModelTexture("largemouth.glb", "largemouth.png");
 
 	Camera* camera = new Camera();
-	camera.position = Vector3(0, 4, 4);
+	camera.position = Vector3(0, -4, 4);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -88,10 +88,27 @@ void main() {
 		int x = cast(int) floor(point.x);
 		int y = cast(int) floor(point.y);
 
-		if (y != 0) {
-			writeln(point);
+		Vector2[4] pData = [
+			Vector2(x, y),
+			Vector2(x, y + 1),
+			Vector2(x + 1, y + 1),
+			Vector2(x + 1, y),
+		];
+
+		if (pointInTriangle(point, pData[0], pData[1], pData[2])) {
+			writeln("in 1");
+		} else if (pointInTriangle(point, pData[2], pData[3], pData[0])) {
+			writeln("in 2");
+		} else {
+			writeln("error");
 		}
-		// writeln(x, " ", y);
+
+		// Vector2[4] triData = [
+		// 	Ground.getHeight(x, y),
+		// 	Ground.getHeight(x, y + 1),
+		// 	Ground.getHeight(x + 1, y),
+		// 	Ground.getHeight(x + 1, y + 1)
+		// ];
 
 	};
 
