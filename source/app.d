@@ -41,16 +41,16 @@ void main() {
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
 	rlDisableBackfaceCulling();
 
-	Ground.load("levels/big_map_test.png");
-	TextureHandler.loadTexture("textures/sand.png");
-	ModelHandler.setModelTexture("ground", "sand.png");
+	Ground.load("levels/4square.png");
+	TextureHandler.loadTexture("textures/test.png");
+	ModelHandler.setModelTexture("ground", "test.png");
 
 	ModelHandler.loadModelFromFile("models/largemouth.glb");
 	TextureHandler.loadTexture("models/largemouth.png");
 	ModelHandler.setModelTexture("largemouth.glb", "largemouth.png");
 
 	Camera* camera = new Camera();
-	camera.position = Vector3(0, 20, 4);
+	camera.position = Vector3(0, 4, 4);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -58,15 +58,15 @@ void main() {
 
 	FontHandler.initialize();
 
-	DisableCursor();
-	Window.maximize();
+	// DisableCursor();
+	// Window.maximize();
 
 	while (Window.shouldStayOpen()) {
 
-		UpdateCamera(camera, CameraMode.CAMERA_FREE);
+		// UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
 		// foreach (i; 0 .. 13) {
-		// 	UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+			// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
 		// }
 
 		BeginDrawing();
@@ -88,15 +88,15 @@ void main() {
 			}
 			EndMode3D();
 
-			// /*
-			// ? This is the fake copyright info for this build. :P
+			/*
+			? This is the fake copyright info for this build. :P
 			Vector2 windowSize = Window.getSize();
 			Vector2 textSize = FontHandler.getTextSize("© METABASS GENERAL LURES INC.");
 
 			FontHandler.drawShadowed("© METABASS GENERAL LURES INC.", 1, windowSize.y - (
 					textSize.y * 2) + 10);
 			FontHandler.drawShadowed("PROTOTYPE BUILD. DO NOT DISTRIBUTE.", 2, windowSize.y - textSize.y + 5);
-			// */
+			*/
 		}
 		EndDrawing();
 	}
