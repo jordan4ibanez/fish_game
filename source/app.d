@@ -124,26 +124,42 @@ void main() {
 		];
 
 		if (inPoint == 1) {
-			writeln("1");
-			Vector3 normal = normalCalculation(
+
+			Vector3[3] positionData = [
 				Vector3(pData[0].x, heightData[0], pData[0].y),
 				Vector3(pData[1].x, heightData[1], pData[1].y),
 				Vector3(pData[2].x, heightData[2], pData[2].y),
-			);
+			];
+			// writeln("1");
+			Vector3 normal = normalCalculation(positionData[0], positionData[1], positionData[2]);
 			// writeln(normal);
 
 			// writeln(Vector3DotProduct(point, normal));
 
+			// float yHeight = -((normal.z * point.z) + (normal.x * point.x)) / normal.y;
+			// writeln(yHeight);
+
+			DrawLine3D(positionData[0], positionData[1], Colors.RED);
+			DrawLine3D(positionData[1], positionData[2], Colors.RED);
+			DrawLine3D(positionData[0], positionData[2], Colors.RED);
+
 		} else {
-			writeln("2");
-			Vector3 normal = normalCalculation(
+			Vector3[3] positionData = [
 				Vector3(pData[2].x, heightData[2], pData[2].y),
 				Vector3(pData[3].x, heightData[3], pData[3].y),
 				Vector3(pData[0].x, heightData[0], pData[0].y),
-			);
+			];
+			// writeln("2");
+			Vector3 normal = normalCalculation(positionData[0], positionData[1], positionData[2]);
 			// writeln(normal);
 
 			// writeln(Vector3DotProduct(point, normal));
+
+			// float yHeight = -((normal.z * point.z) + (normal.x * point.x)) / normal.y;
+			// writeln(yHeight);
+			DrawLine3D(positionData[0], positionData[1], Colors.RED);
+			DrawLine3D(positionData[1], positionData[2], Colors.RED);
+			DrawLine3D(positionData[0], positionData[2], Colors.RED);
 		}
 
 	};
