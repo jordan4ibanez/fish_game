@@ -1,3 +1,4 @@
+import core.stdc.tgmath;
 import graphics.font_handler;
 import graphics.model_handler;
 import graphics.texture_handler;
@@ -80,6 +81,19 @@ void main() {
 
 		return !(has_neg && has_pos);
 	};
+	// End stackoverflow.
+
+	auto triCalculation = (Vector2 point) {
+
+		int x = cast(int) floor(point.x);
+		int y = cast(int) floor(point.y);
+
+		if (y != 0) {
+			writeln(point);
+		}
+		// writeln(x, " ", y);
+
+	};
 
 	while (Window.shouldStayOpen()) {
 
@@ -87,19 +101,20 @@ void main() {
 
 		if (up) {
 			point += 0.01;
-			if (point >= 1.0) {
-				point = 1.0;
+			if (point >= 0.99) {
+				point = 0.99;
 				up = false;
 			}
 		} else {
 			point -= 0.01;
-			if (point <= 0.0) {
-				point = 0.0;
+			if (point <= 0.01) {
+				point = 0.01;
 				up = !up;
 			}
 		}
-		testPoint = Vector2(point, 1.0 - point);
-		writeln("point: ", point);
+		testPoint = Vector2(point, 1.00 - point);
+
+		// writeln("point: ", point);
 
 		// foreach (i; 0 .. 13) {
 		// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
@@ -112,6 +127,8 @@ void main() {
 
 			BeginMode3D(*camera);
 			{
+
+				triCalculation(testPoint);
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
 				DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.05, Colors.RED);
