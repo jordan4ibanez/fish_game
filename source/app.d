@@ -66,7 +66,8 @@ void main() {
 	Vector2 testPoint = Vector2(0, 0);
 	bool up = true;
 
-	// These are from: https://stackoverflow.com/a/2049593
+	// Begin stackoverflow.
+	// https://stackoverflow.com/a/2049593
 	auto sign = (Vector2 p1, Vector2 p2, Vector2 p3) {
 		return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 	};
@@ -81,9 +82,20 @@ void main() {
 
 		return !(has_neg && has_pos);
 	};
+
+	//https://stackoverflow.com/a/23709352
+	auto normalCalculation = (Vector3 p1, Vector3 p2, Vector3 p3) {
+		Vector3 a = Vector3Subtract(p2, p1);
+		Vector3 b = Vector3Subtract(p3, p1);
+
+		return Vector3(
+			a.y * b.z - a.z * b.y,
+			a.z * b.x - a.x * b.z,
+			a.x * b.y - a.y * b.x);
+	};
 	// End stackoverflow.
 
-	auto triCalculation = (Vector2 point) {
+	auto triCalculation = (Vector3 point) {
 
 		int x = cast(int) floor(point.x);
 		int y = cast(int) floor(point.y);
@@ -95,20 +107,32 @@ void main() {
 			Vector2(x + 1, y),
 		];
 
-		if (pointInTriangle(point, pData[0], pData[1], pData[2])) {
-			writeln("in 1");
-		} else if (pointInTriangle(point, pData[2], pData[3], pData[0])) {
-			writeln("in 2");
-		} else {
-			writeln("error");
-		}
+		const int inPoint = () {
+			if (pointInTriangle(Vector2(point.x, point.z), pData[0], pData[1], pData[2])) {
+				return 1;
+			} else if (pointInTriangle(Vector2(point.x, point.z), pData[2], pData[3], pData[0])) {
+				return 2;
+			}
+			throw new Error("In non-existent position.");
+		}();
 
-		// Vector2[4] triData = [
-		// 	Ground.getHeight(x, y),
-		// 	Ground.getHeight(x, y + 1),
-		// 	Ground.getHeight(x + 1, y),
-		// 	Ground.getHeight(x + 1, y + 1)
-		// ];
+		float[4] heightData = [
+			Ground.getHeight(x, y),
+			Ground.getHeight(x, y + 1),
+			Ground.getHeight(x + 1, y),
+			Ground.getHeight(x + 1, y + 1)
+		];
+
+		if (inPoint == 1) {
+			writeln("1");
+			// normalCalculation(
+			// 	Vector3()
+
+			// );
+
+		} else {
+			writeln("2");
+		}
 
 	};
 
@@ -145,7 +169,7 @@ void main() {
 			BeginMode3D(*camera);
 			{
 
-				triCalculation(testPoint);
+				triCalculation(Vector3(testPoint.x, 0, testPoint.y));
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
 				DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.05, Colors.RED);
