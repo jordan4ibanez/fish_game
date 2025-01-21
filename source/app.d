@@ -119,19 +119,31 @@ void main() {
 		float[4] heightData = [
 			Ground.getHeight(x, y),
 			Ground.getHeight(x, y + 1),
-			Ground.getHeight(x + 1, y),
-			Ground.getHeight(x + 1, y + 1)
+			Ground.getHeight(x + 1, y + 1),
+			Ground.getHeight(x + 1, y)
 		];
 
 		if (inPoint == 1) {
 			writeln("1");
-			// normalCalculation(
-			// 	Vector3()
+			Vector3 normal = normalCalculation(
+				Vector3(pData[0].x, heightData[0], pData[0].y),
+				Vector3(pData[1].x, heightData[1], pData[1].y),
+				Vector3(pData[2].x, heightData[2], pData[2].y),
+			);
+			// writeln(normal);
 
-			// );
+			// writeln(Vector3DotProduct(point, normal));
 
 		} else {
 			writeln("2");
+			Vector3 normal = normalCalculation(
+				Vector3(pData[2].x, heightData[2], pData[2].y),
+				Vector3(pData[3].x, heightData[3], pData[3].y),
+				Vector3(pData[0].x, heightData[0], pData[0].y),
+			);
+			// writeln(normal);
+
+			// writeln(Vector3DotProduct(point, normal));
 		}
 
 	};
