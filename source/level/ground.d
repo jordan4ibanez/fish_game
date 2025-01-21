@@ -47,10 +47,10 @@ private:
                 // Raylib is still absolutely ancient with ushort as the indices so I have to convert this mess into raw vertex tris.
 
                 const float[4] heightData = [
-                    getHeight(x, y) * scale, // 1 - Top Left.
-                    getHeight(x, y + 1) * scale, // 0 - Bottom Left.
-                    getHeight(x + 1, y + 1) * scale, // 3 - Bottom Right.
-                    getHeight(x + 1, y) * scale, // 2 - Top Right.
+                    getHeight(x, y) * scale, // 0 - Top Left.
+                    getHeight(x, y + 1) * scale, // 1 - Bottom Left.
+                    getHeight(x + 1, y + 1) * scale, // 2 - Bottom Right.
+                    getHeight(x + 1, y) * scale, // 3 - Top Right.
                 ];
 
                 const Vector3[4] vData = [
