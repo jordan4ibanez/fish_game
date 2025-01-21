@@ -110,7 +110,7 @@ void main() {
 
 	// End stackoverflow.
 
-	auto triCalculation = (Vector3 point) {
+	auto heightCalculation = (Vector2 point) {
 
 		int x = cast(int) floor(point.x);
 		int y = cast(int) floor(point.y);
@@ -123,9 +123,9 @@ void main() {
 		];
 
 		const int inPoint = () {
-			if (pointInTriangle(Vector2(point.x, point.z), pData[0], pData[1], pData[2])) {
+			if (pointInTriangle(Vector2(point.x, point.y), pData[0], pData[1], pData[2])) {
 				return 1;
-			} else if (pointInTriangle(Vector2(point.x, point.z), pData[2], pData[3], pData[0])) {
+			} else if (pointInTriangle(Vector2(point.x, point.y), pData[2], pData[3], pData[0])) {
 				return 2;
 			}
 			throw new Error("In non-existent position.");
@@ -145,18 +145,12 @@ void main() {
 				Vector3(pData[1].x, heightData[1], pData[1].y),
 				Vector3(pData[2].x, heightData[2], pData[2].y),
 			];
-			// writeln("1");
-			Vector3 normal = normalCalculation(positionData[0], positionData[1], positionData[2]);
-			// writeln(normal);
-
-			// writeln(Vector3DotProduct(point, normal));
-
-			// float yHeight = -((normal.z * point.z) + (normal.x * point.x)) / normal.y;
-			// writeln(yHeight);
 
 			DrawLine3D(positionData[0], positionData[1], Colors.RED);
 			DrawLine3D(positionData[1], positionData[2], Colors.RED);
 			DrawLine3D(positionData[0], positionData[2], Colors.RED);
+
+			return calcY(positionData[0], positionData[1], positionData[2], point);
 
 		} else {
 			Vector3[3] positionData = [
@@ -164,19 +158,13 @@ void main() {
 				Vector3(pData[3].x, heightData[3], pData[3].y),
 				Vector3(pData[0].x, heightData[0], pData[0].y),
 			];
-			// writeln("2");
-			Vector3 normal = normalCalculation(positionData[0], positionData[1], positionData[2]);
-			// writeln(normal);
 
-			// writeln(Vector3DotProduct(point, normal));
-
-			// float yHeight = -((normal.z * point.z) + (normal.x * point.x)) / normal.y;
-			// writeln(yHeight);
 			DrawLine3D(positionData[0], positionData[1], Colors.RED);
 			DrawLine3D(positionData[1], positionData[2], Colors.RED);
 			DrawLine3D(positionData[0], positionData[2], Colors.RED);
-		}
 
+			return calcY(positionData[0], positionData[1], positionData[2], point);
+		}
 	};
 
 	while (Window.shouldStayOpen()) {
@@ -212,11 +200,12 @@ void main() {
 			BeginMode3D(*camera);
 			{
 
-				triCalculation(Vector3(testPoint.x, 0, testPoint.y));
+				float yHeight = heightCalculation(testPoint);
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
-				DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.05, Colors.RED);
-				// DrawModel(*groundModel, Vector3(-1, 0, -1), 2, Colors.WHITE);
+				DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.RED);
+
+				DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
 
 				ModelHandler.draw("ground", Vector3(0, 0, 0));
 
