@@ -5,6 +5,7 @@ import graphics.texture_handler;
 import level.ground;
 import raylib;
 import std.conv;
+import std.math;
 import std.random;
 import std.stdio;
 import std.typecons;
@@ -18,6 +19,7 @@ private:
     // Try to update with sin cos etc.
 
     float waterRoll = 0;
+    float waveScale = 0.7;
 
     // Water has 39 frames.
     immutable int minWaterTexture = 0;
@@ -69,11 +71,16 @@ private:
 
     public void update() {
 
-        auto rnd = Random(unpredictableSeed);
+        // todo: use delta.
+        waterRoll += 0.01;
 
         foreach (x; 0 .. waterWidth + 1) {
             foreach (y; 0 .. waterHeight + 1) {
-                waterData[x][y] = uniform(0.0, 0.2, rnd);
+
+                float xer = sin((x * waveScale) + waterRoll);
+                float yer = sin((y * waveScale) + waterRoll);
+
+                waterData[x][y] = (xer + yer) / 2.0;
             }
         }
 
