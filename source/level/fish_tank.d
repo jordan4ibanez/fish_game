@@ -33,7 +33,9 @@ private:
 
     public void draw() {
         foreach (uuid, fish; database) {
-            ModelHandler.draw(fish.model(), fish.position, Vector3(fish.rotation.x, fish.rotation.y, 0));
+
+            ModelHandler.draw(fish.model(), fish.position, fish.rotation);
+
             float groundYHeight = Ground.getCollisionPoint(fish.position.x, fish.position.z);
             DrawCircle3D(Vector3(fish.position.x, groundYHeight, fish.position.z), 1, Vector3(1, 0, 0), 0, Colors
                     .RED);
