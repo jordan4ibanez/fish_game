@@ -19,6 +19,8 @@ private:
     immutable int minWaterTexture = 0;
     immutable int maxWaterTexture = 39;
 
+    bool loaded = false;
+
     //* BEGIN PUBLIC API.
 
     public void load() {
@@ -30,6 +32,10 @@ private:
         }
         // TextureHandler.loadTexture("textures/water/")
 
+        if (loaded) {
+            throw new Error("Clean up the water.");
+        }
+        loaded = true;
     }
 
     //* BEGIN INTERNAL API.

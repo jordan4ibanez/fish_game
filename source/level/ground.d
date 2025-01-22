@@ -18,14 +18,19 @@ private:
     int mapWidth = 0;
     int mapHeight = 0;
     string currentMap = null;
+    bool loaded = false;
 
     //* BEGIN PUBLIC API.
 
     public void load(string levelLocation) {
+        if (loaded) {
+            throw new Error("Clean up the ground.");
+        }
         loadMapData(levelLocation ~ "height_map.png");
         createGroundMesh();
         TextureHandler.loadTexture(levelLocation ~ "texture_map.png");
         ModelHandler.setModelTexture("ground", "texture_map.png");
+        loaded = true;
     }
 
     public float getHeight(int x, int y) {
