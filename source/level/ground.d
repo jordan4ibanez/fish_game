@@ -109,10 +109,10 @@ private:
         }();
 
         float[4] heightData = [
-            Ground.getHeightAtNode(x, y),
-            Ground.getHeightAtNode(x, y + 1),
-            Ground.getHeightAtNode(x + 1, y + 1),
-            Ground.getHeightAtNode(x + 1, y)
+            getHeightAtNode(x, y),
+            getHeightAtNode(x, y + 1),
+            getHeightAtNode(x + 1, y + 1),
+            getHeightAtNode(x + 1, y)
         ];
 
         if (inPoint == 1) {
