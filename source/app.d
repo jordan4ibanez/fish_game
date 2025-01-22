@@ -58,7 +58,7 @@ void main() {
 
 	FontHandler.initialize();
 
-	Window.lockMouse();
+	// Window.lockMouse();
 	Window.maximize();
 
 	LargeMouthBass blah2 = new LargeMouthBass();
