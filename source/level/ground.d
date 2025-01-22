@@ -37,7 +37,7 @@ private:
         loaded = true;
     }
 
-    public float getHeight(int x, int y) {
+    public float getHeightAtNode(int x, int y) {
         return mapData[x][y];
     }
 
@@ -109,10 +109,10 @@ private:
         }();
 
         float[4] heightData = [
-            Ground.getHeight(x, y),
-            Ground.getHeight(x, y + 1),
-            Ground.getHeight(x + 1, y + 1),
-            Ground.getHeight(x + 1, y)
+            Ground.getHeightAtNode(x, y),
+            Ground.getHeightAtNode(x, y + 1),
+            Ground.getHeightAtNode(x + 1, y + 1),
+            Ground.getHeightAtNode(x + 1, y)
         ];
 
         if (inPoint == 1) {
@@ -156,10 +156,10 @@ private:
                 // Raylib is still absolutely ancient with ushort as the indices so I have to convert this mess into raw vertex tris.
 
                 const float[4] heightData = [
-                    getHeight(x, y), // 0 - Top Left.
-                    getHeight(x, y + 1), // 1 - Bottom Left.
-                    getHeight(x + 1, y + 1), // 2 - Bottom Right.
-                    getHeight(x + 1, y), // 3 - Top Right.
+                    getHeightAtNode(x, y), // 0 - Top Left.
+                    getHeightAtNode(x, y + 1), // 1 - Bottom Left.
+                    getHeightAtNode(x + 1, y + 1), // 2 - Bottom Right.
+                    getHeightAtNode(x + 1, y), // 3 - Top Right.
                 ];
 
                 const Vector3[4] vData = [
