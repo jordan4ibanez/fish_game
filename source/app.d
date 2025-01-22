@@ -5,6 +5,7 @@ import graphics.texture_handler;
 import level.fish_definitions;
 import level.ground;
 import raylib;
+import std.conv;
 import std.stdio;
 import std.typecons;
 import utility.window;
@@ -98,6 +99,8 @@ void main() {
 					textSize.y * 2) + 10);
 			FontHandler.drawShadowed("PROTOTYPE BUILD. DO NOT DISTRIBUTE.", 2, windowSize.y - textSize.y + 5);
 			*/
+
+			FontHandler.drawShadowed("FPS: " ~ to!string(GetFPS()), 0, -5);
 		}
 		EndDrawing();
 	}
