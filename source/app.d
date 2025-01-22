@@ -6,12 +6,12 @@ import input.keyboard;
 import level.fish_definitions;
 import level.ground;
 import level.level;
+import level.water;
 import raylib;
 import std.conv;
 import std.stdio;
 import std.typecons;
 import utility.window;
-import level.water;
 
 void main() {
 
