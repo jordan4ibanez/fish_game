@@ -28,7 +28,7 @@ private:
         DrawModelEx(*thisModel, position, rotation, 1, Vector3(scale, scale, scale), color);
     }
 
-    public void newModelFromMesh(string modelName, float[] vertices, float[] textureCoordinates) {
+    public void newModelFromMesh(string modelName, float[] vertices, float[] textureCoordinates, bool dynamic = false) {
 
         if (modelName in database) {
             throw new Error(
@@ -42,7 +42,7 @@ private:
         thisMesh.vertices = vertices.ptr;
         thisMesh.texcoords = textureCoordinates.ptr;
 
-        UploadMesh(thisMesh, false);
+        UploadMesh(thisMesh, dynamic);
 
         Model* thisModel = new Model();
         *thisModel = LoadModelFromMesh(*thisMesh);
