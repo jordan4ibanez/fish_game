@@ -23,8 +23,9 @@ private:
     float waveMagnitude = 0.01;
 
     // Water has 39 frames.
-    immutable int minWaterTexture = 0;
-    immutable int maxWaterTexture = 39;
+    immutable int minWaterTextureFrame = 0;
+    immutable int maxWaterTextureFrame = 39;
+    int currentWaterFrame = 0;
 
     bool loaded = false;
 
@@ -48,7 +49,7 @@ private:
         if (loaded) {
             throw new Error("Clean up the water gpu memory or reuse it.");
         } else {
-            foreach (i; minWaterTexture .. maxWaterTexture + 1) {
+            foreach (i; minWaterTextureFrame .. maxWaterTextureFrame + 1) {
                 TextureHandler.loadTexture("textures/water/water_" ~ to!string(i) ~ ".png");
             }
         }
@@ -93,6 +94,17 @@ private:
 
             }
         }
+
+        // todo: make this not be FPS dependent.
+        // skip++;
+        // if (skip > 5) {
+        //     currentWaterFrame += 1;
+        //     if (currentWaterFrame > maxWaterTextureFrame) {
+        //         currentWaterFrame = minWaterTextureFrame;
+        //     }
+        //     ModelHandler.setModelTexture("water", "water_" ~ to!string(currentWaterFrame) ~ ".png");
+        //     skip = 0;
+        // }
 
         // This also automatically uploads the new water data into the gpu.
         Model* thisModel = ModelHandler.getModelPointer("water");
