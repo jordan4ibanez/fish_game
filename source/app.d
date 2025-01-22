@@ -42,7 +42,7 @@ void main() {
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
 	rlDisableBackfaceCulling();
 
-	Level.load("levels/map_medium/");
+	Level.load("levels/map_lake/");
 
 	ModelHandler.loadModelFromFile("models/largemouth.glb");
 	TextureHandler.loadTexture("models/largemouth.png");
