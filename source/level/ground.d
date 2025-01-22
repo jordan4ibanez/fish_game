@@ -1,8 +1,10 @@
 module level.ground;
 
+import core.stdc.tgmath;
 import gamut.image;
 import gamut.types;
 import graphics.model_handler;
+import raylib.raylib_types;
 import std.stdio;
 import std.string;
 import std.typecons;
@@ -31,7 +33,102 @@ private:
         return tuple(mapWidth, mapHeight);
     }
 
+    public float getHeight(float x, float y) {
+        return 0;
+    }
+
     //* BEGIN INTERNAL API.
+
+    // Begin stackoverflow.
+    // https://stackoverflow.com/a/2049593
+    float sign(Vector2 p1, Vector2 p2, Vector2 p3) {
+        return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
+    }
+
+    // https://stackoverflow.com/a/2049593
+    bool pointInTriangle(Vector2 point, Vector2 v1, Vector2 v2, Vector2 v3) {
+        float d1 = sign(point, v1, v2);
+        float d2 = sign(point, v2, v3);
+        float d3 = sign(point, v3, v1);
+
+        bool has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+        bool has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+        return !(has_neg && has_pos);
+    }
+
+    // https://stackoverflow.com/a/5507832
+    float calculateY(Vector3 point1, Vector3 point2, Vector3 point3, Vector2 position) {
+        float det = (point2.z - point3.z) * (point1.x - point3.x) + (
+            point3.x - point2.x) * (point1.z - point3.z);
+
+        float l1 = ((point2.z - point3.z) * (position.x - point3.x) + (
+                point3.x - point2.x) * (position.y - point3.z)) / det;
+        float l2 = ((point3.z - point1.z) * (position.x - point3.x) + (
+                point1.x - point3.x) * (position.y - point3.z)) / det;
+        float l3 = 1.0f - l1 - l2;
+
+        return l1 * point1.y + l2 * point2.y + l3 * point3.y;
+    }
+    // End stackoverflow.
+
+    float heightCalculation(Vector2 point) {
+        import raylib;
+
+        int x = cast(int) floor(point.x);
+        int y = cast(int) floor(point.y);
+
+        Vector2[4] pData = [
+            Vector2(x, y),
+            Vector2(x, y + 1),
+            Vector2(x + 1, y + 1),
+            Vector2(x + 1, y),
+        ];
+
+        const int inPoint = () {
+            if (pointInTriangle(Vector2(point.x, point.y), pData[0], pData[1], pData[2])) {
+                return 1;
+            } else if (pointInTriangle(Vector2(point.x, point.y), pData[2], pData[3], pData[0])) {
+                return 2;
+            }
+            throw new Error("In non-existent position.");
+        }();
+
+        float[4] heightData = [
+            Ground.getHeight(x, y),
+            Ground.getHeight(x, y + 1),
+            Ground.getHeight(x + 1, y + 1),
+            Ground.getHeight(x + 1, y)
+        ];
+
+        if (inPoint == 1) {
+
+            Vector3[3] positionData = [
+                Vector3(pData[0].x, heightData[0], pData[0].y),
+                Vector3(pData[1].x, heightData[1], pData[1].y),
+                Vector3(pData[2].x, heightData[2], pData[2].y),
+            ];
+
+            DrawLine3D(positionData[0], positionData[1], Colors.RED);
+            DrawLine3D(positionData[1], positionData[2], Colors.RED);
+            DrawLine3D(positionData[0], positionData[2], Colors.RED);
+
+            return calculateY(positionData[0], positionData[1], positionData[2], point);
+
+        } else {
+            Vector3[3] positionData = [
+                Vector3(pData[2].x, heightData[2], pData[2].y),
+                Vector3(pData[3].x, heightData[3], pData[3].y),
+                Vector3(pData[0].x, heightData[0], pData[0].y),
+            ];
+
+            DrawLine3D(positionData[0], positionData[1], Colors.RED);
+            DrawLine3D(positionData[1], positionData[2], Colors.RED);
+            DrawLine3D(positionData[0], positionData[2], Colors.RED);
+
+            return calculateY(positionData[0], positionData[1], positionData[2], point);
+        }
+    };
 
     void createGroundMesh() {
         import raylib;
