@@ -84,6 +84,8 @@ void main() {
 
 				ModelHandler.draw("ground", Vector3(0, 0, 0));
 
+				ModelHandler.draw("water", Vector3(0, 0, 0));
+
 				// ModelHandler.draw(blah2.model, blah2.position);
 
 			}
