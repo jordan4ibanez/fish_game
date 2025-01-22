@@ -62,8 +62,8 @@ private:
         noise.noise_type = FNLNoiseType.FNL_NOISE_PERLIN;
         noise.frequency = 1;
 
-        waterWidth = ((groundSize[0] + 1) * 4) - 1;
-        waterHeight = ((groundSize[1] + 1) * 4) - 1;
+        waterWidth = groundSize[0] * 4;
+        waterHeight = groundSize[1] * 4;
 
         waterData = new float[][](waterWidth + 1, waterHeight + 1);
 
