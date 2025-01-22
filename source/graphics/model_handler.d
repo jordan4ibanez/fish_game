@@ -100,6 +100,29 @@ private:
         return database[modelName];
     }
 
+    public void updateModelPositionsInGPU(string modelName) {
+        if (modelName !in database) {
+            throw new Error(
+                "[ModelManager]: Tried to update non-existent model [" ~ modelName ~ "]");
+        }
+
+        const Model* thisModel = database[modelName];
+
+        /*
+#define RL_DEFAULT_SHADER_ATTRIB_LOCATION_POSITION    0
+#define RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD    1
+#define RL_DEFAULT_SHADER_ATTRIB_LOCATION_NORMAL      2
+#define RL_DEFAULT_SHADER_ATTRIB_LOCATION_COLOR       3
+#define RL_DEFAULT_SHADER_ATTRIB_LOCATION_TANGENT     4
+#define RL_DEFAULT_SHADER_ATTRIB_LOCATION_TEXCOORD2   5
+#define RL_DEFAULT_SHADER_ATTRIB_LOCATION_INDICES     6
+        */
+
+        foreach (i, thisMesh; thisModel.meshes[0 .. thisModel.meshCount]) {
+            UpdateMeshBuffer(cast(Mesh) thisMesh, 0, thisMesh.vertices, thisMesh.vertices.sizeof, 0);
+        }
+    }
+
     public void destroy(string modelName) {
         if (modelName !in database) {
             throw new Error("[ModelManager]: Tried to destroy non-existent model. " ~ modelName);
