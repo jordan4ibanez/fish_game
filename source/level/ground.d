@@ -45,7 +45,7 @@ private:
         return tuple(mapWidth, mapHeight);
     }
 
-    public float getHeight(float x, float y) {
+    public float getHeightAtPosition(float x, float y) {
         return heightCalculation(Vector2(x, y));
     }
 
