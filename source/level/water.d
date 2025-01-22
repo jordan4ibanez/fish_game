@@ -21,6 +21,8 @@ private:
 
     bool loaded = false;
 
+    //? Water frequently updates, so this is implemented in a special way.
+
     //* BEGIN PUBLIC API.
 
     public void load() {
