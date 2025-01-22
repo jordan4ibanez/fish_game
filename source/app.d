@@ -37,7 +37,8 @@ void main() {
 
 	InitWindow(monitorWidth / 2, monitorHeight / 2, "Fish Game");
 
-	SetTargetFPS(60);
+	SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
+	SetTargetFPS(0);
 
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
 	rlDisableBackfaceCulling();
