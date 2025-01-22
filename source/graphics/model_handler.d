@@ -91,6 +91,15 @@ private:
         thisModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *thisTexture;
     }
 
+    public Model* getModelPointer(string modelName) {
+        if (modelName !in database) {
+            throw new Error(
+                "[ModelManager]: Tried to set get non-existent model pointer [" ~ modelName ~ "]");
+        }
+
+        return database[modelName];
+    }
+
     public void destroy(string modelName) {
         if (modelName !in database) {
             throw new Error("[ModelManager]: Tried to destroy non-existent model. " ~ modelName);
