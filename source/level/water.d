@@ -46,7 +46,7 @@ private:
     //* BEGIN PUBLIC API.
 
     public void draw() {
-        ModelHandler.draw("water", Vector3(0, 0, 0), Vector3(0, 0, 0), 1.0, Color(255, 255, 255, 100));
+        ModelHandler.draw("water", Vector3(0, 0, 0), Vector3(0, 0, 0), 1.0, Color(255, 255, 255, 200));
     }
 
     public void load() {
