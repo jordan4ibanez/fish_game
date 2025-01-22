@@ -9,6 +9,7 @@ static:
 private:
 
     bool loaded = false;
+    bool paused = false;
 
     //* BEGIN PUBLIC API.
 
@@ -28,6 +29,9 @@ private:
     }
 
     public void update() {
+        if (paused) {
+            return;
+        }
         Water.update();
         FishTank.update();
     }
@@ -36,6 +40,10 @@ private:
         Ground.draw();
         FishTank.draw();
         Water.draw();
+    }
+
+    public void togglePause() {
+        paused = !paused;
     }
 
     //* BEGIN INTERNAL API.
