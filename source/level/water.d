@@ -79,9 +79,13 @@ private:
         loaded = true;
     }
 
-    int skip = 0;
+    bool skip = false;
 
     public void update() {
+        skip = !skip;
+        if (skip) {
+            return;
+        }
 
         // todo: use delta.
         waterRoll += 0.01;
