@@ -34,6 +34,8 @@ private:
 
     public void draw() {
         FishTank.draw();
+
+        Water.draw();
     }
 
     //* BEGIN INTERNAL API.
