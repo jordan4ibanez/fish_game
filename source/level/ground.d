@@ -75,6 +75,8 @@ private:
     float heightCalculation(Vector2 point) {
         import raylib;
 
+        // todo: clamp this inside the map after the other clamps are added.
+
         int x = cast(int) floor(point.x);
         int y = cast(int) floor(point.y);
 
