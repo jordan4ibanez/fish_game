@@ -45,6 +45,10 @@ private:
 
     //* BEGIN PUBLIC API.
 
+    public void draw() {
+        ModelHandler.draw("water", Vector3(0, 0, 0), Vector3(0, 0, 0), 1.0, Color(255, 255, 255, 100));
+    }
+
     public void load() {
 
         Tuple!(int, int) groundSize = Ground.getSize();
