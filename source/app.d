@@ -10,6 +10,7 @@ import std.conv;
 import std.stdio;
 import std.typecons;
 import utility.window;
+import level.water;
 
 void main() {
 
@@ -63,6 +64,8 @@ void main() {
 	while (Window.shouldStayOpen()) {
 
 		UpdateCamera(camera, CameraMode.CAMERA_FREE);
+
+		Water.update();
 
 		// foreach (i; 0 .. 13) {
 		// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
