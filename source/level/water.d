@@ -1,11 +1,11 @@
 module level.water;
 
+import fast_noise;
 import graphics.model_handler;
 import graphics.texture_handler;
 import level.ground;
 import raylib;
 import std.conv;
-import std.math;
 import std.random;
 import std.stdio;
 import std.typecons;
@@ -19,7 +19,8 @@ private:
     // Try to update with sin cos etc.
 
     float waterRoll = 0;
-    float waveScale = 0.7;
+    float waveScale = 10;
+    float waveMagnitude = 0.01;
 
     // Water has 39 frames.
     immutable int minWaterTexture = 0;
@@ -33,6 +34,8 @@ private:
     int waterHeight = 0;
 
     float[][] waterData;
+
+    FNLState* noise = null;
 
     //? Water frequently updates, so this is implemented in a special way.
 
@@ -49,6 +52,14 @@ private:
                 TextureHandler.loadTexture("textures/water/water_" ~ to!string(i) ~ ".png");
             }
         }
+
+        noise = new FNLState();
+
+        *noise = fnlCreateState();
+
+        noise.seed = unpredictableSeed();
+        noise.noise_type = FNLNoiseType.FNL_NOISE_PERLIN;
+        noise.frequency = 1;
 
         waterWidth = ((groundSize[0] + 1) * 4) - 1;
         waterHeight = ((groundSize[1] + 1) * 4) - 1;
@@ -77,10 +88,9 @@ private:
         foreach (x; 0 .. waterWidth + 1) {
             foreach (y; 0 .. waterHeight + 1) {
 
-                float xer = sin((x * waveScale) + waterRoll);
-                float yer = sin((y * waveScale) + waterRoll);
+                waterData[x][y] = noise.fnlGetNoise2D(((x * tileWidth) * waveScale) + waterRoll, (
+                        (y * tileWidth) * waveScale) + waterRoll) * waveMagnitude;
 
-                waterData[x][y] = (xer + yer) / 2.0;
             }
         }
 
@@ -168,7 +178,6 @@ private:
                 ];
             }
         }
-        writeln("vertex: ", vertices.length);
         return vertices;
     }
 
