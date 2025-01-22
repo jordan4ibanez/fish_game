@@ -1,5 +1,6 @@
 module level.water;
 
+import core.stdc.tgmath;
 import fast_noise;
 import graphics.model_handler;
 import graphics.texture_handler;
@@ -9,6 +10,7 @@ import std.conv;
 import std.random;
 import std.stdio;
 import std.typecons;
+import utility.collision_math;
 
 static final const class Water {
 static:
@@ -158,7 +160,78 @@ private:
         ModelHandler.updateModelPositionsInGPU("water");
     }
 
+    public float getCollisionPoint(float x, float y) {
+        return heightCalculation(Vector2(x, y));
+    }
+
     //* BEGIN INTERNAL API.
+
+    float getHeightAtNode(int x, int y) {
+        return waterData[x][y];
+    }
+
+    float heightCalculation(Vector2 point) {
+        import raylib;
+
+        // todo: clamp this inside the map after the other clamps are added.
+
+        int adjustedX = cast(int) floor(point.x / tileWidth);
+        int adjustedY = cast(int) floor(point.y / tileWidth);
+
+        float scaledx = adjustedX * tileWidth;
+        float scaledY = adjustedY * tileWidth;
+
+        Vector2[4] pData = [
+            Vector2(scaledx, scaledY),
+            Vector2(scaledx, scaledY + tileWidth),
+            Vector2(scaledx + tileWidth, scaledY + tileWidth),
+            Vector2(scaledx + tileWidth, scaledY),
+        ];
+
+        const int inPoint = () {
+            if (pointInTriangle(point, pData[0], pData[1], pData[2])) {
+                return 1;
+            } else if (pointInTriangle(point, pData[2], pData[3], pData[0])) {
+                return 2;
+            }
+            throw new Error("In non-existent position.");
+        }();
+
+        float[4] heightData = [
+            getHeightAtNode(adjustedX, adjustedY),
+            getHeightAtNode(adjustedX, adjustedY + 1),
+            getHeightAtNode(adjustedX + 1, adjustedY + 1),
+            getHeightAtNode(adjustedX + 1, adjustedY)
+        ];
+
+        if (inPoint == 1) {
+
+            Vector3[3] positionData = [
+                Vector3(pData[0].x, heightData[0], pData[0].y),
+                Vector3(pData[1].x, heightData[1], pData[1].y),
+                Vector3(pData[2].x, heightData[2], pData[2].y),
+            ];
+
+            DrawLine3D(positionData[0], positionData[1], Colors.GREEN);
+            DrawLine3D(positionData[1], positionData[2], Colors.GREEN);
+            DrawLine3D(positionData[0], positionData[2], Colors.GREEN);
+
+            return calculateY(positionData[0], positionData[1], positionData[2], point);
+
+        } else {
+            Vector3[3] positionData = [
+                Vector3(pData[2].x, heightData[2], pData[2].y),
+                Vector3(pData[3].x, heightData[3], pData[3].y),
+                Vector3(pData[0].x, heightData[0], pData[0].y),
+            ];
+
+            DrawLine3D(positionData[0], positionData[1], Colors.GREEN);
+            DrawLine3D(positionData[1], positionData[2], Colors.GREEN);
+            DrawLine3D(positionData[0], positionData[2], Colors.GREEN);
+
+            return calculateY(positionData[0], positionData[1], positionData[2], point);
+        }
+    }
 
     void resetWaterData() {
 
