@@ -162,7 +162,7 @@ void main() {
 			BeginMode3D(*camera);
 			{
 
-				float yHeight = heightCalculation(testPoint);
+				float yHeight = Ground.getHeight(testPoint.x, testPoint.y);
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
 				DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);

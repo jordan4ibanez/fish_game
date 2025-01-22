@@ -34,7 +34,7 @@ private:
     }
 
     public float getHeight(float x, float y) {
-        return 0;
+        return heightCalculation(Vector2(x, y));
     }
 
     //* BEGIN INTERNAL API.
@@ -128,7 +128,7 @@ private:
 
             return calculateY(positionData[0], positionData[1], positionData[2], point);
         }
-    };
+    }
 
     void createGroundMesh() {
         import raylib;
