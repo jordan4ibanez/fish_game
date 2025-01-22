@@ -72,7 +72,9 @@ void main() {
 			Window.toggleMouseLock();
 		}
 
-		UpdateCamera(camera, CameraMode.CAMERA_FREE);
+		if (Window.isMouseLocked()) {
+			UpdateCamera(camera, CameraMode.CAMERA_FREE);
+		}
 
 		Level.update();
 

@@ -68,6 +68,10 @@ private:
         }
     }
 
+    public bool isMouseLocked() {
+        return mouseLocked;
+    }
+
     //* BEGIN INTERNAL API.
 
     void updateSystem() {
