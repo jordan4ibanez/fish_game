@@ -1,5 +1,6 @@
 module level.level;
 
+import level.fish_tank;
 import level.ground;
 import level.water;
 
@@ -28,6 +29,7 @@ private:
 
     public void update() {
         Water.update();
+        FishTank.update();
     }
 
     //* BEGIN INTERNAL API.
