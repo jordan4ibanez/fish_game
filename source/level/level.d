@@ -26,6 +26,10 @@ private:
         loaded = false;
     }
 
+    public void update() {
+        Water.update();
+    }
+
     //* BEGIN INTERNAL API.
 
 }

@@ -74,7 +74,7 @@ void main() {
 
 		UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
-		Water.update();
+		Level.update();
 
 		// foreach (i; 0 .. 13) {
 		// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
