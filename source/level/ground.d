@@ -41,6 +41,14 @@ private:
         return tuple(mapWidth, mapHeight);
     }
 
+    public float getWidth() {
+        return mapWidth;
+    }
+
+    public float getHeight() {
+        return mapHeight;
+    }
+
     public float getCollisionPoint(float x, float y) {
         return heightCalculation(Vector2(x, y));
     }
