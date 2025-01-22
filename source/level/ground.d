@@ -4,6 +4,7 @@ import core.stdc.tgmath;
 import gamut.image;
 import gamut.types;
 import graphics.model_handler;
+import graphics.texture_handler;
 import raylib.raylib_types;
 import std.stdio;
 import std.string;
@@ -20,9 +21,11 @@ private:
 
     //* BEGIN PUBLIC API.
 
-    public void load(string location) {
-        loadMapData(location);
+    public void load(string levelLocation) {
+        loadMapData(levelLocation ~ "height_map.png");
         createGroundMesh();
+        TextureHandler.loadTexture(levelLocation ~ "texture_map.png");
+        ModelHandler.setModelTexture("ground", "texture_map.png");
     }
 
     public float getHeight(int x, int y) {
@@ -199,9 +202,9 @@ private:
     void loadMapData(string location) {
         Image image;
 
-        const string fileName = loadImage(location, &image);
+        loadImage(location, &image);
 
-        checkImage(&image);
+        checkImage(location, &image);
 
         // -1 because these pixels make quads.
         mapWidth = image.width - 1;
@@ -237,44 +240,39 @@ private:
         // }
     }
 
-    string loadImage(string location, Image* image) {
+    void loadImage(string location, Image* image) {
 
         if (!endsWith(location, ".png")) {
             throw new Exception("[Heightmap]: Not .png");
         }
 
-        const string fileName = () {
-            string[] data = split(location, "/");
-            if (data.length <= 1) {
-                throw new Exception("[Heightmap]: Do not put heightmaps in the root.");
-            }
-            const string output = data[cast(long) data.length - 1];
-            if (output.length <= 0) {
-                throw new Exception("[Heightmap]: String became 0 length.");
-            }
-            return output;
-        }();
+        string[] data = split(location, "/");
+        if (data.length <= 1) {
+            throw new Exception("[Heightmap]: Do not put heightmaps in the root.");
+        }
+        const string output = data[cast(long) data.length - 1];
+        if (output.length <= 0) {
+            throw new Exception("[Heightmap]: String became 0 length.");
+        }
 
         image.loadFromFile(location);
-
-        return fileName;
     }
 
-    void checkImage(Image* image) {
+    void checkImage(string location, Image* image) {
         if (image.isError()) {
-            throw new Exception(cast(string) image.errorMessage());
+            throw new Exception(cast(string) image.errorMessage() ~ ". " ~ location);
         }
 
         if (!image.isValid) {
-            throw new Exception("[Heightmap]: Invalid image.");
+            throw new Exception("[Heightmap]: Invalid image. " ~ location);
         }
 
         if (!image.is16Bit()) {
-            throw new Exception("[Heightmap]: Not 16 bit.");
+            throw new Exception("[Heightmap]: Not 16 bit. " ~ location);
         }
 
         if (image.type() != PixelType.l16) {
-            throw new Exception("[Heightmap]: Wrong endianness.");
+            throw new Exception("[Heightmap]: Wrong endianness. " ~ location);
         }
     }
 
