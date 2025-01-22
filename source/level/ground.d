@@ -37,19 +37,19 @@ private:
         loaded = true;
     }
 
-    public float getHeightAtNode(int x, int y) {
-        return mapData[x][y];
-    }
-
     public Tuple!(int, int) getSize() {
         return tuple(mapWidth, mapHeight);
     }
 
-    public float getHeightAtPosition(float x, float y) {
+    public float getCollisionPoint(float x, float y) {
         return heightCalculation(Vector2(x, y));
     }
 
     //* BEGIN INTERNAL API.
+
+    float getHeightAtNode(int x, int y) {
+        return mapData[x][y];
+    }
 
     // Begin stackoverflow.
     // https://stackoverflow.com/a/2049593
