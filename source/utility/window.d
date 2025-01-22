@@ -9,6 +9,7 @@ static:
 private:
 
     bool maximized = false;
+    bool mouseLocked = false;
 
     //* BEGIN PUBLIC API.
 
@@ -32,11 +33,39 @@ private:
     }
 
     public void maximize() {
+        maximized = true;
         MaximizeWindow();
     }
 
     public void unmaximize() {
+        maximized = false;
         RestoreWindow();
+    }
+
+    public void toggleMaximize() {
+        if (maximized) {
+            unmaximize();
+        } else {
+            maximize();
+        }
+    }
+
+    public void lockMouse() {
+        mouseLocked = true;
+        DisableCursor();
+    }
+
+    public void unlockMouse() {
+        mouseLocked = false;
+        EnableCursor();
+    }
+
+    public void toggleMouseLock() {
+        if (mouseLocked) {
+            unlockMouse();
+        } else {
+            lockMouse();
+        }
     }
 
     //* BEGIN INTERNAL API.
