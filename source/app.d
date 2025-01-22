@@ -4,6 +4,7 @@ import graphics.model_handler;
 import graphics.texture_handler;
 import level.fish_definitions;
 import level.ground;
+import level.level;
 import raylib;
 import std.conv;
 import std.stdio;
@@ -39,9 +40,7 @@ void main() {
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
 	rlDisableBackfaceCulling();
 
-	Ground.load("levels/4square.png");
-	TextureHandler.loadTexture("textures/test.png");
-	ModelHandler.setModelTexture("ground", "test.png");
+	Level.load("levels/");
 
 	ModelHandler.loadModelFromFile("models/largemouth.glb");
 	TextureHandler.loadTexture("models/largemouth.png");
