@@ -99,7 +99,7 @@ void main() {
 
 				// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
 
-				ModelHandler.draw("ground", Vector3(0, 0, 0));
+				
 
 				// ModelHandler.draw(blah2.model, blah2.position);
 

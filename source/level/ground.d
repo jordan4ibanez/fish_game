@@ -22,6 +22,10 @@ private:
 
     //* BEGIN PUBLIC API.
 
+    public void draw() {
+        ModelHandler.draw("ground", Vector3(0, 0, 0));
+    }
+
     public void load(string levelLocation) {
         if (loaded) {
             throw new Error("Clean up the ground.");
