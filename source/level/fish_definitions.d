@@ -1,6 +1,7 @@
 module level.fish_definitions;
 
 import raylib;
+import std.stdio;
 
 abstract class Fish {
     Vector3 position = Vector3(0, 0, 0);
@@ -13,6 +14,10 @@ abstract class Fish {
 
     @property string model() {
         return this.__model;
+    }
+
+    void update() {
+        writeln("updating");
     }
 }
 
