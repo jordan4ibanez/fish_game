@@ -32,6 +32,10 @@ private:
         FishTank.update();
     }
 
+    public void draw() {
+        FishTank.draw();
+    }
+
     //* BEGIN INTERNAL API.
 
 }
