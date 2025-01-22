@@ -2,6 +2,7 @@ import core.stdc.tgmath;
 import graphics.font_handler;
 import graphics.model_handler;
 import graphics.texture_handler;
+import input.keyboard;
 import level.fish_definitions;
 import level.ground;
 import level.level;
@@ -62,6 +63,14 @@ void main() {
 	LargeMouthBass blah2 = new LargeMouthBass();
 
 	while (Window.shouldStayOpen()) {
+
+		if (Keyboard.isPressed(KeyboardKey.KEY_F1)) {
+			Window.toggleMaximize();
+		}
+
+		if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
+			Window.toggleMouseLock();
+		}
 
 		UpdateCamera(camera, CameraMode.CAMERA_FREE);
 
