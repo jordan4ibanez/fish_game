@@ -37,6 +37,10 @@ private:
         Texture2D* thisTexture = new Texture2D();
         *thisTexture = LoadTexture(toStringz(location));
 
+        if (!IsTextureValid(*thisTexture)) {
+            throw new Error("[TextureManager]: Texture [" ~ location ~ "] is invalid.");
+        }
+
         database[fileName] = thisTexture;
     }
 
