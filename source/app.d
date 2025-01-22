@@ -20,10 +20,6 @@ void main() {
 
 	validateRaylibBinding();
 
-	// LargeMouthBass blah2 = new LargeMouthBass();
-
-	// writeln(blah2.model);
-
 	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
 	SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
@@ -42,7 +38,7 @@ void main() {
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
 	rlDisableBackfaceCulling();
 
-	Ground.load("levels/test_height_map.png");
+	Ground.load("levels/4square.png");
 	TextureHandler.loadTexture("textures/test.png");
 	ModelHandler.setModelTexture("ground", "test.png");
 
@@ -62,98 +58,11 @@ void main() {
 	DisableCursor();
 	Window.maximize();
 
-	Vector2 testPoint = Vector2(0, 0);
-	bool up = true;
-
-	byte test = 0;
-	// The width and height are even for this test.
-	immutable float realMapSize = cast(float) Ground.getSize()[0];
-	immutable float testMax = cast(float) Ground.getSize()[0] - 0.01;
-	immutable float speed = 0.1;
+	LargeMouthBass blah2 = new LargeMouthBass();
 
 	while (Window.shouldStayOpen()) {
 
 		UpdateCamera(camera, CameraMode.CAMERA_FREE);
-
-		if (test == 0) {
-			if (up) {
-				testPoint.x += speed;
-				if (testPoint.x >= testMax) {
-					testPoint.x = testMax;
-					up = false;
-				}
-			} else {
-				testPoint.x -= speed;
-				if (testPoint.x <= 0.01) {
-					testPoint.x = 0.01;
-					up = !up;
-					test++;
-				}
-			}
-			testPoint = Vector2(testPoint.x, realMapSize - testPoint.x);
-		} else if (test == 1) {
-			bool ignore = false;
-			if (up) {
-				testPoint.x += speed;
-				if (testPoint.x >= testMax) {
-					testPoint.x = testMax;
-					up = false;
-				}
-			} else {
-				testPoint.x -= speed;
-				if (testPoint.x <= 0.01) {
-					testPoint.x = 0.01;
-					up = !up;
-					test++;
-					testPoint.x = 0;
-					testPoint.y = 0;
-					ignore = true;
-				}
-			}
-			if (!ignore) {
-				testPoint = Vector2(testPoint.x, realMapSize / 2);
-			}
-		} else if (test == 2) {
-			bool ignore = false;
-			if (up) {
-				testPoint.y += speed;
-				if (testPoint.y >= testMax) {
-					testPoint.y = testMax;
-					up = false;
-				}
-			} else {
-				testPoint.y -= speed;
-				if (testPoint.y <= 0.01) {
-					testPoint.y = 0.01;
-					up = !up;
-					test++;
-					ignore = true;
-					testPoint.x = 0;
-					testPoint.y = 0;
-				}
-			}
-			if (!ignore) {
-				testPoint = Vector2(realMapSize / 2, testPoint.y);
-			}
-		} else if (test == 3) {
-			if (up) {
-				testPoint.x += speed;
-				if (testPoint.x >= testMax) {
-					testPoint.x = testMax;
-					up = false;
-				}
-			} else {
-				testPoint.x -= speed;
-				if (testPoint.x <= 0.01) {
-					testPoint.x = 0.0;
-					up = !up;
-					test = 0;
-				}
-			}
-			testPoint = Vector2(testPoint.x, testPoint.x);
-		}
-
-		writeln("point: ", testPoint);
 
 		// foreach (i; 0 .. 13) {
 		// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
@@ -166,12 +75,12 @@ void main() {
 			BeginMode3D(*camera);
 			{
 
-				float yHeight = Ground.getHeight(testPoint.x, testPoint.y);
+				// float yHeight = Ground.getHeight(testPoint.x, testPoint.y);
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
-				DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);
+				// DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);
 
-				DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
+				// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
 
 				ModelHandler.draw("ground", Vector3(0, 0, 0));
 

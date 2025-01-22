@@ -209,7 +209,7 @@ private:
 
         mapData = new float[][](image.width, image.height);
 
-        const float scale = 5;
+        immutable float scale = 7;
 
         for (int y = 0; y < image.height; y++) {
 
