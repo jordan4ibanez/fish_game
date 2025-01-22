@@ -31,6 +31,9 @@ private:
 
     immutable float tileWidth = 0.25;
 
+    // This is how high the water is.
+    float waterLevel = 2.0;
+
     int waterWidth = 0;
     int waterHeight = 0;
 
@@ -93,8 +96,8 @@ private:
         foreach (x; 0 .. waterWidth + 1) {
             foreach (y; 0 .. waterHeight + 1) {
 
-                waterData[x][y] = noise.fnlGetNoise2D(((x * tileWidth) * waveScale) + waterRoll, (
-                        (y * tileWidth) * waveScale) + waterRoll) * waveMagnitude;
+                waterData[x][y] = waterLevel + (noise.fnlGetNoise2D(((x * tileWidth) * waveScale) + waterRoll, (
+                        (y * tileWidth) * waveScale) + waterRoll) * waveMagnitude);
 
             }
         }
