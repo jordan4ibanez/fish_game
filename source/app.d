@@ -92,14 +92,12 @@ void main() {
 
 				Level.draw();
 
-				// float yHeight = Ground.getHeight(testPoint.x, testPoint.y);
+				// float yHeight = Ground.getHeightAtPosition(testPoint.x, testPoint.y);
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
 				// DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);
 
 				// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
-
-				
 
 				// ModelHandler.draw(blah2.model, blah2.position);
 
