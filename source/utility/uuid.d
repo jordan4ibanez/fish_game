@@ -6,7 +6,7 @@ private:
 
     //? Don't use this for network security lol.
 
-    ulong currentID;
+    ulong currentID = 1;
 
     //* BEGIN PUBLIC API.
 

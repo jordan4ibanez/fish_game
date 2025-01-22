@@ -7,6 +7,7 @@ abstract class Fish {
     // Pitch and yaw.
     Vector2 rotation = Vector2(0, 0);
     float scale = 1;
+    ulong id = 0;
 
     string __model = "undefined";
 
