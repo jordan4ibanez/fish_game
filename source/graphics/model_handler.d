@@ -119,7 +119,8 @@ private:
         */
 
         foreach (i, thisMesh; thisModel.meshes[0 .. thisModel.meshCount]) {
-            UpdateMeshBuffer(cast(Mesh) thisMesh, 0, thisMesh.vertices, thisMesh.vertices.sizeof, 0);
+            UpdateMeshBuffer(cast(Mesh) thisMesh, 0, &thisMesh.vertices[0], cast(int)(
+                    thisMesh.vertexCount * 3 * float.sizeof), 0);
         }
     }
 
