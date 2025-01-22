@@ -5,6 +5,7 @@ import graphics.texture_handler;
 import level.ground;
 import raylib;
 import std.conv;
+import std.random;
 import std.stdio;
 import std.typecons;
 
@@ -64,6 +65,59 @@ private:
         loaded = true;
     }
 
+    int skip = 0;
+
+    public void update() {
+
+        auto rnd = Random(unpredictableSeed);
+
+        foreach (x; 0 .. waterWidth + 1) {
+            foreach (y; 0 .. waterHeight + 1) {
+                waterData[x][y] = uniform(0.0, 0.2, rnd);
+            }
+        }
+
+        // This also automatically uploads the new water data into the gpu.
+        Model* thisModel = ModelHandler.getModelPointer("water");
+        Mesh* thisMesh = thisModel.meshes;
+
+        float[] blah = thisMesh.vertices[0 .. thisMesh.vertexCount * 3];
+
+        // writeln("blah: ", blah.length);
+
+        uint i = 0;
+        foreach (x; 0 .. waterWidth) {
+            foreach (y; 0 .. waterHeight) {
+
+                const float[4] vData = [
+                    waterData[x][y], // 0
+                    waterData[x][y + 1], // 1
+                    waterData[x + 1][y + 1], // 2
+                    waterData[x + 1][y], // 3
+                ];
+                // x0, y1,  z2
+                // x3, y4,  z5
+                // x6, y7,  z8
+
+                // x9, y10,  z11
+                // x12, y13,  z14
+                // x15, y16,  z17
+
+                blah[i + 1] = vData[0];
+                blah[i + 4] = vData[1];
+                blah[i + 7] = vData[2];
+
+                blah[i + 10] = vData[2];
+                blah[i + 13] = vData[3];
+                blah[i + 16] = vData[0];
+
+                i += 18;
+            }
+        }
+
+        ModelHandler.updateModelPositionsInGPU("water");
+    }
+
     //* BEGIN INTERNAL API.
 
     void resetWaterData() {
@@ -93,7 +147,7 @@ private:
                     Vector3(sx + tileWidth, waterData[x + 1][y + 1], sy + tileWidth), // 2
                     Vector3(sx + tileWidth, waterData[x + 1][y], sy) // 3
                 ];
-                writeln(waterData[x][y]);
+                // writeln(waterData[x][y]);
 
                 vertices ~= [
                     // Tri 1.
@@ -107,6 +161,7 @@ private:
                 ];
             }
         }
+        writeln("vertex: ", vertices.length);
         return vertices;
     }
 
