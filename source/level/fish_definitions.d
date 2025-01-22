@@ -12,6 +12,8 @@ abstract class Fish {
     Vector2 rotation = Vector2(0, 0);
     float scale = 1;
     ulong uuid = 0;
+    float collisionDown = 0.2;
+    float collisionUp = 0.2;
 
     string __model = "undefined";
 
@@ -24,12 +26,13 @@ abstract class Fish {
     }
 
     void update() {
-        writeln("updating");
         move();
     }
 
     void move() {
-        writeln("moving");
+        position.x += 0.01;
+        position.z += 0.02;
+
         if (position.x < 1) {
             position.x = 1;
         } else if (position.x > Ground.getWidth() - 1.0) {
@@ -42,7 +45,7 @@ abstract class Fish {
             position.z = Ground.getHeight() - 1.0;
         }
 
-        writeln(position);
+        
 
     }
 }
