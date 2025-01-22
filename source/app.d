@@ -66,6 +66,10 @@ void main() {
 	bool up = true;
 
 	byte test = 0;
+	// The width and height are even for this test.
+	immutable float realMapSize = cast(float) Ground.getSize()[0];
+	immutable float testMax = cast(float) Ground.getSize()[0] - 0.01;
+	immutable float speed = 0.1;
 
 	while (Window.shouldStayOpen()) {
 
@@ -73,30 +77,30 @@ void main() {
 
 		if (test == 0) {
 			if (up) {
-				testPoint.x += 0.01;
-				if (testPoint.x >= 0.99) {
-					testPoint.x = 0.99;
+				testPoint.x += speed;
+				if (testPoint.x >= testMax) {
+					testPoint.x = testMax;
 					up = false;
 				}
 			} else {
-				testPoint.x -= 0.01;
+				testPoint.x -= speed;
 				if (testPoint.x <= 0.01) {
 					testPoint.x = 0.01;
 					up = !up;
 					test++;
 				}
 			}
-			testPoint = Vector2(testPoint.x, 1.00 - testPoint.x);
+			testPoint = Vector2(testPoint.x, realMapSize - testPoint.x);
 		} else if (test == 1) {
 			bool ignore = false;
 			if (up) {
-				testPoint.x += 0.01;
-				if (testPoint.x >= 0.99) {
-					testPoint.x = 0.99;
+				testPoint.x += speed;
+				if (testPoint.x >= testMax) {
+					testPoint.x = testMax;
 					up = false;
 				}
 			} else {
-				testPoint.x -= 0.01;
+				testPoint.x -= speed;
 				if (testPoint.x <= 0.01) {
 					testPoint.x = 0.01;
 					up = !up;
@@ -107,18 +111,18 @@ void main() {
 				}
 			}
 			if (!ignore) {
-				testPoint = Vector2(testPoint.x, 0.5);
+				testPoint = Vector2(testPoint.x, realMapSize / 2);
 			}
 		} else if (test == 2) {
 			bool ignore = false;
 			if (up) {
-				testPoint.y += 0.01;
-				if (testPoint.y >= 0.99) {
-					testPoint.y = 0.99;
+				testPoint.y += speed;
+				if (testPoint.y >= testMax) {
+					testPoint.y = testMax;
 					up = false;
 				}
 			} else {
-				testPoint.y -= 0.01;
+				testPoint.y -= speed;
 				if (testPoint.y <= 0.01) {
 					testPoint.y = 0.01;
 					up = !up;
@@ -129,17 +133,17 @@ void main() {
 				}
 			}
 			if (!ignore) {
-				testPoint = Vector2(0.5, testPoint.y);
+				testPoint = Vector2(realMapSize / 2, testPoint.y);
 			}
 		} else if (test == 3) {
 			if (up) {
-				testPoint.x += 0.01;
-				if (testPoint.x >= 0.99) {
-					testPoint.x = 0.99;
+				testPoint.x += speed;
+				if (testPoint.x >= testMax) {
+					testPoint.x = testMax;
 					up = false;
 				}
 			} else {
-				testPoint.x -= 0.01;
+				testPoint.x -= speed;
 				if (testPoint.x <= 0.01) {
 					testPoint.x = 0.0;
 					up = !up;
@@ -149,7 +153,7 @@ void main() {
 			testPoint = Vector2(testPoint.x, testPoint.x);
 		}
 
-		// writeln("point: ", point);
+		writeln("point: ", testPoint);
 
 		// foreach (i; 0 .. 13) {
 		// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
