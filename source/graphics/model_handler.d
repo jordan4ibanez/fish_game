@@ -25,7 +25,13 @@ private:
 
         Model* thisModel = database[modelName];
 
-        DrawModelEx(*thisModel, position, rotation, 1, Vector3(scale, scale, scale), color);
+        // Have to jump through some hoops to rotate the model correctly.
+        Quaternion quat = QuaternionFromEuler(rotation.x, rotation.y, rotation.z);
+        Vector3 axisRotation;
+        float angle;
+        QuaternionToAxisAngle(quat, &axisRotation, &angle);
+
+        DrawModelEx(*thisModel, position, axisRotation, RAD2DEG * angle, Vector3(scale, scale, scale), color);
     }
 
     public void newModelFromMesh(string modelName, float[] vertices, float[] textureCoordinates, bool dynamic = false) {
