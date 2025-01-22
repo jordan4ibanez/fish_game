@@ -87,6 +87,8 @@ void main() {
 			BeginMode3D(*camera);
 			{
 
+				Level.draw();
+
 				// float yHeight = Ground.getHeight(testPoint.x, testPoint.y);
 
 				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
