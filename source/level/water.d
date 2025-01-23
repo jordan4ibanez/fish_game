@@ -63,7 +63,7 @@ private:
             throw new Error("Clean up the water gpu memory or reuse it.");
         } else {
             // foreach (i; minWaterTextureFrame .. maxWaterTextureFrame + 1) {
-            TextureHandler.loadTexture("textures/water/water.png");
+            TextureHandler.loadTexture("textures/water/water_test.png");
             // }
         }
 
@@ -86,7 +86,8 @@ private:
         float[] textureCoordinates = loadTextureCoordinates();
 
         ModelHandler.newModelFromMesh("water", vertices, textureCoordinates, true);
-        ModelHandler.setModelTexture("water", "water.png");
+        ModelHandler.setModelTexture("water", "water_test.png");
+        ModelHandler.setModelShader("water", "water");
 
         loaded = true;
     }
