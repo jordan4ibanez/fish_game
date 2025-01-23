@@ -3,7 +3,6 @@ module level.level;
 import level.fish_tank;
 import level.ground;
 import level.water;
-import utility.delta;
 
 static final const class Level {
 static:
@@ -33,10 +32,9 @@ private:
         if (paused) {
             return;
         }
-        double delta = Delta.getDelta();
 
         Water.update();
-        FishTank.update(delta);
+        FishTank.update();
     }
 
     public void draw() {

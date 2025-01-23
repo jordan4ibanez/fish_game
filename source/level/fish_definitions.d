@@ -6,6 +6,7 @@ import level.water;
 import raylib;
 import std.stdio;
 import utility.uuid;
+import utility.delta;
 
 abstract class Fish {
     Vector3 oldPosition = Vector3(0, 0, 0);
@@ -29,8 +30,8 @@ abstract class Fish {
         return this.__model;
     }
 
-    void update(double delta) {
-        move(delta);
+    void update() {
+        move();
     }
 
     bool up = true;
@@ -38,8 +39,10 @@ abstract class Fish {
     bool yup = true;
     double ytick = 0;
 
-    void move(double delta) {
+    void move() {
         // writeln("memory:", rotation);
+
+        immutable double delta = Delta.getDelta();
 
         oldPosition = Vector3(position.x, position.y, position.z);
 

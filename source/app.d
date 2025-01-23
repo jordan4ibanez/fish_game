@@ -61,8 +61,6 @@ void main() {
 	// Window.lockMouse();
 	Window.maximize();
 
-	LargeMouthBass blah2 = new LargeMouthBass();
-
 	while (Window.shouldStayOpen()) {
 
 		if (Keyboard.isPressed(KeyboardKey.KEY_F1)) {

@@ -19,7 +19,7 @@ private:
 
     //* BEGIN PUBLIC API.
 
-    public void update(double delta) {
+    public void update() {
         if (database.length == 0) {
             LargeMouthBass newBass = new LargeMouthBass();
             database[newBass.uuid] = newBass;
@@ -28,7 +28,7 @@ private:
         }
 
         foreach (uuid, fish; database) {
-            fish.update(delta);
+            fish.update();
         }
     }
 
