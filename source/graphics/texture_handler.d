@@ -52,6 +52,17 @@ private:
         return database[textureName];
     }
 
+    public void deleteTexture(string textureName) {
+        if (textureName !in database) {
+            throw new Error(
+                "[TextureManager]: Texture does not exist. Cannot delete. " ~ textureName);
+        }
+
+        Texture* thisTexture = database[textureName];
+        UnloadTexture(*thisTexture);
+        database.remove(textureName);
+    }
+
     public void terminate() {
         foreach (textureName, thisTexture; database) {
             UnloadTexture(*thisTexture);
