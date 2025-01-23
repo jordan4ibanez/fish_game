@@ -36,5 +36,13 @@ private:
         return database[shaderName];
     }
 
+    public void terminate() {
+        foreach (shaderName, thisShader; database) {
+            UnloadShader(*thisShader);
+        }
+
+        database.clear();
+    }
+
     //* BEGIN INTERNAL API.
 }
