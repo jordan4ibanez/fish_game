@@ -44,6 +44,8 @@ private:
         TextureHandler.loadTexture(levelLocation ~ "texture_map.png");
         ModelHandler.setModelTexture("ground", "texture_map.png");
 
+        ModelHandler.setModelShader("ground", "ground");
+
         waterHeightUniformLocation = ShaderHandler.getUniformLocation("ground", "waterHeight");
 
         shimmerRollUniformLocation = ShaderHandler.getUniformLocation("ground", "shimmerRoll");
