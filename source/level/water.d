@@ -88,13 +88,16 @@ private:
         loaded = true;
     }
 
-    bool skip = false;
+    byte skip = 0;
 
     public void update() {
-        skip = !skip;
-        if (skip) {
+        skip++;
+
+        if (skip < 10) {
+            // skip = 0;
             return;
         }
+        skip = 0;
 
         // todo: use delta.
         waterRoll += 0.01;
@@ -237,7 +240,7 @@ private:
 
         foreach (x; 0 .. waterWidth + 1) {
             foreach (y; 0 .. waterHeight + 1) {
-                waterData[x][y] = 0;
+                waterData[x][y] = waterLevel;
             }
         }
     }
