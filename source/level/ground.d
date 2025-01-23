@@ -12,6 +12,7 @@ import std.stdio;
 import std.string;
 import std.typecons;
 import utility.collision_math;
+import utility.delta;
 
 static final const class Ground {
 static:
@@ -77,6 +78,12 @@ private:
 
     public float getCollisionPoint(float x, float y) {
         return heightCalculation(Vector2(x, y));
+    }
+
+    public void update() {
+        writeln("updating ground");
+        immutable float delta = Delta.getDelta();
+        ShaderHandler.setFloatUniformFloat("ground", shimmerRollUniformLocation, 0);
     }
 
     //* BEGIN INTERNAL API.
