@@ -27,6 +27,7 @@ private:
 
     int waterHeightUniformLocation = -1;
     int shimmerRollUniformLocation = -1;
+    immutable float groundScale = 7.0;
 
     //* BEGIN PUBLIC API.
 
@@ -213,8 +214,6 @@ private:
 
         mapData = new float[][](image.width, image.height);
 
-        immutable float scale = 7;
-
         for (int y = 0; y < image.height; y++) {
 
             ushort* scan = cast(ushort*) image.scanptr(y);
@@ -227,7 +226,7 @@ private:
 
                 float finalValue = floatingPixelValue / (cast(float) ushort.max);
 
-                mapData[x][y] = (finalValue - 0.5) * scale;
+                mapData[x][y] = (finalValue - 0.5) * groundScale;
             }
         }
 
