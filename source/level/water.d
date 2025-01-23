@@ -3,7 +3,6 @@ module level.water;
 import core.stdc.tgmath;
 import fast_noise;
 import graphics.model_handler;
-import graphics.shader_handler;
 import graphics.texture_handler;
 import level.ground;
 import raylib;
@@ -63,9 +62,9 @@ private:
         if (loaded) {
             throw new Error("Clean up the water gpu memory or reuse it.");
         } else {
-            foreach (i; minWaterTextureFrame .. maxWaterTextureFrame + 1) {
-                TextureHandler.loadTexture("textures/water/water_" ~ to!string(i) ~ ".png");
-            }
+            // foreach (i; minWaterTextureFrame .. maxWaterTextureFrame + 1) {
+            TextureHandler.loadTexture("textures/water/water.png");
+            // }
         }
 
         noise = new FNLState();
@@ -87,21 +86,21 @@ private:
         float[] textureCoordinates = loadTextureCoordinates();
 
         ModelHandler.newModelFromMesh("water", vertices, textureCoordinates, true);
-        ModelHandler.setModelTexture("water", "water_0.png");
-        ModelHandler.setModelShader("water", "water");
-
-        waterUniformLocation = GetShaderLocation(*ShaderHandler.getShaderPointer("water"), "heightData");
-
-        if (waterUniformLocation <= 0) {
-            throw new Error("[Water]: Uniform is invalid " ~ to!string(waterUniformLocation));
-        }
+        ModelHandler.setModelTexture("water", "water.png");
 
         loaded = true;
+    }
+
+    public void reload() {
+        TextureHandler.deleteTexture("water.png");
+        TextureHandler.loadTexture("textures/water/water.png");
+        ModelHandler.setModelTexture("water", "water.png");
     }
 
     double waterUpdateTimer = 0.0;
     double targetTime = 1.0 / 15.0;
     double waveSpeed = 0.25;
+    byte skip = 0;
 
     public void update() {
 
@@ -124,17 +123,6 @@ private:
 
             }
         }
-
-        // todo: make this not be FPS dependent.
-        // skip++;
-        // if (skip > 5) {
-        //     currentWaterFrame += 1;
-        //     if (currentWaterFrame > maxWaterTextureFrame) {
-        //         currentWaterFrame = minWaterTextureFrame;
-        //     }
-        //     ModelHandler.setModelTexture("water", "water_" ~ to!string(currentWaterFrame) ~ ".png");
-        //     skip = 0;
-        // }
 
         // This also automatically uploads the new water data into the gpu.
         Model* thisModel = ModelHandler.getModelPointer("water");
