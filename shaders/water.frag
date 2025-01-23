@@ -2,6 +2,7 @@
 
 in vec2 fragTexCoord;
 in vec4 fragColor;
+in float sheen;
 
 out vec4 finalColor;
 
@@ -11,5 +12,7 @@ uniform vec4 colDiffuse;
 void main()
 {
    vec4 texelColor = texture(texture0, fragTexCoord);
+
    finalColor = texelColor * colDiffuse * fragColor;
+   finalColor.xyz += sheen * 4.0;
 }
