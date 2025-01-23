@@ -11,11 +11,21 @@ out float sheen;
 uniform mat4 mvp;
 
 uniform float waterHeight;
+uniform float groundScale;
 uniform float shimmerRoll;
 
 void main()
 {
-    sheen = vertexPosition.y - waterHeight;
+    // The ground will gradually darken as the water gets deeper.
+    if (vertexPosition.y >= waterHeight) {
+        sheen = 1.0;
+    } else {
+        float maxDistance = (waterHeight + (groundScale / 2));
+        float zeroedPosition = vertexPosition.y + maxDistance;
+        sheen = clamp(zeroedPosition / maxDistance , 0.0, 1.0);
+        sheen *= sheen;
+    }
+
     sheen += shimmerRoll;
 
     fragTexCoord = vertexTexCoord;

@@ -14,5 +14,5 @@ void main()
    vec4 texelColor = texture(texture0, fragTexCoord);
 
    finalColor = texelColor * colDiffuse * fragColor;
-   finalColor.xyz += sheen * 4.0;
+   finalColor.xyz *= sheen;
 }
