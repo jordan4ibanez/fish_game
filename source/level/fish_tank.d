@@ -19,7 +19,7 @@ private:
 
     //* BEGIN PUBLIC API.
 
-    public void update() {
+    public void update(double delta) {
         if (database.length == 0) {
             LargeMouthBass newBass = new LargeMouthBass();
             database[newBass.uuid] = newBass;
@@ -27,7 +27,6 @@ private:
 
         }
 
-        immutable double delta = Delta.getDelta();
         foreach (uuid, fish; database) {
             fish.update(delta);
         }
