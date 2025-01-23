@@ -110,7 +110,9 @@ private:
 
         Model* thisModel = database[modelName];
         Shader* thisShader = ShaderHandler.getShaderPointer(shaderName);
-        thisModel.materials[0].shader = *thisShader;
+        foreach (index; 0 .. thisModel.materialCount) {
+            thisModel.materials[index].shader = *thisShader;
+        }
     }
 
     public Model* getModelPointer(string modelName) {
