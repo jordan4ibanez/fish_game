@@ -20,6 +20,7 @@ void main()
     if (vertexPosition.y >= waterHeight) {
         sheen = 1.0;
     } else {
+        // Divide by two because the heightmap scales from -0.5 to 0.5;
         float maxDistance = (waterHeight + (groundScale / 2));
         float zeroedPosition = vertexPosition.y + maxDistance;
         sheen = clamp(zeroedPosition / maxDistance , 0.0, 1.0);
