@@ -6,6 +6,7 @@ import level.ground;
 import level.water;
 import raylib;
 import std.stdio;
+import utility.delta;
 
 static final const class FishTank {
 static:
@@ -26,8 +27,9 @@ private:
 
         }
 
+        immutable double delta = Delta.getDelta();
         foreach (uuid, fish; database) {
-            fish.update();
+            fish.update(delta);
         }
     }
 
