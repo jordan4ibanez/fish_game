@@ -3,6 +3,7 @@ module utility.window;
 import graphics.font_handler;
 import graphics.gui;
 import raylib;
+import utility.delta;
 
 static final const class Window {
 static:
@@ -75,6 +76,7 @@ private:
     //* BEGIN INTERNAL API.
 
     void updateSystem() {
+        Delta.__calculateDelta();
         GUI.__update(getSize());
         FontHandler.__update();
     }

@@ -2,7 +2,7 @@ module utility.delta;
 
 import core.time;
 
-static final const class Level {
+static final const class Delta {
 static:
 private:
     // Start with delta of a HUGE amount, limited by maxDelta
