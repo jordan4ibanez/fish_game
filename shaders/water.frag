@@ -12,5 +12,4 @@ void main()
 {
    vec4 texelColor = texture(texture0, fragTexCoord);
    finalColor = texelColor * colDiffuse * fragColor;
-   // finalColor.x = 1.0 - finalColor.x;
 }
