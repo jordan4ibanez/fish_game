@@ -1,5 +1,6 @@
 module graphics.model_handler;
 
+import graphics.shader_handler;
 import graphics.texture_handler;
 import raylib;
 import std.container;
@@ -95,6 +96,18 @@ private:
         Model* thisModel = database[modelName];
         Texture2D* thisTexture = TextureHandler.getTexturePointer(textureName);
         thisModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = *thisTexture;
+    }
+
+    public void setModelShader(string modelName, string shaderName) {
+
+        if (modelName !in database) {
+            throw new Error(
+                "[ModelManager]: Tried to set shader on non-existent model [" ~ modelName ~ "]");
+        }
+
+        Model* thisModel = database[modelName];
+        Shader* thisShader = ShaderHandler.getShaderPointer(shaderName);
+        thisModel.materials[0].shader = *thisShader;
     }
 
     public Model* getModelPointer(string modelName) {
