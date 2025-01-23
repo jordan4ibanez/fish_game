@@ -41,6 +41,11 @@ private:
         TextureHandler.loadTexture(levelLocation ~ "texture_map.png");
         ModelHandler.setModelTexture("ground", "texture_map.png");
 
+        waterHeightUniformLocation = ShaderHandler.getUniformLocation("ground", "waterHeight");
+        if (waterHeightUniformLocation == -1) {
+            throw new Error("[Ground]: water height uniform is invalid.");
+        }
+
         loaded = true;
     }
 
