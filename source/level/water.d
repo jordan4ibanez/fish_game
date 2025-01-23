@@ -56,6 +56,10 @@ private:
         ModelHandler.draw("water", Vector3(0, 0, 0), Vector3(0, 0, 0), 1.0, Color(200, 200, 200, 200));
     }
 
+    public float getWaterLevel() {
+        return waterLevel;
+    }
+
     public void load() {
 
         Tuple!(int, int) groundSize = Ground.getSize();
