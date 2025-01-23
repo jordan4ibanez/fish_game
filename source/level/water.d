@@ -3,12 +3,14 @@ module level.water;
 import core.stdc.tgmath;
 import fast_noise;
 import graphics.model_handler;
+import graphics.shader_handler;
 import graphics.texture_handler;
 import level.ground;
 import raylib;
 import std.conv;
 import std.random;
 import std.stdio;
+import std.string;
 import std.typecons;
 import utility.collision_math;
 import utility.delta;
@@ -43,6 +45,8 @@ private:
     float[][] waterData;
 
     FNLState* noise = null;
+
+    int waterUniformLocation = -1;
 
     //? Water frequently updates, so this is implemented in a special way.
 
@@ -85,6 +89,12 @@ private:
         ModelHandler.newModelFromMesh("water", vertices, textureCoordinates, true);
         ModelHandler.setModelTexture("water", "water_0.png");
         ModelHandler.setModelShader("water", "water");
+
+        waterUniformLocation = GetShaderLocation(*ShaderHandler.getShaderPointer("water"), "heightData");
+
+        if (waterUniformLocation <= 0) {
+            throw new Error("[Water]: Uniform is invalid " ~ to!string(waterUniformLocation));
+        }
 
         loaded = true;
     }
