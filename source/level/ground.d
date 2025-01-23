@@ -52,7 +52,7 @@ private:
     }
 
     public void setWaterLevel(float newWaterLevel) {
-        ShaderHandler.setFloatUniformFloat("water", waterHeightUniformLocation, newWaterLevel);
+        ShaderHandler.setFloatUniformFloat("ground", waterHeightUniformLocation, newWaterLevel);
     }
 
     public Tuple!(int, int) getSize() {
