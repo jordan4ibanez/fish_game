@@ -91,6 +91,10 @@ void main() {
 			UpdateCamera(camera, CameraMode.CAMERA_FREE);
 		}
 
+		if (Keyboard.isPressed(KeyboardKey.KEY_F4)) {
+			Water.reload();
+		}
+
 		Level.update();
 
 		// foreach (i; 0 .. 13) {
