@@ -48,7 +48,7 @@ abstract class Fish {
 
         tick += delta;
 
-        if (tick > 50) {
+        if (tick > 3) {
             up = !up;
             tick = 0;
         }
@@ -64,7 +64,7 @@ abstract class Fish {
         }
 
         ytick += delta;
-        if (ytick > 100) {
+        if (ytick > 4) {
             yup = !yup;
             ytick = 0;
         }
