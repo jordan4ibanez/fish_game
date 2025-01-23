@@ -25,6 +25,9 @@ void main()
         float zeroedPosition = vertexPosition.y + maxDistance;
         sheen = clamp(zeroedPosition / maxDistance , 0.0, 1.0);
         sheen *= sheen;
+
+        float shimmerStrenght = 1.0 - sheen;
+
     }
 
     sheen += shimmerRoll;
