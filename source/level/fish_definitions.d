@@ -80,6 +80,11 @@ abstract class Fish {
             position.z = Ground.getHeight() - 1.0;
         }
 
+        smoothRotate();
+
+    }
+
+    void smoothRotate() {
         Vector2 normalized = Vector2Normalize(Vector2Subtract(Vector2(position.x, position
                 .z), Vector2(oldPosition.x, oldPosition.z)));
 
@@ -96,7 +101,6 @@ abstract class Fish {
 
         rotation.y = yaw;
         rotation.x = pitch;
-
     }
 }
 
