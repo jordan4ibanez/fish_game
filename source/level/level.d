@@ -34,6 +34,7 @@ private:
             return;
         }
 
+        Ground.update();
         Water.update();
         FishTank.update();
     }
