@@ -82,6 +82,10 @@ void main() {
 			Window.toggleMouseLock();
 		}
 
+		if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
+			Level.togglePause();
+		}
+
 		if (Window.isMouseLocked()) {
 			UpdateCamera(camera, CameraMode.CAMERA_FREE);
 		}

@@ -9,9 +9,17 @@ out vec4 fragColor;
 
 uniform mat4 mvp;
 
+float rand(vec3 pos){
+    return fract(sin(dot(pos, vec3(12.9898, 34.18232, 78.233))) * 43758.5453);
+}
+
 void main()
 {
     fragTexCoord = vertexTexCoord;
     fragColor = vertexColor;
-    gl_Position = mvp * vec4(vertexPosition, 1.0); 
+
+    gl_Position = mvp * vec4(vertexPosition, 1.0);
+
+    gl_Position.y = vertexPosition.y + rand(gl_Position.xyz);
+    //  vertexPosition.y + rand(vertexPosition), vertexPosition.z 
 }
