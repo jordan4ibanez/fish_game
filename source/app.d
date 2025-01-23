@@ -50,12 +50,10 @@ void main() {
 	ShaderHandler.newShader("water", "shaders/water.vert", "shaders/water.frag");
 
 	SetTargetFPS(0);
-	SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
+	// SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
 
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
 	rlDisableBackfaceCulling();
-
-	Level.load("levels/map_lake/");
 
 	ModelHandler.loadModelFromFile("models/largemouth.glb");
 	TextureHandler.loadTexture("models/largemouth.png");
@@ -69,6 +67,8 @@ void main() {
 	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
 
 	FontHandler.initialize();
+
+	Level.load("levels/map_lake/");
 
 	// Window.lockMouse();
 	// Window.maximize();
