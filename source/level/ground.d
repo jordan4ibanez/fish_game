@@ -23,8 +23,8 @@ private:
 
     float groundShimmerRoll = 0.0;
 
-    int waterLevelUniformBufferLocation = -1;
-    int shimmerRollUniformBufferLocation = -1;
+    int waterHeightUniformLocation = -1;
+    int shimmerRollUniformLocation = -1;
 
     //* BEGIN PUBLIC API.
 
