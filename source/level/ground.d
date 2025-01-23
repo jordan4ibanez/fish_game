@@ -27,6 +27,8 @@ private:
 
     int waterHeightUniformLocation = -1;
     int shimmerRollUniformLocation = -1;
+    int groundScaleUniformLocation = -1;
+
     immutable float groundScale = 7.0;
 
     //* BEGIN PUBLIC API.
