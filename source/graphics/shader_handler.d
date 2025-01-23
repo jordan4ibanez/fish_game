@@ -20,7 +20,12 @@ private:
         Shader* thisShader = new Shader();
         *thisShader = LoadShader(toStringz(vertCodeLocation), toStringz(fragCodeLocation));
 
+        if (!IsShaderValid(*thisShader)) {
+            throw new Error("[ShaderHandler]: Invalid shader. " ~ shaderName);
+        }
+
         database[shaderName] = thisShader;
+
     }
 
     public Shader* getShaderPointer(string shaderName) {
