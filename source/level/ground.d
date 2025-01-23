@@ -52,6 +52,10 @@ private:
 
         shimmerRollUniformLocation = ShaderHandler.getUniformLocation("ground", "shimmerRoll");
 
+        groundScaleUniformLocation = ShaderHandler.getUniformLocation("ground", "groundScale");
+
+        ShaderHandler.setFloatUniformFloat("ground", groundScaleUniformLocation, groundScale);
+
         loaded = true;
     }
 
