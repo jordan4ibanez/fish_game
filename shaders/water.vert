@@ -9,13 +9,18 @@ out vec4 fragColor;
 out float sheen;
 
 uniform mat4 mvp;
+
 uniform float waterHeight;
+uniform float shimmerRoll;
 
 void main()
 {
+    // temporary just to ensure this thing loads.
     sheen = vertexPosition.y - waterHeight;
+    sheen += shimmerRoll;
 
     fragTexCoord = vertexTexCoord;
     fragColor = vertexColor;
+
     gl_Position = mvp * vec4(vertexPosition, 1.0);
 }
