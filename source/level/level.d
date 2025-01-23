@@ -41,7 +41,7 @@ private:
     public void draw() {
         Ground.draw();
         FishTank.draw();
-        Water.draw();
+        // Water.draw();
     }
 
     public void togglePause() {
