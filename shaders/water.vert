@@ -9,10 +9,11 @@ out vec4 fragColor;
 out float sheen;
 
 uniform mat4 mvp;
+uniform float waterHeight;
 
 void main()
 {
-    sheen = vertexPosition.y - 2.0;
+    sheen = vertexPosition.y - waterHeight;
 
     fragTexCoord = vertexTexCoord;
     fragColor = vertexColor;

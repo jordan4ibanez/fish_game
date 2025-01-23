@@ -3,6 +3,7 @@ module level.water;
 import core.stdc.tgmath;
 import fast_noise;
 import graphics.model_handler;
+import graphics.shader_handler;
 import graphics.texture_handler;
 import level.ground;
 import raylib;
@@ -45,7 +46,7 @@ private:
 
     FNLState* noise = null;
 
-    int waterUniformLocation = -1;
+    int waterHeightUniformLocation = -1;
 
     //? Water frequently updates, so this is implemented in a special way.
 
@@ -88,6 +89,11 @@ private:
         ModelHandler.newModelFromMesh("water", vertices, textureCoordinates, true);
         ModelHandler.setModelTexture("water", "water_test.png");
         ModelHandler.setModelShader("water", "water");
+
+        waterHeightUniformLocation = ShaderHandler.getUniformLocation("water", "waterHeight");
+
+        SetShaderValue(*ShaderHandler.getShaderPointer("water"), waterHeightUniformLocation, &waterLevel,
+            ShaderUniformDataType.SHADER_UNIFORM_FLOAT);
 
         loaded = true;
     }
