@@ -81,9 +81,9 @@ private:
     }
 
     public void update() {
-        writeln("updating ground");
         immutable float delta = Delta.getDelta();
-        ShaderHandler.setFloatUniformFloat("ground", shimmerRollUniformLocation, 0);
+        groundShimmerRoll += delta / 2.0;
+        ShaderHandler.setFloatUniformFloat("ground", shimmerRollUniformLocation, groundShimmerRoll);
     }
 
     //* BEGIN INTERNAL API.
