@@ -10,6 +10,7 @@ import level.water;
 import raylib;
 import std.conv;
 import std.stdio;
+import std.string;
 import std.typecons;
 import utility.window;
 
@@ -24,7 +25,7 @@ void main() {
 
 	validateRaylibBinding();
 
-	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
+	SetTraceLogLevel(TraceLogLevel.LOG_ALL);
 
 	SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 
@@ -38,7 +39,7 @@ void main() {
 	InitWindow(monitorWidth / 2, monitorHeight / 2, "Fish Game");
 
 	SetTargetFPS(0);
-	// SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
+	SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
 
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
 	rlDisableBackfaceCulling();
@@ -58,8 +59,18 @@ void main() {
 
 	FontHandler.initialize();
 
+	switch (rlGetVersion()) {
+	case rlGlVersion.RL_OPENGL_11, rlGlVersion.RL_OPENGL_21, rlGlVersion.RL_OPENGL_ES_20:
+		// This will probably still crash on opengl es 3.0 but, we'll cross that bridge.
+		throw new Error("The system is too old.");
+	default:
+
+	}
+
+	Shader test = LoadShader(toStringz("shaders/water.vs"), toStringz("shaders/water.fs"));
+
 	// Window.lockMouse();
-	Window.maximize();
+	// Window.maximize();
 
 	while (Window.shouldStayOpen()) {
 
@@ -87,6 +98,7 @@ void main() {
 			ClearBackground(Colors.SKYBLUE);
 			BeginMode3D(*camera);
 			{
+				BeginShaderMode(test);
 
 				Level.draw();
 
@@ -98,6 +110,8 @@ void main() {
 				// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
 
 				// ModelHandler.draw(blah2.model, blah2.position);
+
+				EndShaderMode();
 
 			}
 			EndMode3D();
