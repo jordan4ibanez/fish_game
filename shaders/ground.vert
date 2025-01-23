@@ -9,11 +9,14 @@ out vec4 fragColor;
 out float sheen;
 
 uniform mat4 mvp;
+
 uniform float waterHeight;
+uniform float shimmerRoll;
 
 void main()
 {
     sheen = vertexPosition.y - waterHeight;
+    sheen += shimmerRoll;
 
     fragTexCoord = vertexTexCoord;
     fragColor = vertexColor;
