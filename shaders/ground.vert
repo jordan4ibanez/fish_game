@@ -103,7 +103,7 @@ void main()
         sheen = clamp(zeroedPosition / maxDistance , 0.0, 1.0);
         sheen *= sheen;
 
-        float shimmerStrength = (0.5 - sheen) / 8.0;
+        float shimmerStrength = sheen / 8.0;
 
         float noise = (snoise(vec3(vertexPosition.x + shimmerRoll, vertexPosition.y, vertexPosition.z)) * shimmerStrength) / 2.0;
 
