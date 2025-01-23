@@ -18,8 +18,8 @@ private:
             throw new Error("[Level]: Unload the level first.");
         }
         // todo: water level parse.
-        Water.load();
         Ground.load(levelDirectory);
+        Water.load();
 
         loaded = true;
     }
