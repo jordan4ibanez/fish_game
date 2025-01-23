@@ -11,6 +11,7 @@ import std.random;
 import std.stdio;
 import std.typecons;
 import utility.collision_math;
+import utility.delta;
 
 static final const class Water {
 static:
@@ -88,19 +89,22 @@ private:
         loaded = true;
     }
 
-    byte skip = 0;
+    double waterUpdateTimer = 0.0;
+    double targetTime = 1.0 / 15.0;
+    double waveSpeed = 0.25;
 
     public void update() {
-        skip++;
 
-        if (skip < 10) {
-            // skip = 0;
+        immutable delta = Delta.getDelta();
+
+        waterUpdateTimer += delta;
+
+        waterRoll += (delta * waveSpeed);
+
+        if (waterUpdateTimer <= targetTime) {
             return;
         }
-        skip = 0;
-
-        // todo: use delta.
-        waterRoll += 0.01;
+        waterUpdateTimer -= targetTime;
 
         foreach (x; 0 .. waterWidth + 1) {
             foreach (y; 0 .. waterHeight + 1) {
