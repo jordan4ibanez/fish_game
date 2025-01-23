@@ -40,6 +40,15 @@ void main() {
 
 	InitWindow(monitorWidth / 2, monitorHeight / 2, "Fish Game");
 
+	switch (rlGetVersion()) {
+	case rlGlVersion.RL_OPENGL_11, rlGlVersion.RL_OPENGL_21, rlGlVersion.RL_OPENGL_ES_20:
+		// This will probably still crash on opengl es 3.0 but, we'll cross that bridge.
+		throw new Error("The system is too old.");
+	default:
+	}
+
+	ShaderHandler.newShader("water", "shaders/water.vert", "shaders/water.frag");
+
 	SetTargetFPS(0);
 	SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
 
@@ -60,15 +69,6 @@ void main() {
 	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
 
 	FontHandler.initialize();
-
-	switch (rlGetVersion()) {
-	case rlGlVersion.RL_OPENGL_11, rlGlVersion.RL_OPENGL_21, rlGlVersion.RL_OPENGL_ES_20:
-		// This will probably still crash on opengl es 3.0 but, we'll cross that bridge.
-		throw new Error("The system is too old.");
-	default:
-	}
-
-	ShaderHandler.newShader("water", "shaders/water.vert", "shaders/water.frag");
 
 	// Window.lockMouse();
 	// Window.maximize();
