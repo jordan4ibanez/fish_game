@@ -92,12 +92,6 @@ private:
         loaded = true;
     }
 
-    public void reload() {
-        TextureHandler.deleteTexture("water.png");
-        TextureHandler.loadTexture("textures/water/water.png");
-        ModelHandler.setModelTexture("water", "water.png");
-    }
-
     double waterUpdateTimer = 0.0;
     double targetTime = 1.0 / 15.0;
     double waveSpeed = 0.25;
