@@ -29,43 +29,46 @@ abstract class Fish {
         return this.__model;
     }
 
-    void update() {
-        move();
+    void update(double delta) {
+        move(delta);
     }
 
     bool up = true;
-    int tick = 0;
+    double tick = 0;
     bool yup = true;
-    int ytick = 0;
+    double ytick = 0;
 
-    void move() {
+    void move(double delta) {
         // writeln("memory:", rotation);
 
         oldPosition = Vector3(position.x, position.y, position.z);
 
-        tick++;
+        tick += delta;
+
         if (tick > 50) {
             up = !up;
             tick = 0;
         }
 
+        immutable double speed = 1.0;
+
         if (up) {
-            position.x += 0.01;
-            position.y += 0.02;
+            position.x += delta * speed;
+            position.y += delta * speed;
         } else {
-            position.x -= 0.01;
-            position.y -= 0.02;
+            position.x -= delta * speed;
+            position.y -= delta * speed;
         }
 
-        ytick++;
+        ytick += delta;
         if (ytick > 100) {
             yup = !yup;
             ytick = 0;
         }
         if (yup) {
-            position.z += 0.02;
+            position.z += delta * speed;
         } else {
-            position.z -= 0.02;
+            position.z -= delta * speed;
         }
 
         if (position.x < 1) {
@@ -97,7 +100,7 @@ abstract class Fish {
                 .y)));
         float pitch = asin(-pitchNormalized.y);
 
-        writeln("new:\n", position, "\nold:\n", oldPosition);
+        // writeln("new:\n", position, "\nold:\n", oldPosition);
 
         rotation.y = yaw;
         rotation.x = pitch;
