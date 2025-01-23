@@ -25,7 +25,22 @@ private:
         }
 
         database[shaderName] = thisShader;
+    }
 
+    public int getUniformLocation(string shaderName, string uniformName) {
+        if (shaderName !in database) {
+            throw new Error(
+                "[ShaderHandler]: Tried to get non-existent shader. " ~ shaderName);
+        }
+
+        int val = GetShaderLocation(*database[shaderName], toStringz(uniformName));
+
+        if (val == -1) {
+            throw new Error(
+                "[ShaderHandler]: Uniform " ~ uniformName ~ " does not exist for shader. " ~ shaderName);
+        }
+
+        return val;
     }
 
     public Shader* getShaderPointer(string shaderName) {
