@@ -21,6 +21,11 @@ private:
     string currentMap = null;
     bool loaded = false;
 
+    float groundShimmerRoll = 0.0;
+
+    int waterLevelUniformBufferLocation = -1;
+    int shimmerRollUniformBufferLocation = -1;
+
     //* BEGIN PUBLIC API.
 
     public void draw() {
@@ -35,6 +40,7 @@ private:
         createGroundMesh();
         TextureHandler.loadTexture(levelLocation ~ "texture_map.png");
         ModelHandler.setModelTexture("ground", "texture_map.png");
+
         loaded = true;
     }
 
