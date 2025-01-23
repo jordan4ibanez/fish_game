@@ -83,8 +83,8 @@ private:
         float[] textureCoordinates = loadTextureCoordinates();
 
         ModelHandler.newModelFromMesh("water", vertices, textureCoordinates, true);
-
         ModelHandler.setModelTexture("water", "water_0.png");
+        ModelHandler.setModelShader("water", "water");
 
         loaded = true;
     }
