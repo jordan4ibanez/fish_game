@@ -18,8 +18,12 @@ void main()
     fragTexCoord = vertexTexCoord;
     fragColor = vertexColor;
 
-    gl_Position = mvp * vec4(vertexPosition, 1.0);
+    vec4 temp = mvp * vec4(vertexPosition, 1.0);
 
-    gl_Position.y = vertexPosition.y + rand(gl_Position.xyz);
+    temp.y += rand(vec3(temp.xyz));
+
+    gl_Position = temp;
+
+    // gl_Position.y = vertexPosition.y + rand(gl_Position.xyz);
     //  vertexPosition.y + rand(vertexPosition), vertexPosition.z 
 }
