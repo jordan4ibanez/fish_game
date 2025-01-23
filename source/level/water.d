@@ -94,7 +94,7 @@ private:
 
     double waterUpdateTimer = 0.0;
     double targetTime = 1.0 / 15.0;
-    double waveSpeed = 0.25;
+    double waveSpeed = 0.5;
     byte skip = 0;
 
     public void update() {
