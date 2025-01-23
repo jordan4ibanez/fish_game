@@ -42,11 +42,14 @@ private:
         ModelHandler.setModelTexture("ground", "texture_map.png");
 
         waterHeightUniformLocation = ShaderHandler.getUniformLocation("ground", "waterHeight");
-        if (waterHeightUniformLocation == -1) {
-            throw new Error("[Ground]: water height uniform is invalid.");
-        }
+
+        shimmerRollUniformLocation = ShaderHandler.getUniformLocation("ground", "shimmerRoll");
 
         loaded = true;
+    }
+
+    public void setWaterLevel(float newWaterLevel) {
+        ShaderHandler.setFloatUniformFloat("water", waterHeightUniformLocation, newWaterLevel);
     }
 
     public Tuple!(int, int) getSize() {
