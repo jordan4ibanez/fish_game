@@ -1,6 +1,7 @@
 import core.stdc.tgmath;
 import graphics.font_handler;
 import graphics.model_handler;
+import graphics.shader_handler;
 import graphics.texture_handler;
 import input.keyboard;
 import level.fish_definitions;
@@ -64,10 +65,9 @@ void main() {
 		// This will probably still crash on opengl es 3.0 but, we'll cross that bridge.
 		throw new Error("The system is too old.");
 	default:
-
 	}
 
-	Shader test = LoadShader(toStringz("shaders/water.vs"), toStringz("shaders/water.fs"));
+	ShaderHandler.newShader("water", "shaders/water.vert", "shaders/water.frag");
 
 	// Window.lockMouse();
 	// Window.maximize();
@@ -102,7 +102,6 @@ void main() {
 			ClearBackground(Colors.SKYBLUE);
 			BeginMode3D(*camera);
 			{
-				BeginShaderMode(test);
 
 				Level.draw();
 
@@ -114,8 +113,6 @@ void main() {
 				// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
 
 				// ModelHandler.draw(blah2.model, blah2.position);
-
-				EndShaderMode();
 
 			}
 			EndMode3D();
