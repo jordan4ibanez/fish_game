@@ -97,6 +97,8 @@ private:
         waterHeightUniformLocation = ShaderHandler.getUniformLocation("water", "waterHeight");
         ShaderHandler.setFloatUniformFloat("water", waterHeightUniformLocation, waterLevel);
 
+        Ground.setWaterLevel(waterLevel);
+
         loaded = true;
     }
 
