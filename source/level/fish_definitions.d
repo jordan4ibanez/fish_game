@@ -20,13 +20,14 @@ enum FishState {
 abstract class Fish {
     Vector3 oldPosition = Vector3(0, 0, 0);
     Vector3 position = Vector3(0, 0, 0);
-
     // Pitch and yaw.
     Vector3 rotation = Vector3(0, 0, 0);
 
     float scale = 1;
     ulong uuid = 0;
     float collisionVertical = 0.2;
+
+    FishState state = FishState.Idle;
 
     string __model = "undefined";
 
