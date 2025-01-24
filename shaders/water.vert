@@ -15,9 +15,9 @@ uniform float waterHeight;
 
 void main()
 {
-    // temporary just to ensure this thing loads.
+    // The water height of the tri defines how much brightness it has.
+    // This simulates the shimmer/sheen of water.
     sheen = vertexPosition.y - waterHeight;
-    
 
     fragTexCoord = vertexTexCoord;
     fragColor = vertexColor;
