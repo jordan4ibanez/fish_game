@@ -48,6 +48,13 @@ private:
                     .GREEN);
             DrawSphere(Vector3(fish.position.x, waterYHeight, fish.position.z), 0.01, Colors.GREEN);
 
+            // Collision point upper.
+            DrawSphere(Vector3Add(fish.position, Vector3(fish.position.x, fish.collisionVertical, fish
+                    .position.z)), 0.01, Colors.BLUE);
+            // Collision point lower.
+            DrawSphere(Vector3Subtract(fish.position, Vector3(fish.position.x, fish.collisionVertical, fish
+                    .position.z)), 0.01, Colors.GREEN);
+
         }
     }
 
