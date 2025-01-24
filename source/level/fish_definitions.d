@@ -6,6 +6,7 @@ import level.water;
 import raylib;
 import std.stdio;
 import utility.delta;
+import utility.math_stuff;
 import utility.uuid;
 
 enum FishState {
@@ -155,15 +156,30 @@ abstract class Fish {
     }
 
     void idle(double delta) {
+        // todo: idle animation.
 
+        writeln("this: ", behaviorTimer);
+
+        behaviorTimer -= delta;
+
+        if (behaviorTimer <= 0.0) {
+            state = randomState();
+            writeln(state);
+        }
     }
 
     void looking(double delta) {
-
+        if (behaviorTimer <= 0.0) {
+            state = randomState();
+            writeln(state);
+        }
     }
 
     void randomTarget(double delta) {
-
+        if (behaviorTimer <= 0.0) {
+            state = randomState();
+            writeln(state);
+        }
     }
 
     void turning(double delta) {
