@@ -17,6 +17,10 @@ enum FishState {
     Fight
 }
 
+FishState randomState() {
+    return [FishState.Idle, FishState.Looking, FishState.RandomTarget][giveRandomInt(0, 3)];
+}
+
 abstract class Fish {
     Vector3 oldPosition = Vector3(0, 0, 0);
     Vector3 position = Vector3(0, 0, 0);
