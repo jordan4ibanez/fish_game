@@ -38,7 +38,9 @@ abstract class Fish {
     string __model = "undefined";
 
     this() {
-        this.uuid = UUID.next();
+        uuid = UUID.next();
+
+        behaviorTimer = giveRandomDouble(0.5, 4.0);
     }
 
     @property string model() {
