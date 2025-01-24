@@ -40,7 +40,35 @@ abstract class Fish {
     }
 
     void update(double delta) {
-        // move();
+        switch (state) {
+        case FishState.Idle: {
+                idle(delta);
+                break;
+            }
+        case FishState.Looking: {
+                looking(delta);
+                break;
+            }
+        case FishState.RandomTarget: {
+                randomTarget(delta);
+                break;
+            }
+        case FishState.Turning: {
+                turning(delta);
+                break;
+            }
+        case FishState.Following: {
+                following(delta);
+                break;
+            }
+        case FishState.Fight: {
+                fight(delta);
+                break;
+            }
+        default: {
+                throw new Error("I don't know how this got to here.");
+            }
+        }
     }
 
     // bool up = true;
@@ -116,6 +144,30 @@ abstract class Fish {
 
         rotation.y = yaw;
         rotation.x = pitch;
+    }
+
+    void idle(double delta) {
+
+    }
+
+    void looking(double delta) {
+
+    }
+
+    void randomTarget(double delta) {
+
+    }
+
+    void turning(double delta) {
+
+    }
+
+    void following(double delta) {
+
+    }
+
+    void fight(double delta) {
+
     }
 }
 
