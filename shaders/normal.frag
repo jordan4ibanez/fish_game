@@ -11,8 +11,11 @@ uniform vec4 colDiffuse;
 
 void main()
 {
-   vec4 texelColor = texture(texture0, fragTexCoord);
+    vec4 texelColor = texture(texture0, fragTexCoord);
 
-   finalColor = texelColor * colDiffuse * fragColor;
-   finalColor.xyz += sheen * 4.0;
+    if (texelColor.a <= 0.1) {
+        discard;
+    }
+
+    finalColor = texelColor * colDiffuse * fragColor;
 }
