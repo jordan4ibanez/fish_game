@@ -169,6 +169,7 @@ abstract class Fish {
     }
 
     void looking(double delta) {
+        // todo: tail turning animation.
         // if (behaviorTimer <= 0.0) {
         //     state = randomState();
         //     writeln(state);
