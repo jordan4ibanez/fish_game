@@ -60,6 +60,7 @@ void main() {
 	ModelHandler.loadModelFromFile("models/largemouth.glb");
 	TextureHandler.loadTexture("models/largemouth.png");
 	ModelHandler.setModelTexture("largemouth.glb", "largemouth.png");
+	ModelHandler.setModelShader("largemouth.glb", "normal");
 
 	Camera* camera = new Camera();
 	camera.position = Vector3(0, 4, 4);
