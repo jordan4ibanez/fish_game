@@ -5,8 +5,17 @@ import level.ground;
 import level.water;
 import raylib;
 import std.stdio;
-import utility.uuid;
 import utility.delta;
+import utility.uuid;
+
+enum FishState {
+    Idle,
+    Looking,
+    RandomTarget,
+    Turning,
+    Following,
+    Fight
+}
 
 abstract class Fish {
     Vector3 oldPosition = Vector3(0, 0, 0);
