@@ -49,6 +49,7 @@ void main() {
 
 	ShaderHandler.newShader("water", "shaders/water.vert", "shaders/water.frag");
 	ShaderHandler.newShader("ground", "shaders/ground.vert", "shaders/ground.frag");
+	ShaderHandler.newShader("normal", "shaders/normal.vert", "shaders/normal.frag");
 
 	SetTargetFPS(0);
 	// SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
