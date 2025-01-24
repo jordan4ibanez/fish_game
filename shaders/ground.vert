@@ -91,8 +91,7 @@ float snoise(vec3 v){
                                 dot(p2,x2), dot(p3,x3) ) );
 }
 
-void main()
-{
+void main() {
     // The ground will gradually darken as the water gets deeper.
     if (vertexPosition.y >= waterHeight) {
         sheen = 1.0;

@@ -13,8 +13,7 @@ uniform mat4 mvp;
 uniform float waterHeight;
 
 
-void main()
-{
+void main() {
     // The water height of the tri defines how much brightness it has.
     // This simulates the shimmer/sheen of water.
     sheen = vertexPosition.y - waterHeight;

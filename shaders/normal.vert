@@ -9,8 +9,7 @@ out vec4 fragColor;
 
 uniform mat4 mvp;
 
-void main()
-{
+void main() {
 
     fragTexCoord = vertexTexCoord;
     fragColor = vertexColor;
