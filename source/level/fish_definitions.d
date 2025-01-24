@@ -38,7 +38,7 @@ abstract class Fish {
         return this.__model;
     }
 
-    void update() {
+    void update(double delta) {
         // move();
     }
 

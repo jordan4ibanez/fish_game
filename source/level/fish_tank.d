@@ -26,9 +26,11 @@ private:
             writeln("spawned new largemouth");
 
         }
+        
+        double delta = Delta.getDelta();
 
         foreach (uuid, fish; database) {
-            fish.update();
+            fish.update(delta);
         }
     }
 
