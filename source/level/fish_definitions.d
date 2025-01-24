@@ -26,10 +26,7 @@ abstract class Fish {
 
     float scale = 1;
     ulong uuid = 0;
-    float collisionDown = 0.2;
-    float collisionUp = 0.2;
-
-    float roat = 0;
+    float collisionVertical = 0.2;
 
     string __model = "undefined";
 
