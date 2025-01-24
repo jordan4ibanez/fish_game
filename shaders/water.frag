@@ -9,10 +9,9 @@ out vec4 finalColor;
 uniform sampler2D texture0;
 uniform vec4 colDiffuse;
 
-void main()
-{
-   vec4 texelColor = texture(texture0, fragTexCoord);
+void main() {
+    vec4 texelColor = texture(texture0, fragTexCoord);
 
-   finalColor = texelColor * colDiffuse * fragColor;
-   finalColor.xyz += sheen * 4.0;
+    finalColor = texelColor * colDiffuse * fragColor;
+    finalColor.xyz += sheen * 4.0;
 }
