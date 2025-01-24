@@ -39,64 +39,64 @@ abstract class Fish {
     }
 
     void update() {
-        move();
+        // move();
     }
 
-    bool up = true;
-    double tick = 0;
-    bool yup = true;
-    double ytick = 0;
+    // bool up = true;
+    // double tick = 0;
+    // bool yup = true;
+    // double ytick = 0;
 
-    void move() {
-        // writeln("memory:", rotation);
+    // void move() {
+    //     // writeln("memory:", rotation);
 
-        immutable double delta = Delta.getDelta();
+    //     immutable double delta = Delta.getDelta();
 
-        oldPosition = Vector3(position.x, position.y, position.z);
+    //     oldPosition = Vector3(position.x, position.y, position.z);
 
-        tick += delta;
+    //     tick += delta;
 
-        if (tick > 3) {
-            up = !up;
-            tick = 0;
-        }
+    //     if (tick > 3) {
+    //         up = !up;
+    //         tick = 0;
+    //     }
 
-        immutable double speed = 1.0;
+    //     immutable double speed = 1.0;
 
-        if (up) {
-            position.x += delta * speed;
-            position.y += delta * speed;
-        } else {
-            position.x -= delta * speed;
-            position.y -= delta * speed;
-        }
+    //     if (up) {
+    //         position.x += delta * speed;
+    //         position.y += delta * speed;
+    //     } else {
+    //         position.x -= delta * speed;
+    //         position.y -= delta * speed;
+    //     }
 
-        ytick += delta;
-        if (ytick > 4) {
-            yup = !yup;
-            ytick = 0;
-        }
-        if (yup) {
-            position.z += delta * speed;
-        } else {
-            position.z -= delta * speed;
-        }
+    //     ytick += delta;
+    //     if (ytick > 4) {
+    //         yup = !yup;
+    //         ytick = 0;
+    //     }
+    //     if (yup) {
+    //         position.z += delta * speed;
+    //     } else {
+    //         position.z -= delta * speed;
+    //     }
 
-        if (position.x < 1) {
-            position.x = 1;
-        } else if (position.x > Ground.getWidth() - 1.0) {
-            position.x = Ground.getWidth() - 1.0;
-        }
+    //     if (position.x < 1) {
+    //         position.x = 1;
+    //     } else if (position.x > Ground.getWidth() - 1.0) {
+    //         position.x = Ground.getWidth() - 1.0;
+    //     }
 
-        if (position.z < 1) {
-            position.z = 1;
-        } else if (position.z > Ground.getHeight() - 1.0) {
-            position.z = Ground.getHeight() - 1.0;
-        }
+    //     if (position.z < 1) {
+    //         position.z = 1;
+    //     } else if (position.z > Ground.getHeight() - 1.0) {
+    //         position.z = Ground.getHeight() - 1.0;
+    //     }
 
-        smoothRotate();
+    //     smoothRotate();
 
-    }
+    // }
 
     void smoothRotate() {
         Vector2 normalized = Vector2Normalize(Vector2Subtract(Vector2(position.x, position
