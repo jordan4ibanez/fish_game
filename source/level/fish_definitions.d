@@ -33,7 +33,7 @@ abstract class Fish {
     float collisionVertical = 0.2;
 
     // Behavioral variables.
-    FishState state = FishState.Idle;
+    FishState state = FishState.Looking;
     double behaviorTimer = 0.0;
 
     string __model = "undefined";
@@ -169,10 +169,10 @@ abstract class Fish {
     }
 
     void looking(double delta) {
-        if (behaviorTimer <= 0.0) {
-            state = randomState();
-            writeln(state);
-        }
+        // if (behaviorTimer <= 0.0) {
+        //     state = randomState();
+        //     writeln(state);
+        // }
     }
 
     void randomTarget(double delta) {
