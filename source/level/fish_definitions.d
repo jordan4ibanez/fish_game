@@ -31,7 +31,9 @@ abstract class Fish {
     ulong uuid = 0;
     float collisionVertical = 0.2;
 
+    // Behavioral variables.
     FishState state = FishState.Idle;
+    double behaviorTimer = 0.0;
 
     string __model = "undefined";
 
