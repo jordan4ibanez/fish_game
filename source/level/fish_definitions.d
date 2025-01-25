@@ -25,7 +25,7 @@ FishState randomState() {
 }
 
 abstract class Fish {
-    Vector3 oldPosition = Vector3(0, 0, 0);
+    // Vector3 oldPosition = Vector3(0, 0, 0);
     Vector3 position = Vector3(0, 0, 0);
     // Pitch and yaw.
     Vector3 rotation = Vector3(0, 0, 0);
@@ -35,10 +35,10 @@ abstract class Fish {
     float collisionVertical = 0.2;
 
     // Behavioral variables.
-    FishState oldState = FishState.Looking;
-    FishState state = FishState.Looking;
+    FishState oldState = FishState.RandomTarget;
+    FishState state = FishState.RandomTarget;
     Vector3 lookTarget;
-    double turnLerpProgress = 0;
+    // double turnLerpProgress = 0;
     double behaviorTimer = 0;
     // double lookAroundTimer = 0;
     bool retrigger = false;
@@ -47,8 +47,8 @@ abstract class Fish {
 
     // These ones can be adjusted based on how aggressive the fish acts.
     double relaxedLookSpeed = 1;
-    double attackLookSpeed = 2;
-    double maxSpeedRelaxed = 1;
+    double attackLookSpeed = 0.03;
+    double maxSpeedRelaxed = 2;
     double accelerationRelaxed = 1;
 
     string __model = "undefined";
@@ -67,8 +67,6 @@ abstract class Fish {
 
     void resetStateData() {
         behaviorTimer = 0;
-        // lookAroundTimer = 0;
-        turnLerpProgress = 0;
         retrigger = false;
         recalculateTimer = true;
     }
@@ -76,6 +74,8 @@ abstract class Fish {
     void moveToTarget(double delta) {
         float xVelocity = (sin(rotation.y) / 1000.0) * movementSpeed;
         float zVelocity = (cos(rotation.y) / 1000.0) * movementSpeed;
+
+        Vector3 oldPosition = position;
 
         position = Vector3Add(position, Vector3(xVelocity, 0, zVelocity));
 
@@ -96,6 +96,12 @@ abstract class Fish {
         float minY = Ground.getCollisionPoint(position.x, position.z) + collisionVertical;
         float maxY = Water.getCollisionPoint(position.x, position.z) - collisionVertical;
 
+        // If the fish is trying to go on land, let the lerp of rotation continue, but stop from moving.
+        if (maxY - minY < (collisionVertical * 2)) {
+            position = oldPosition;
+            return;
+        }
+
         float yVelocity = (sin(-rotation.x) / 1000.0) * movementSpeed;
 
         position.y += yVelocity;
@@ -109,25 +115,39 @@ abstract class Fish {
     }
 
     void turnToTarget(double delta) {
+
+        // if (turnLerpProgress > 0.0015) {
+        //     turnLerpProgress = 0.0015;
+        // }
+
         // Calculating yaw.
-        Vector2 normalized = Vector2Normalize(Vector2Subtract(Vector2(lookTarget.x, lookTarget.z), Vector2(
+        Vector2 goalDir = Vector2Normalize(Vector2Subtract(Vector2(lookTarget.x, lookTarget.z), Vector2(
                 position.x, position.z)));
-        float yaw = atan2(normalized.x, normalized.y);
+
+        float targetYaw = atan2(goalDir.x, goalDir.y);
+        float currentYaw = rotation.y;
+        float diff = targetYaw - currentYaw;
+
+        if (diff > PI) {
+            targetYaw -= PI * 2;
+        } else if (diff < -PI) {
+            targetYaw += PI * 2;
+        }
+
+        targetYaw = Lerp(currentYaw, targetYaw, delta * relaxedLookSpeed);
+
         // Calculating pitch.
         float distance = Vector2Distance(Vector2(position.x, position.z), Vector2(lookTarget.x, lookTarget
                 .z));
         Vector2 pitchNormalized = Vector2Normalize(Vector2Subtract(Vector2(distance, lookTarget.y), Vector2(0, position
                 .y)));
-        float pitch = asin(-pitchNormalized.y);
+        float targetPitch = asin(-pitchNormalized.y);
+        float currentPitch = rotation.x;
 
-        // Lerp it. This gives the affect where fish will look
-        // around almost 360 degrees like in bass rise.
-        Vector2 lerpedTurn = Vector2Lerp(Vector2(rotation.x, rotation.y), Vector2(pitch, yaw), turnLerpProgress);
+        targetPitch = Lerp(currentPitch, targetPitch, delta * relaxedLookSpeed);
 
-        rotation.x = lerpedTurn.x;
-        rotation.y = lerpedTurn.y;
-
-        turnLerpProgress += delta / 1000;
+        rotation.x = targetPitch;
+        rotation.y = targetYaw;
     }
 
     void selectRandomTargetPosition() {
@@ -165,7 +185,7 @@ abstract class Fish {
 
         writeln(lookTarget);
 
-        turnLerpProgress = 0;
+        // turnLerpProgress = 0;
 
     }
 
@@ -258,8 +278,28 @@ abstract class Fish {
     }
 
     void randomTarget(double delta) {
+
+        if (recalculateTimer) {
+            recalculateTimer = false;
+            behaviorTimer = giveRandomDouble(8.0, 12.0);
+            selectRandomTargetPosition();
+        }
+
+        if (movementSpeed < maxSpeedRelaxed) {
+            movementSpeed += delta;
+        }
+
+        float distance = Vector3Distance(position, lookTarget);
+
+        if (distance <= 1.5) {
+            selectRandomTargetPosition();
+            writeln("selecting new target");
+            resetStateData();
+        }
+
         if (behaviorTimer <= 0.0) {
-            state = randomState();
+            // state = randomState();
+            selectRandomTargetPosition();
             writeln(state);
         }
     }
@@ -279,7 +319,6 @@ abstract class Fish {
 
 class LargeMouthBass : Fish {
     this() {
-        relaxedLookSpeed = 0.5;
         __model = "largemouth.glb";
     }
 }
