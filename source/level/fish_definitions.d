@@ -55,7 +55,7 @@ abstract class Fish {
     this() {
         uuid = UUID.next();
 
-        behaviorTimer = giveRandomDouble(0.5, 4.0);
+        behaviorTimer = giveRandomDouble(1.5, 4.0);
 
         Vector2 mapSize = Ground.getSizeFloating();
         position.x = mapSize.x / 2.0;
