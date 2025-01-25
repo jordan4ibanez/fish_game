@@ -80,6 +80,8 @@ abstract class Fish {
                 .y)));
         float pitch = asin(-pitchNormalized.y);
 
+        // Lerp it. This gives the affect where fish will look
+        // around almost 360 degrees like in bass rise.
         Vector2 lerpedTurn = Vector2Lerp(Vector2(rotation.x, rotation.y), Vector2(pitch, yaw), turnLerpProgress);
 
         rotation.x = lerpedTurn.x;
