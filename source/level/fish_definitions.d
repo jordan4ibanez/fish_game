@@ -266,6 +266,7 @@ abstract class Fish {
 
         if (lookAroundTimer <= 0) {
             if (retrigger) {
+                // The fish can keep looking around.
                 if (giveRandomDouble(0.0, 1.0) > 0.5) {
                     resetStateData();
                     state = randomState();
