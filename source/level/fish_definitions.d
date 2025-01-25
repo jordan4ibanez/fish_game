@@ -264,7 +264,6 @@ abstract class Fish {
     void looking(double delta) {
         // todo: tail turning animation.
 
-        if (lookAroundTimer <= 0) {
             if (retrigger) {
                 // The fish can keep looking around.
                 if (giveRandomDouble(0.0, 1.0) > 0.5) {
@@ -277,7 +276,7 @@ abstract class Fish {
                 selectRandomTargetPosition();
             }
         }
-        lookAroundTimer -= delta;
+        behaviorTimer -= delta;
     }
 
     void randomTarget(double delta) {
