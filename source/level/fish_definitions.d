@@ -43,6 +43,7 @@ abstract class Fish {
     // double lookAroundTimer = 0;
     bool retrigger = false;
     double movementSpeed = 0;
+    bool recalculateTimer = true;
 
     // These ones can be adjusted based on how aggressive the fish acts.
     double maxSpeedRelaxed = 1;
