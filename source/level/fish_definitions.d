@@ -111,7 +111,7 @@ abstract class Fish {
             return;
         }
 
-        float yVelocity = (sin(-rotation.x) / 1000.0) * movementSpeed;
+        float yVelocity = (sin(-rotation.x) * delta) * movementSpeed;
 
         position.y += yVelocity;
 
