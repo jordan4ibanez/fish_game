@@ -68,6 +68,10 @@ private:
         return tuple(mapWidth, mapHeight);
     }
 
+    public Vector2 getSizeFloating() {
+        return Vector2(mapWidth, mapHeight);
+    }
+
     public float getWidth() {
         return mapWidth;
     }
