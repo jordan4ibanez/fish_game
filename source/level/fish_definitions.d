@@ -250,10 +250,15 @@ abstract class Fish {
 
         if (recalculateTimer) {
             recalculateTimer = false;
-            behaviorTimer = giveRandomDouble(3.0, 6.0);
+            behaviorTimer = giveRandomDouble(5.0, 7.0);
         }
 
-        writeln("this: ", behaviorTimer);
+        if (movementSpeed > 0) {
+            movementSpeed -= delta * accelerationRelaxed;
+            if (movementSpeed <= 0) {
+                movementSpeed = 0;
+            }
+        }
 
         behaviorTimer -= delta;
 
@@ -284,10 +289,20 @@ abstract class Fish {
                 retrigger = true;
             }
         }
+
+        if (movementSpeed > 0) {
+            movementSpeed -= delta * accelerationRelaxed;
+            if (movementSpeed <= 0) {
+                movementSpeed = 0;
+            }
+        }
+
         behaviorTimer -= delta;
     }
 
     void randomTarget(double delta) {
+
+        // todo: Use swimming animation.
 
         behaviorTimer -= delta;
 
@@ -295,29 +310,26 @@ abstract class Fish {
             tightTurn = false;
             recalculateTimer = false;
             behaviorTimer = giveRandomDouble(8.0, 12.0);
-
             selectRandomTargetPosition();
         }
 
         if (movementSpeed < maxSpeedRelaxed) {
-            movementSpeed += delta;
+            movementSpeed += delta * accelerationRelaxed;
         }
 
         float distance = Vector3Distance(position, lookTarget);
 
         if (distance <= 1.5) {
             selectRandomTargetPosition();
-            writeln("selecting new target");
             resetStateData();
         } else if (distance < 3.0) {
             tightTurn = true;
         }
 
         if (behaviorTimer <= 0.0) {
-            // state = randomState();
+            state = randomState();
             selectRandomTargetPosition();
             resetStateData();
-            writeln(state);
         }
     }
 
