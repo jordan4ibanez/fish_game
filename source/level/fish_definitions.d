@@ -47,8 +47,11 @@ abstract class Fish {
     // These ones can be adjusted based on how aggressive the fish acts.
     double relaxedLookSpeed = 1;
     double attackLookSpeed = 0.03;
+
     double maxSpeedRelaxed = 2;
+
     double accelerationRelaxed = 1;
+
     bool tightTurn = false;
 
     string __model = "undefined";
@@ -73,8 +76,8 @@ abstract class Fish {
     }
 
     void moveToTarget(double delta) {
-        float xVelocity = (sin(rotation.y) / 1000.0) * movementSpeed;
-        float zVelocity = (cos(rotation.y) / 1000.0) * movementSpeed;
+        float xVelocity = (sin(rotation.y) * delta) * movementSpeed;
+        float zVelocity = (cos(rotation.y) * delta) * movementSpeed;
 
         Vector3 oldPosition = position;
 
@@ -340,6 +343,8 @@ abstract class Fish {
 class LargeMouthBass : Fish {
     this() {
         __model = "largemouth.glb";
+        accelerationRelaxed = 10;
+        maxSpeedRelaxed = 5;
     }
 }
 
