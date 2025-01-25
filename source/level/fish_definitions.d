@@ -282,7 +282,7 @@ abstract class Fish {
                 if (oldState == FishState.Idle) {
                     behaviorTimer = giveRandomDouble(3.0, 5.0);
                 } else {
-                    behaviorTimer = giveRandomDouble(1.0, 2.0);
+                    behaviorTimer = giveRandomDouble(1.5, 3.0);
                 }
                 selectRandomTargetPosition();
                 retrigger = true;
