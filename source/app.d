@@ -75,8 +75,8 @@ void main() {
 	Level.load("levels/map_lake/");
 
 	Camera* camera = new Camera();
-	// camera.position = Vector3(Ground.getWidth() / 2, 4, Ground.getHeight() / 2);
-	camera.position = Vector3(4, 4, 0);
+	camera.position = Vector3(Ground.getWidth() / 2, 4, Ground.getHeight() / 2);
+	// camera.position = Vector3(4, 4, 0);
 	camera.up = Vector3(0, 1, 0);
 	camera.target = Vector3(0, 0, 0);
 	camera.fovy = 45.0;
@@ -87,124 +87,65 @@ void main() {
 
 	while (Window.shouldStayOpen()) {
 
-		if (true) {
-			// if (Keyboard.isPressed(KeyboardKey.KEY_DOWN)) {
-			// 	camera.position.y -= 1;
-			// } else if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
-			// 	camera.position.y += 1;
-			// }
+		if (Keyboard.isPressed(KeyboardKey.KEY_F1)) {
+			Window.toggleMaximize();
+		}
 
-			// if (Keyboard.isPressed(KeyboardKey.KEY_A)) {
-			// 	camera.position.z += 1;
-			// } else if (Keyboard.isPressed(KeyboardKey.KEY_D)) {
-			// 	camera.position.z -= 1;
-			// }
+		if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
+			Window.toggleMouseLock();
+		}
 
-			// if (Keyboard.isPressed(KeyboardKey.KEY_W)) {
-			// 	camera.position.x -= 1;
-			// } else if (Keyboard.isPressed(KeyboardKey.KEY_S)) {
-			// 	camera.position.x += 1;
-			// }
+		if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
+			Level.togglePause();
+		}
 
-			if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
-				Window.toggleMouseLock();
-			}
+		if (Window.isMouseLocked()) {
+			UpdateCamera(camera, CameraMode.CAMERA_FREE);
+		}
 
-			if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
-				Level.togglePause();
-			}
+		float debugX = 0;
+		if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
+			debugX = 1;
+		} else if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
+			debugX = -1;
+		}
+		float debugY = 0;
+		if (Keyboard.isPressed(KeyboardKey.KEY_RIGHT)) {
+			debugY = 1;
+		} else if (Keyboard.isPressed(KeyboardKey.KEY_LEFT)) {
+			debugY = -1;
+		}
 
-			if (Window.isMouseLocked()) {
-				UpdateCamera(camera, CameraMode.CAMERA_FREE);
-			}
+		FishTank.debugTarget(debugX, debugY);
 
-			// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		Level.update();
 
-			if (Keyboard.isPressed(KeyboardKey.KEY_F1) || Keyboard.isPressed(KeyboardKey.KEY_F2) || Keyboard.isPressed(
-					KeyboardKey.KEY_F3) || Keyboard.isPressed(KeyboardKey.KEY_KP_1) || Keyboard.isPressed(
-					KeyboardKey.KEY_KP_2) || Keyboard.isPressed(KeyboardKey.KEY_KP_3) || Keyboard.isPressed(
-					KeyboardKey.KEY_ONE) || Keyboard.isPressed(KeyboardKey.KEY_TWO) || Keyboard.isPressed(
-					KeyboardKey.KEY_THREE)) {
-				TextureHandler.deleteTexture("person.png");
-				TextureHandler.loadTexture("models/person.png");
-				ModelHandler.setModelTexture("person.glb", "person.png");
+		// foreach (i; 0 .. 13) {
+		// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+		// }
 
-			}
+		BeginDrawing();
+		{
 
-			BeginDrawing();
-			{
-				ClearBackground(Colors.SKYBLUE);
-
-				BeginMode3D(*camera);
-				{
-
-					ModelHandler.draw("person.glb", Vector3(0, 0, 0));
-				}
-				EndMode3D();
-			}
-			EndDrawing();
-
-		} else {
-
-			if (Keyboard.isPressed(KeyboardKey.KEY_F1)) {
-				Window.toggleMaximize();
-			}
-
-			if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
-				Window.toggleMouseLock();
-			}
-
-			if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
-				Level.togglePause();
-			}
-
-			if (Window.isMouseLocked()) {
-				UpdateCamera(camera, CameraMode.CAMERA_FREE);
-			}
-
-			float debugX = 0;
-			if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
-				debugX = 1;
-			} else if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
-				debugX = -1;
-			}
-			float debugY = 0;
-			if (Keyboard.isPressed(KeyboardKey.KEY_RIGHT)) {
-				debugY = 1;
-			} else if (Keyboard.isPressed(KeyboardKey.KEY_LEFT)) {
-				debugY = -1;
-			}
-
-			FishTank.debugTarget(debugX, debugY);
-
-			Level.update();
-
-			// foreach (i; 0 .. 13) {
-			// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
-			// }
-
-			BeginDrawing();
+			ClearBackground(Colors.SKYBLUE);
+			BeginMode3D(*camera);
 			{
 
-				ClearBackground(Colors.SKYBLUE);
-				BeginMode3D(*camera);
-				{
+				Level.draw();
 
-					Level.draw();
+				// float yHeight = Ground.getHeightAtPosition(testPoint.x, testPoint.y);
 
-					// float yHeight = Ground.getHeightAtPosition(testPoint.x, testPoint.y);
+				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
+				// DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);
 
-					// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
-					// DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);
+				// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
 
-					// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
+				// ModelHandler.draw(blah2.model, blah2.position);
 
-					// ModelHandler.draw(blah2.model, blah2.position);
+			}
+			EndMode3D();
 
-				}
-				EndMode3D();
-
-				/*
+			/*
 			? This is the fake copyright info for this build. :P
 			Vector2 windowSize = Window.getSize();
 			Vector2 textSize = FontHandler.getTextSize("© METABASS GENERAL LURES INC.");
@@ -214,10 +155,51 @@ void main() {
 			FontHandler.drawShadowed("PROTOTYPE BUILD. DO NOT DISTRIBUTE.", 2, windowSize.y - textSize.y + 5);
 			*/
 
-				FontHandler.drawShadowed("FPS: " ~ to!string(GetFPS()), 0, -5);
-			}
-			EndDrawing();
+			FontHandler.drawShadowed("FPS: " ~ to!string(GetFPS()), 0, -5);
 		}
+		EndDrawing();
 	}
 
 }
+
+// if (true) {
+
+// 	if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
+// 		Window.toggleMouseLock();
+// 	}
+
+// 	if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
+// 		Level.togglePause();
+// 	}
+
+// 	if (Window.isMouseLocked()) {
+// 		UpdateCamera(camera, CameraMode.CAMERA_FREE);
+// 	}
+
+// 	// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+
+// 	if (Keyboard.isPressed(KeyboardKey.KEY_F1) || Keyboard.isPressed(KeyboardKey.KEY_F2) || Keyboard.isPressed(
+// 			KeyboardKey.KEY_F3) || Keyboard.isPressed(KeyboardKey.KEY_KP_1) || Keyboard.isPressed(
+// 			KeyboardKey.KEY_KP_2) || Keyboard.isPressed(KeyboardKey.KEY_KP_3) || Keyboard.isPressed(
+// 			KeyboardKey.KEY_ONE) || Keyboard.isPressed(KeyboardKey.KEY_TWO) || Keyboard.isPressed(
+// 			KeyboardKey.KEY_THREE)) {
+// 		TextureHandler.deleteTexture("person.png");
+// 		TextureHandler.loadTexture("models/person.png");
+// 		ModelHandler.setModelTexture("person.glb", "person.png");
+
+// 	}
+
+// 	BeginDrawing();
+// 	{
+// 		ClearBackground(Colors.SKYBLUE);
+
+// 		BeginMode3D(*camera);
+// 		{
+
+// 			ModelHandler.draw("person.glb", Vector3(0, 0, 0));
+// 		}
+// 		EndMode3D();
+// 	}
+// 	EndDrawing();
+
+// } else {
