@@ -73,6 +73,41 @@ abstract class Fish {
         recalculateTimer = true;
     }
 
+    void moveToTarget(double delta) {
+        float xVelocity = (sin(rotation.y) / 1000.0) * movementSpeed;
+        float zVelocity = (cos(rotation.y) / 1000.0) * movementSpeed;
+
+        position = Vector3Add(position, Vector3(xVelocity, 0, zVelocity));
+
+        Vector2 mapSize = Ground.getSizeFloating();
+
+        if (position.x < 1) {
+            position.x = 1;
+        } else if (position.x > mapSize.x - 1) {
+            position.x = mapSize.x - 1;
+        }
+
+        if (position.z < 1) {
+            position.z = 1;
+        } else if (position.z > mapSize.y - 1) {
+            position.z = mapSize.y - 1;
+        }
+
+        float minY = Ground.getCollisionPoint(position.x, position.z) + collisionVertical;
+        float maxY = Water.getCollisionPoint(position.x, position.z) - collisionVertical;
+
+        float yVelocity = (sin(-rotation.x) / 1000.0) * movementSpeed;
+
+        position.y += yVelocity;
+
+        if (position.y < minY) {
+            position.y = minY;
+        } else if (position.y > maxY) {
+            position.y = maxY;
+        }
+
+    }
+
     void turnToTarget(double delta) {
         // Calculating yaw.
         Vector2 normalized = Vector2Normalize(Vector2Subtract(Vector2(lookTarget.x, lookTarget.z), Vector2(
@@ -145,6 +180,7 @@ abstract class Fish {
         }
 
         turnToTarget(delta);
+        moveToTarget(delta);
 
         oldState = state;
 
