@@ -62,6 +62,9 @@ void main() {
 	ModelHandler.setModelTexture("largemouth.glb", "largemouth.png");
 	ModelHandler.setModelShader("largemouth.glb", "normal");
 
+	FontHandler.initialize();
+	Level.load("levels/map_lake/");
+
 	Camera* camera = new Camera();
 	camera.position = Vector3(0, 4, 4);
 	camera.up = Vector3(0, 1, 0);
@@ -69,9 +72,9 @@ void main() {
 	camera.fovy = 45.0;
 	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
 
-	FontHandler.initialize();
+	
 
-	Level.load("levels/map_lake/");
+	
 
 	// Window.lockMouse();
 	// Window.maximize();
