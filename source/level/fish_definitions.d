@@ -85,8 +85,6 @@ abstract class Fish {
         rotation.x = lerpedTurn.x;
         rotation.y = lerpedTurn.y;
 
-        // writeln(turnLerpProgress);
-
         turnLerpProgress += delta / 1000;
     }
 
@@ -276,15 +274,7 @@ abstract class Fish {
                 selectRandomTargetPosition();
             }
         }
-
-        // writeln("LOOKING! " ~ to!string(lookAroundTimer));
-
         lookAroundTimer -= delta;
-
-        // if (behaviorTimer <= 0.0) {
-        //     state = randomState();
-        //     writeln(state);
-        // }
     }
 
     void randomTarget(double delta) {
