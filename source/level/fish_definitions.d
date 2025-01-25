@@ -62,11 +62,6 @@ abstract class Fish {
     }
 
     void turnToTarget(double delta) {
-        // If already turned, don't bother.
-        if (turnLerpProgress >= 1) {
-            return;
-        }
-
         // Calculating yaw.
         Vector2 normalized = Vector2Normalize(Vector2Subtract(Vector2(lookTarget.x, lookTarget.z), Vector2(
                 position.x, position.z)));
