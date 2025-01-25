@@ -45,6 +45,8 @@ abstract class Fish {
 
     string __model = "undefined";
 
+    // todo: lure watch
+
     this() {
         uuid = UUID.next();
 
@@ -260,7 +262,6 @@ abstract class Fish {
 
         if (lookAroundTimer <= 0) {
             if (retrigger) {
-                writeln("RETRIGGER.");
                 if (giveRandomDouble(0.0, 1.0) > 0.5) {
                     resetStateData();
                     state = randomState();
