@@ -4,6 +4,7 @@ import core.stdc.tgmath;
 import level.ground;
 import level.water;
 import raylib;
+import std.conv;
 import std.math.algebraic;
 import std.stdio;
 import utility.delta;
@@ -35,6 +36,8 @@ abstract class Fish {
 
     // Behavioral variables.
     FishState state = FishState.Looking;
+    Vector3 lookTarget;
+    double turnLerpProgress = 0;
     double behaviorTimer = 0;
     double lookAroundTimer = 0;
     bool retrigger = false;
@@ -45,16 +48,82 @@ abstract class Fish {
         uuid = UUID.next();
 
         behaviorTimer = giveRandomDouble(0.5, 4.0);
+
+        Vector2 mapSize = Ground.getSizeFloating();
+        position.x = mapSize.x / 2.0;
+        position.z = mapSize.y / 2.0;
     }
 
     void resetStateData() {
         behaviorTimer = 0;
         lookAroundTimer = 0;
+        turnLerpProgress = 0;
         retrigger = false;
     }
 
+    void turnToTarget(double delta) {
+        // If already turned, don't bother.
+        if (turnLerpProgress >= 1) {
+            return;
+        }
+
+        // Calculating yaw.
+        Vector2 normalized = Vector2Normalize(Vector2Subtract(Vector2(lookTarget.x, lookTarget.z), Vector2(
+                position.x, position.z)));
+        float yaw = atan2(normalized.x, normalized.y);
+        // Calculating pitch.
+        float distance = Vector2Distance(Vector2(position.x, position.z), Vector2(lookTarget.x, lookTarget
+                .z));
+        Vector2 pitchNormalized = Vector2Normalize(Vector2Subtract(Vector2(distance, lookTarget.y), Vector2(0, position
+                .y)));
+        float pitch = asin(-pitchNormalized.y);
+
+        Vector2 lerpedTurn = Vector2Lerp(Vector2(rotation.x, rotation.y), Vector2(pitch, yaw), turnLerpProgress);
+
+        rotation.x = lerpedTurn.x;
+        rotation.y = lerpedTurn.y;
+
+        writeln(turnLerpProgress);
+
+        turnLerpProgress += delta / 1000;
+    }
+
     void selectRandomTargetPosition() {
+        Vector2 map2dRange = Ground.getSizeFloating();
+
+        // Limit the range.
+        map2dRange.x -= 1;
+        map2dRange.y -= 1;
+
+        float selectedX;
+        float selectedZ;
+        float minY;
+        float maxY;
+
+        // Reroll until the fish can fit in the spot.
+        while (true) {
+            selectedX = giveRandomFloat(1.0, map2dRange.x);
+            selectedZ = giveRandomFloat(1.0, map2dRange.y);
+            minY = Ground.getCollisionPoint(selectedX, selectedZ) + collisionVertical;
+            maxY = Water.getCollisionPoint(selectedX, selectedZ) - collisionVertical;
+            if (minY <= maxY) {
+                break;
+            }
+        }
         
+        //? Useful for debugging.
+        // selectedX = giveRandomFloat(position.x - 3, position.x + 3);
+        // selectedZ = giveRandomFloat(position.x - 3, position.x + 3);
+        // minY = Ground.getCollisionPoint(selectedX, selectedZ) + collisionVertical;
+        // maxY = Water.getCollisionPoint(selectedX, selectedZ) - collisionVertical;
+
+        float selectedY = giveRandomFloat(minY, maxY);
+
+        lookTarget = Vector3(selectedX, selectedY, selectedZ);
+
+        writeln(lookTarget);
+        turnLerpProgress = 0;
+
     }
 
     @property string model() {
@@ -62,6 +131,9 @@ abstract class Fish {
     }
 
     void update(double delta) {
+
+        turnToTarget(delta);
+
         switch (state) {
         case FishState.Idle: {
                 idle(delta);
@@ -190,19 +262,22 @@ abstract class Fish {
         // todo: tail turning animation.
 
         if (lookAroundTimer <= 0) {
-            lookAroundTimer = giveRandomDouble(1.0, 2.0);
             if (retrigger) {
+                writeln("RETRIGGER.");
                 if (giveRandomDouble(0.0, 1.0) > 0.5) {
                     resetStateData();
                     state = randomState();
                 }
             } else {
+                lookAroundTimer = giveRandomDouble(1.0, 2.0);
                 retrigger = true;
+                selectRandomTargetPosition();
             }
         }
 
+        // writeln("LOOKING! " ~ to!string(lookAroundTimer));
 
-
+        lookAroundTimer -= delta;
 
         // if (behaviorTimer <= 0.0) {
         //     state = randomState();
