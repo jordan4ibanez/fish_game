@@ -250,7 +250,7 @@ abstract class Fish {
 
         if (recalculateTimer) {
             recalculateTimer = false;
-            behaviorTimer = giveRandomDouble(5.0, 7.0);
+            behaviorTimer = giveRandomDouble(5.0, 15.0);
         }
 
         if (movementSpeed > 0) {
@@ -281,9 +281,9 @@ abstract class Fish {
             } else {
                 // If the fish was idling, let it enjoy looking around.
                 if (oldState == FishState.Idle) {
-                    behaviorTimer = giveRandomDouble(6, 8);
+                    behaviorTimer = giveRandomDouble(6, 17);
                 } else {
-                    behaviorTimer = giveRandomDouble(5, 7);
+                    behaviorTimer = giveRandomDouble(5, 12);
                 }
                 selectRandomTargetPosition();
                 retrigger = true;
@@ -309,7 +309,7 @@ abstract class Fish {
         if (recalculateTimer) {
             tightTurn = false;
             recalculateTimer = false;
-            behaviorTimer = giveRandomDouble(8.0, 12.0);
+            behaviorTimer = giveRandomDouble(8.0, 15.0);
             selectRandomTargetPosition();
         }
 
