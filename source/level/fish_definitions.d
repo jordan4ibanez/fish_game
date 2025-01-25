@@ -15,7 +15,6 @@ enum FishState {
     Idle,
     Looking,
     RandomTarget,
-    Turning,
     Following,
     Fight
 }
@@ -227,10 +226,6 @@ abstract class Fish {
                 randomTarget(delta);
                 break;
             }
-        case FishState.Turning: {
-                turning(delta);
-                break;
-            }
         case FishState.Following: {
                 following(delta);
                 break;
@@ -331,10 +326,6 @@ abstract class Fish {
             selectRandomTargetPosition();
             resetStateData();
         }
-    }
-
-    void turning(double delta) {
-
     }
 
     void following(double delta) {
