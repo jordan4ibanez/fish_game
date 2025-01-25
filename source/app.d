@@ -84,9 +84,43 @@ void main() {
 	while (Window.shouldStayOpen()) {
 
 		if (true) {
-			UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+			// if (Keyboard.isPressed(KeyboardKey.KEY_DOWN)) {
+			// 	camera.position.y -= 1;
+			// } else if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
+			// 	camera.position.y += 1;
+			// }
 
-			if (Keyboard.isPressed(KeyboardKey.KEY_F1)) {
+			// if (Keyboard.isPressed(KeyboardKey.KEY_A)) {
+			// 	camera.position.z += 1;
+			// } else if (Keyboard.isPressed(KeyboardKey.KEY_D)) {
+			// 	camera.position.z -= 1;
+			// }
+
+			// if (Keyboard.isPressed(KeyboardKey.KEY_W)) {
+			// 	camera.position.x -= 1;
+			// } else if (Keyboard.isPressed(KeyboardKey.KEY_S)) {
+			// 	camera.position.x += 1;
+			// }
+
+			if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
+				Window.toggleMouseLock();
+			}
+
+			if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
+				Level.togglePause();
+			}
+
+			if (Window.isMouseLocked()) {
+				UpdateCamera(camera, CameraMode.CAMERA_FREE);
+			}
+
+			// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+
+			if (Keyboard.isPressed(KeyboardKey.KEY_F1) || Keyboard.isPressed(KeyboardKey.KEY_F2) || Keyboard.isPressed(
+					KeyboardKey.KEY_F3) || Keyboard.isPressed(KeyboardKey.KEY_KP_1) || Keyboard.isPressed(
+					KeyboardKey.KEY_KP_2) || Keyboard.isPressed(KeyboardKey.KEY_KP_3) || Keyboard.isPressed(
+					KeyboardKey.KEY_ONE) || Keyboard.isPressed(KeyboardKey.KEY_TWO) || Keyboard.isPressed(
+					KeyboardKey.KEY_THREE)) {
 				TextureHandler.deleteTexture("boat.png");
 				TextureHandler.loadTexture("models/boat.png");
 				ModelHandler.setModelTexture("boat.glb", "boat.png");
@@ -101,8 +135,6 @@ void main() {
 				{
 
 					ModelHandler.draw("boat.glb", Vector3(0, 0, 0));
-
-					ModelHandler.draw("largemouth.glb", Vector3(0, 0, 0));
 				}
 				EndMode3D();
 			}
