@@ -39,7 +39,7 @@ abstract class Fish {
     Vector3 lookTarget;
     double turnLerpProgress = 0;
     double behaviorTimer = 0;
-    double lookAroundTimer = 0;
+    // double lookAroundTimer = 0;
     bool retrigger = false;
     double movementSpeed = 0;
 
@@ -63,7 +63,7 @@ abstract class Fish {
 
     void resetStateData() {
         behaviorTimer = 0;
-        lookAroundTimer = 0;
+        // lookAroundTimer = 0;
         turnLerpProgress = 0;
         retrigger = false;
     }
