@@ -50,6 +50,7 @@ abstract class Fish {
     double attackLookSpeed = 0.03;
     double maxSpeedRelaxed = 2;
     double accelerationRelaxed = 1;
+    bool tightTurn = false;
 
     string __model = "undefined";
 
@@ -69,6 +70,7 @@ abstract class Fish {
         behaviorTimer = 0;
         retrigger = false;
         recalculateTimer = true;
+        tightTurn = false;
     }
 
     void moveToTarget(double delta) {
@@ -123,11 +125,6 @@ abstract class Fish {
     }
 
     void turnToTarget(double delta) {
-
-        // if (turnLerpProgress > 0.0015) {
-        //     turnLerpProgress = 0.0015;
-        // }
-
         // Calculating yaw.
         Vector2 goalDir = Vector2Normalize(Vector2Subtract(Vector2(lookTarget.x, lookTarget.z), Vector2(
                 position.x, position.z)));
@@ -142,7 +139,12 @@ abstract class Fish {
             targetYaw += PI * 2;
         }
 
-        targetYaw = Lerp(currentYaw, targetYaw, delta * relaxedLookSpeed);
+        float lookSpeed = relaxedLookSpeed;
+        if (tightTurn) {
+            lookSpeed *= 3;
+        }
+
+        targetYaw = Lerp(currentYaw, targetYaw, delta * lookSpeed);
 
         // Calculating pitch.
         float distance = Vector2Distance(Vector2(position.x, position.z), Vector2(lookTarget.x, lookTarget
@@ -152,7 +154,7 @@ abstract class Fish {
         float targetPitch = asin(-pitchNormalized.y);
         float currentPitch = rotation.x;
 
-        targetPitch = Lerp(currentPitch, targetPitch, delta * relaxedLookSpeed);
+        targetPitch = Lerp(currentPitch, targetPitch, delta * lookSpeed);
 
         rotation.x = targetPitch;
         rotation.y = targetYaw;
@@ -290,8 +292,10 @@ abstract class Fish {
         behaviorTimer -= delta;
 
         if (recalculateTimer) {
+            tightTurn = false;
             recalculateTimer = false;
             behaviorTimer = giveRandomDouble(8.0, 12.0);
+
             selectRandomTargetPosition();
         }
 
@@ -305,11 +309,14 @@ abstract class Fish {
             selectRandomTargetPosition();
             writeln("selecting new target");
             resetStateData();
+        } else if (distance < 3.0) {
+            tightTurn = true;
         }
 
         if (behaviorTimer <= 0.0) {
             // state = randomState();
             selectRandomTargetPosition();
+            resetStateData();
             writeln(state);
         }
     }
