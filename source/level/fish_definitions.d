@@ -282,9 +282,9 @@ abstract class Fish {
             } else {
                 // If the fish was idling, let it enjoy looking around.
                 if (oldState == FishState.Idle) {
-                    behaviorTimer = giveRandomDouble(3.0, 5.0);
+                    behaviorTimer = giveRandomDouble(6, 8);
                 } else {
-                    behaviorTimer = giveRandomDouble(1.5, 3.0);
+                    behaviorTimer = giveRandomDouble(5, 7);
                 }
                 selectRandomTargetPosition();
                 retrigger = true;
