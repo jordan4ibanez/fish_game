@@ -279,6 +279,7 @@ abstract class Fish {
                     state = randomState();
                 }
             } else {
+                // If the fish was idling, let it enjoy looking around.
                 if (oldState == FishState.Idle) {
                     behaviorTimer = giveRandomDouble(3.0, 5.0);
                 } else {
