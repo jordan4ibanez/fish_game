@@ -7,12 +7,19 @@ import std.container;
 import std.stdio;
 import std.string;
 
+class AnimationContainer {
+    int animationCount = 0;
+    bool hasAnimation = false;
+    ModelAnimation* animationData = null;
+}
+
 static final const class ModelHandler {
 static:
 private:
 
     Model*[string] database;
     bool[string] isCustomDatabase;
+    AnimationContainer[string] animationDatabase;
 
     //* BEGIN PUBLIC API.
 
@@ -82,8 +89,16 @@ private:
             throw new Error("[ModelHandler]: Invalid model loaded from file. " ~ location);
         }
 
+        int animationCount;
+        ModelAnimation* thisAnimationData = LoadModelAnimations(toStringz(location), &animationCount);
+        AnimationContainer thisModelAnimation = new AnimationContainer();
+        thisModelAnimation.animationCount = animationCount;
+        thisModelAnimation.animationData = thisAnimationData;
+        thisModelAnimation.hasAnimation = thisAnimationData != null;
+
         database[fileName] = thisModel;
         isCustomDatabase[fileName] = false;
+        animationDatabase[fileName] = thisModelAnimation;
     }
 
     public void setModelTexture(string modelName, string textureName) {
@@ -159,6 +174,7 @@ private:
 
         database.remove(modelName);
         isCustomDatabase.remove(modelName);
+        animationDatabase.remove(modelName);
     }
 
     public void terminate() {
@@ -167,6 +183,17 @@ private:
         }
         database.clear();
         isCustomDatabase.clear();
+        animationDatabase.clear();
+    }
+
+    public void playAnimation(string modelName, int index) {
+        if (modelName !in database) {
+            throw new Error(
+                "[ModelManager]: Tried to play animation on non-existent model. " ~ modelName);
+        }
+
+        Model* thisModel = database[modelName];
+
     }
 
     //* BEGIN INTERNAL API.
@@ -185,6 +212,11 @@ private:
             UnloadModel(*thisModel);
         } else {
             UnloadModel(*thisModel);
+
+            AnimationContainer thisAnimations = animationDatabase[modelName];
+            if (thisAnimations !is null && thisAnimations.hasAnimation) {
+                UnloadModelAnimation(*thisAnimations.animationData);
+            }
         }
     }
 
