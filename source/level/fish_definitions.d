@@ -67,6 +67,7 @@ abstract class Fish {
         // lookAroundTimer = 0;
         turnLerpProgress = 0;
         retrigger = false;
+        recalculateTimer = true;
     }
 
     void turnToTarget(double delta) {
