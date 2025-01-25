@@ -57,7 +57,25 @@ private:
             DrawSphere(Vector3Subtract(fish.position, Vector3(0, fish.collisionVertical, 0)), 0.01, Colors
                     .GREEN);
 
-            DrawCube(fish.lookTarget, 1, 1, 1, Colors.ORANGE);
+            DrawSphere(fish.lookTarget, 1.5, Colors.ORANGE);
+
+            switch (fish.state) {
+            case (FishState.Idle): {
+                    DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.BLACK);
+                    break;
+                }
+            case (FishState.Looking): {
+                    DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.WHITE);
+                    break;
+                }
+            case (FishState.RandomTarget): {
+                    DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.BLUE);
+                    break;
+                }
+            default: {
+                    DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.YELLOW);
+                }
+            }
 
         }
     }
