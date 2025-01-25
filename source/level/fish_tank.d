@@ -26,7 +26,7 @@ private:
             writeln("spawned new largemouth");
 
         }
-        
+
         double delta = Delta.getDelta();
 
         foreach (uuid, fish; database) {
@@ -56,6 +56,8 @@ private:
             // Collision point lower.
             DrawSphere(Vector3Subtract(fish.position, Vector3(fish.position.x, fish.collisionVertical, fish
                     .position.z)), 0.01, Colors.GREEN);
+
+            DrawCube(fish.lookTarget, 1, 1, 1, Colors.ORANGE);
 
         }
     }
