@@ -43,6 +43,10 @@ abstract class Fish {
     bool retrigger = false;
     double movementSpeed = 0;
 
+    // These ones can be adjusted based on how aggressive the fish acts.
+    double maxSpeedRelaxed = 1;
+    double accelerationRelaxed = 1;
+
     string __model = "undefined";
 
     // todo: lure watch
