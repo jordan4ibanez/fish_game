@@ -67,6 +67,10 @@ void main() {
 	TextureHandler.loadTexture("models/boat.png");
 	ModelHandler.setModelTexture("boat.glb", "boat.png");
 
+	ModelHandler.loadModelFromFile("models/person.glb");
+	TextureHandler.loadTexture("models/person.png");
+	ModelHandler.setModelTexture("person.glb", "person.png");
+
 	FontHandler.initialize();
 	Level.load("levels/map_lake/");
 
@@ -121,9 +125,9 @@ void main() {
 					KeyboardKey.KEY_KP_2) || Keyboard.isPressed(KeyboardKey.KEY_KP_3) || Keyboard.isPressed(
 					KeyboardKey.KEY_ONE) || Keyboard.isPressed(KeyboardKey.KEY_TWO) || Keyboard.isPressed(
 					KeyboardKey.KEY_THREE)) {
-				TextureHandler.deleteTexture("boat.png");
-				TextureHandler.loadTexture("models/boat.png");
-				ModelHandler.setModelTexture("boat.glb", "boat.png");
+				TextureHandler.deleteTexture("person.png");
+				TextureHandler.loadTexture("models/person.png");
+				ModelHandler.setModelTexture("person.glb", "person.png");
 
 			}
 
@@ -134,7 +138,7 @@ void main() {
 				BeginMode3D(*camera);
 				{
 
-					ModelHandler.draw("boat.glb", Vector3(0, 0, 0));
+					ModelHandler.draw("person.glb", Vector3(0, 0, 0));
 				}
 				EndMode3D();
 			}
