@@ -46,6 +46,8 @@ abstract class Fish {
     bool recalculateTimer = true;
 
     // These ones can be adjusted based on how aggressive the fish acts.
+    double relaxedLookSpeed = 1;
+    double attackLookSpeed = 2;
     double maxSpeedRelaxed = 1;
     double accelerationRelaxed = 1;
 
@@ -321,6 +323,7 @@ abstract class Fish {
 
 class LargeMouthBass : Fish {
     this() {
-        this.__model = "largemouth.glb";
+        relaxedLookSpeed = 0.5;
+        __model = "largemouth.glb";
     }
 }
