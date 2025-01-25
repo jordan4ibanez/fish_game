@@ -279,6 +279,8 @@ abstract class Fish {
 
     void randomTarget(double delta) {
 
+        behaviorTimer -= delta;
+
         if (recalculateTimer) {
             recalculateTimer = false;
             behaviorTimer = giveRandomDouble(8.0, 12.0);
