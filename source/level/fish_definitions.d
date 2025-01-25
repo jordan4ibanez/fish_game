@@ -98,7 +98,15 @@ abstract class Fish {
 
         // If the fish is trying to go on land, let the lerp of rotation continue, but stop from moving.
         if (maxY - minY < (collisionVertical * 2)) {
-            position = oldPosition;
+            // Simulate the jank of PS1 physics by pushing it out inverse with a fixed amount.
+            Vector2 inverseDir = Vector2Normalize(Vector2Subtract(Vector2(
+                    oldPosition.x, oldPosition.z), Vector2(position.x, position.z)));
+
+            inverseDir = Vector2Multiply(inverseDir, Vector2(0.1, 0.1));
+
+            Vector2 ploppedOutPosition = Vector2Add(Vector2(oldPosition.x, oldPosition.z), inverseDir);
+
+            position = Vector3(ploppedOutPosition.x, oldPosition.y, ploppedOutPosition.y);
             return;
         }
 
