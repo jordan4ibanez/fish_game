@@ -218,29 +218,29 @@ abstract class Fish {
 
     // }
 
-    void smoothRotate() {
-        Vector2 normalized = Vector2Normalize(Vector2Subtract(Vector2(position.x, position
-                .z), Vector2(oldPosition.x, oldPosition.z)));
+    // void smoothRotate() {
+    //     Vector2 normalized = Vector2Normalize(Vector2Subtract(Vector2(position.x, position
+    //             .z), Vector2(oldPosition.x, oldPosition.z)));
 
-        // If the fish didn't move, stop.
-        if (abs(Vector2Length(normalized)) <= 0.000001) {
-            return;
-        }
+    //     // If the fish didn't move, stop.
+    //     if (abs(Vector2Length(normalized)) <= 0.000001) {
+    //         return;
+    //     }
 
-        float yaw = atan2(normalized.x, normalized.y);
+    //     float yaw = atan2(normalized.x, normalized.y);
 
-        float distance = Vector2Distance(Vector2(position.x, position
-                .z), Vector2(oldPosition.x, oldPosition.z));
+    //     float distance = Vector2Distance(Vector2(position.x, position
+    //             .z), Vector2(oldPosition.x, oldPosition.z));
 
-        Vector2 pitchNormalized = Vector2Normalize(Vector2Subtract(Vector2(distance, position.y), Vector2(0, oldPosition
-                .y)));
-        float pitch = asin(-pitchNormalized.y);
+    //     Vector2 pitchNormalized = Vector2Normalize(Vector2Subtract(Vector2(distance, position.y), Vector2(0, oldPosition
+    //             .y)));
+    //     float pitch = asin(-pitchNormalized.y);
 
-        // writeln("new:\n", position, "\nold:\n", oldPosition);
+    //     // writeln("new:\n", position, "\nold:\n", oldPosition);
 
-        rotation.y = yaw;
-        rotation.x = pitch;
-    }
+    //     rotation.y = yaw;
+    //     rotation.x = pitch;
+    // }
 
     void idle(double delta) {
         // todo: idle animation.
