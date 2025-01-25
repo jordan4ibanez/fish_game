@@ -259,6 +259,11 @@ abstract class Fish {
     void idle(double delta) {
         // todo: idle animation.
 
+        if (recalculateTimer) {
+            recalculateTimer = false;
+            behaviorTimer = giveRandomDouble(3.0, 6.0);
+        }
+
         writeln("this: ", behaviorTimer);
 
         behaviorTimer -= delta;
