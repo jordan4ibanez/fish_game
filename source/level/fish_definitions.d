@@ -78,7 +78,7 @@ abstract class Fish {
         rotation.x = lerpedTurn.x;
         rotation.y = lerpedTurn.y;
 
-        writeln(turnLerpProgress);
+        // writeln(turnLerpProgress);
 
         turnLerpProgress += delta / 1000;
     }
@@ -105,7 +105,7 @@ abstract class Fish {
                 break;
             }
         }
-        
+
         //? Useful for debugging.
         // selectedX = giveRandomFloat(position.x - 3, position.x + 3);
         // selectedZ = giveRandomFloat(position.x - 3, position.x + 3);
@@ -117,6 +117,7 @@ abstract class Fish {
         lookTarget = Vector3(selectedX, selectedY, selectedZ);
 
         writeln(lookTarget);
+
         turnLerpProgress = 0;
 
     }
