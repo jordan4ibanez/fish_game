@@ -35,6 +35,7 @@ abstract class Fish {
     float collisionVertical = 0.2;
 
     // Behavioral variables.
+    FishState oldState = FishState.Looking;
     FishState state = FishState.Looking;
     Vector3 lookTarget;
     double turnLerpProgress = 0;
@@ -135,7 +136,13 @@ abstract class Fish {
 
     void update(double delta) {
 
+        if (state != oldState) {
+            writeln("in state: ", state);
+        }
+
         turnToTarget(delta);
+
+        oldState = state;
 
         switch (state) {
         case FishState.Idle: {
