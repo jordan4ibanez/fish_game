@@ -5,6 +5,7 @@ import graphics.shader_handler;
 import graphics.texture_handler;
 import input.keyboard;
 import level.fish_definitions;
+import level.fish_tank;
 import level.ground;
 import level.level;
 import level.water;
@@ -72,10 +73,6 @@ void main() {
 	camera.fovy = 45.0;
 	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
 
-	
-
-	
-
 	// Window.lockMouse();
 	// Window.maximize();
 
@@ -96,6 +93,21 @@ void main() {
 		if (Window.isMouseLocked()) {
 			UpdateCamera(camera, CameraMode.CAMERA_FREE);
 		}
+
+		float debugX = 0;
+		if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
+			debugX = 1;
+		} else if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
+			debugX = -1;
+		}
+		float debugY = 0;
+		if (Keyboard.isPressed(KeyboardKey.KEY_RIGHT)) {
+			debugY = 1;
+		} else if (Keyboard.isPressed(KeyboardKey.KEY_LEFT)) {
+			debugY = -1;
+		}
+
+		FishTank.debugTarget(debugX, debugY);
 
 		Level.update();
 

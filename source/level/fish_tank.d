@@ -34,6 +34,13 @@ private:
         }
     }
 
+    public void debugTarget(float x, float y) {
+        foreach (uuid, fish; database) {
+            fish.lookTarget.x += x;
+            fish.lookTarget.z += y;
+        }
+    }
+
     public void draw() {
         foreach (uuid, fish; database) {
 
