@@ -41,6 +41,7 @@ abstract class Fish {
     double behaviorTimer = 0;
     double lookAroundTimer = 0;
     bool retrigger = false;
+    double movementSpeed = 0;
 
     string __model = "undefined";
 
