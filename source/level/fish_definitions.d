@@ -118,6 +118,8 @@ abstract class Fish {
             Vector2 ploppedOutPosition = Vector2Add(Vector2(oldPosition.x, oldPosition.z), inverseDir);
 
             position = Vector3(ploppedOutPosition.x, oldPosition.y, ploppedOutPosition.y);
+
+            boundsCheck();
             return;
         }
 
