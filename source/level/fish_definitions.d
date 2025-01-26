@@ -228,7 +228,7 @@ abstract class Fish {
     void update(double delta) {
 
         if (state != oldState) {
-            writeln("in state: ", state);
+            // writeln("in state: ", state);
         }
 
         turnToTarget(delta);
