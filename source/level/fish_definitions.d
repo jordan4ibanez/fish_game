@@ -157,6 +157,13 @@ abstract class Fish {
 
         targetYaw = Lerp(currentYaw, targetYaw, delta * lookSpeed);
 
+        // Raymath can cause Lerp to go into negative or positive infinity.
+        // NaN check is because I want to make sure it doesn't crash.
+        if (abs(targetYaw) == float.infinity || abs(targetYaw) == float.nan) {
+            // writeln("Caught nan yaw.");
+            targetYaw = currentYaw;
+        }
+
         // Calculating pitch.
         float distance = Vector2Distance(Vector2(position.x, position.z), Vector2(lookTarget.x, lookTarget
                 .z));
