@@ -71,6 +71,10 @@ void main() {
 	TextureHandler.loadTexture("models/person.png");
 	ModelHandler.setModelTexture("person.glb", "person.png");
 
+	ModelHandler.loadModelFromFile("models/fishing_rod.glb");
+	TextureHandler.loadTexture("models/fishing_rod.png");
+	ModelHandler.setModelTexture("fishing_rod.glb", "fishing_rod.png");
+
 	FontHandler.initialize();
 	Level.load("levels/map_lake/");
 
