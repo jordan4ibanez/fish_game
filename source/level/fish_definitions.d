@@ -217,8 +217,6 @@ abstract class Fish {
 
         lookTarget = Vector3(selectedX, selectedY, selectedZ);
 
-        writeln(lookTarget);
-
         // turnLerpProgress = 0;
 
     }
