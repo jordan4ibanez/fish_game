@@ -150,7 +150,6 @@ void main() {
 	}
 
 }
-
 // if (true) {
 
 // 	if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
@@ -167,14 +166,22 @@ void main() {
 
 // 	// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
 
+// 	if (Keyboard.isPressed(KeyboardKey.KEY_F5)) {
+// 		renderPerson = !renderPerson;
+// 	}
+
 // 	if (Keyboard.isPressed(KeyboardKey.KEY_F1) || Keyboard.isPressed(KeyboardKey.KEY_F2) || Keyboard.isPressed(
 // 			KeyboardKey.KEY_F3) || Keyboard.isPressed(KeyboardKey.KEY_KP_1) || Keyboard.isPressed(
 // 			KeyboardKey.KEY_KP_2) || Keyboard.isPressed(KeyboardKey.KEY_KP_3) || Keyboard.isPressed(
 // 			KeyboardKey.KEY_ONE) || Keyboard.isPressed(KeyboardKey.KEY_TWO) || Keyboard.isPressed(
 // 			KeyboardKey.KEY_THREE)) {
-// 		TextureHandler.deleteTexture("person.png");
-// 		TextureHandler.loadTexture("models/person.png");
-// 		ModelHandler.setModelTexture("person.glb", "person.png");
+
+// 		ModelHandler.destroy("fishing_rod.glb");
+// 		ModelHandler.loadModelFromFile("models/fishing_rod.glb");
+
+// 		TextureHandler.deleteTexture("fishing_rod.png");
+// 		TextureHandler.loadTexture("models/fishing_rod.png");
+// 		ModelHandler.setModelTexture("fishing_rod.glb", "fishing_rod.png");
 
 // 	}
 
@@ -185,7 +192,10 @@ void main() {
 // 		BeginMode3D(*camera);
 // 		{
 
-// 			ModelHandler.draw("person.glb", Vector3(0, 0, 0));
+// 			if (renderPerson) {
+// 				ModelHandler.draw("person.glb", Vector3(0, 0, 0));
+// 			}
+// 			ModelHandler.draw("fishing_rod.glb", Vector3(0, 0, 0));
 // 		}
 // 		EndMode3D();
 // 	}
