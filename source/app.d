@@ -1,4 +1,5 @@
 import core.stdc.tgmath;
+import graphics.camera_handler;
 import graphics.font_handler;
 import graphics.model_handler;
 import graphics.shader_handler;
@@ -48,6 +49,8 @@ void main() {
 	default:
 	}
 
+	CameraHandler.initialize();
+
 	ShaderHandler.newShader("water", "shaders/water.vert", "shaders/water.frag");
 	ShaderHandler.newShader("ground", "shaders/ground.vert", "shaders/ground.frag");
 	ShaderHandler.newShader("normal", "shaders/normal.vert", "shaders/normal.frag");
@@ -78,14 +81,6 @@ void main() {
 	FontHandler.initialize();
 	Level.load("levels/map_lake/");
 
-	Camera* camera = new Camera();
-	camera.position = Vector3(Ground.getWidth() / 2, 4, Ground.getHeight() / 2);
-	// camera.position = Vector3(4, 4, 0);
-	camera.up = Vector3(0, 1, 0);
-	camera.target = Vector3(0, 0, 0);
-	camera.fovy = 45.0;
-	camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
-
 	// Window.lockMouse();
 	// Window.maximize();
 
@@ -104,7 +99,7 @@ void main() {
 		}
 
 		if (Window.isMouseLocked()) {
-			UpdateCamera(camera, CameraMode.CAMERA_FREE);
+			UpdateCamera(CameraHandler.getPointer(), CameraMode.CAMERA_FREE);
 		}
 
 		Level.update();
@@ -117,7 +112,7 @@ void main() {
 		{
 
 			ClearBackground(Colors.SKYBLUE);
-			BeginMode3D(*camera);
+			BeginMode3D(*CameraHandler.getPointer());
 			{
 
 				Level.draw();
@@ -150,6 +145,7 @@ void main() {
 	}
 
 }
+
 // if (true) {
 
 // 	if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
