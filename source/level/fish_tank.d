@@ -24,7 +24,7 @@ private:
             foreach (i; 0 .. 100) {
                 LargeMouthBass newBass = new LargeMouthBass();
                 database[newBass.uuid] = newBass;
-                writeln("spawned new largemouth");
+                // writeln("spawned new largemouth");
             }
 
         }
