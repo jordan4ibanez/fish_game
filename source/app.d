@@ -103,21 +103,6 @@ void main() {
 			UpdateCamera(camera, CameraMode.CAMERA_FREE);
 		}
 
-		float debugX = 0;
-		if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
-			debugX = 1;
-		} else if (Keyboard.isPressed(KeyboardKey.KEY_UP)) {
-			debugX = -1;
-		}
-		float debugY = 0;
-		if (Keyboard.isPressed(KeyboardKey.KEY_RIGHT)) {
-			debugY = 1;
-		} else if (Keyboard.isPressed(KeyboardKey.KEY_LEFT)) {
-			debugY = -1;
-		}
-
-		FishTank.debugTarget(debugX, debugY);
-
 		Level.update();
 
 		// foreach (i; 0 .. 13) {
