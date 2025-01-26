@@ -2,6 +2,7 @@ module level.level;
 
 import level.fish_tank;
 import level.ground;
+import level.player;
 import level.water;
 
 static final const class Level {
@@ -20,6 +21,7 @@ private:
         // todo: water level parse.
         Ground.load(levelDirectory);
         Water.load();
+        Player.setDefaultPosition();
 
         loaded = true;
     }
@@ -37,11 +39,13 @@ private:
         Ground.update();
         Water.update();
         FishTank.update();
+        Player.updateFloating();
     }
 
     public void draw() {
         Ground.draw();
         FishTank.draw();
+        Player.draw();
         Water.draw();
     }
 
