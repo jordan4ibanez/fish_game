@@ -1,11 +1,25 @@
 module level.player;
 
+import graphics.camera_handler;
 import graphics.model_handler;
+import input.keyboard;
 import level.ground;
 import level.water;
 import raylib;
+import std.math.trigonometry;
 import std.stdio;
 import utility.delta;
+
+enum PlayerState {
+    // First person.
+    Browsing,
+    // To the right.
+    Casting,
+    // Further back to the left.
+    Menu,
+    // Underwater lure cam.
+    Water
+}
 
 static final const class Player {
 static:
@@ -17,11 +31,20 @@ private:
     int playerHandBoneIndex = -1;
     int animationFrame = 0;
     bool inCast = false;
+    PlayerState state = PlayerState.Menu;
 
     //* BEGIN PUBLIC API.
 
     //!! NOTE:
-    // Animation seems to be double the blender keyframes. So frame 30 is 60.
+    // Animation seems to be double the blender keyframes. So frame 30 is 60-ish. 
+
+    public void update() {
+        double delta = Delta.getDelta();
+        updateFloating();
+        // CameraHandler.setTarget(position);
+        cameraPositioning();
+
+    }
 
     public void setPosition(float x, float y, float z) {
         position = Vector3(x, y, z);
@@ -106,6 +129,13 @@ private:
 
     //* BEGIN INTERNAL API.
 
+    void doControls() {
+
+        //! Temporary.
+        // if (state == PlayerState.Menu)
+
+    }
+
     void doCastAnimation() {
         if (!inCast) {
             return;
@@ -126,6 +156,44 @@ private:
 
             animationFrame = 0;
         }
+    }
+
+    void cameraPositioning() {
+
+        // 2.6 for casting and also invert the - +
+        if (state == PlayerState.Menu) {
+
+            immutable float shiftFront = 5;
+            immutable float shiftBack = 1.05;
+            immutable float distance = 8;
+            immutable float waterLevel = Water.getWaterLevel();
+
+            float rotated = (-rotation.y) - (PI / shiftFront);
+            float x = cos(rotated) * distance;
+            float z = sin(rotated) * distance;
+
+            Vector3 newCameraPosition = Vector3();
+            newCameraPosition.x = position.x + x;
+            newCameraPosition.y = waterLevel + 2;
+            newCameraPosition.z = position.z + z;
+
+            CameraHandler.setPosition(newCameraPosition);
+
+            rotated = (-rotation.y) + (PI / shiftBack);
+
+            x = cos(rotated) * distance;
+            z = sin(rotated) * distance;
+
+            Vector3 newTargetPosition = Vector3();
+            newTargetPosition.x = position.x + x;
+            newTargetPosition.y = waterLevel + 2;
+            newTargetPosition.z = position.z + z;
+
+            CameraHandler.setTarget(newTargetPosition);
+
+            writeln("in menu");
+        }
+
     }
 
 }
