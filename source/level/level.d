@@ -39,7 +39,7 @@ private:
         Ground.update();
         Water.update();
         FishTank.update();
-        Player.updateFloating();
+        Player.update();
     }
 
     public void draw() {
