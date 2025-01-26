@@ -75,14 +75,7 @@ abstract class Fish {
         tightTurn = false;
     }
 
-    void moveToTarget(double delta) {
-        float xVelocity = (sin(rotation.y) * delta) * movementSpeed;
-        float zVelocity = (cos(rotation.y) * delta) * movementSpeed;
-
-        Vector3 oldPosition = position;
-
-        position = Vector3Add(position, Vector3(xVelocity, 0, zVelocity));
-
+    void boundsCheck() {
         Vector2 mapSize = Ground.getSizeFloating();
 
         if (position.x < 1) {
@@ -96,6 +89,20 @@ abstract class Fish {
         } else if (position.z > mapSize.y - 1) {
             position.z = mapSize.y - 1;
         }
+    }
+
+    void moveToTarget(double delta) {
+
+        // writeln(delta, " ", movementSpeed, " ", rotation.y);
+
+        float xVelocity = (sin(rotation.y) * delta) * movementSpeed;
+        float zVelocity = (cos(rotation.y) * delta) * movementSpeed;
+
+        Vector3 oldPosition = position;
+
+        position = Vector3Add(position, Vector3(xVelocity, 0, zVelocity));
+
+        boundsCheck();
 
         float minY = Ground.getCollisionPoint(position.x, position.z) + collisionVertical;
         float maxY = Water.getCollisionPoint(position.x, position.z) - collisionVertical;
