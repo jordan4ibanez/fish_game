@@ -19,12 +19,12 @@ private:
         camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
     }
 
-    public void setPosition(float x, float y, float z) {
-        camera.position = Vector3(x, y, z);
+    public void setPosition(Vector3 newPosition) {
+        camera.position = newPosition;
     }
 
-    public void setTarget(float x, float y, float z) {
-        camera.target = Vector3(x, y, z);
+    public void setTarget(Vector3 newTarget) {
+        camera.target = newTarget;
     }
 
     public float getFOV() {
