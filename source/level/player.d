@@ -11,6 +11,9 @@ static:
 private:
 
     Vector3 position;
+    Vector3 rotation;
+
+    int playerHandBoneIndex = -1;
 
     //* BEGIN PUBLIC API.
 
@@ -26,6 +29,18 @@ private:
         position.x = groundSize.x / 2.0;
         position.z = groundSize.y / 2.0;
         ModelHandler.playAnimation("person.glb", 0, 0);
+        rotation.y = PI / 2;
+
+        Model* personModel = ModelHandler.getModelPointer("person.glb");
+
+        foreach (i; 0 .. personModel.boneCount) {
+            if (personModel.bones[i].name[0 .. 6] == "Hand.R") {
+                writeln("index ", i);
+                playerHandBoneIndex = i;
+                break;
+            }
+        }
+
     }
 
     public void updateFloating() {
