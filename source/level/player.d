@@ -35,7 +35,7 @@ private:
         Model* personModel = ModelHandler.getModelPointer("person.glb");
 
         foreach (i; 0 .. personModel.boneCount) {
-            if (personModel.bones[i].name[0 .. 6] == "Hand.R") {
+            if (personModel.bones[i].name[0 .. 9] == "MiddleI.R") {
                 writeln("index ", i);
                 playerHandBoneIndex = i;
                 break;
