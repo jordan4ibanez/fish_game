@@ -34,11 +34,11 @@ private:
     }
 
     public void draw() {
-        ModelHandler.draw("boat.glb", position);
+        ModelHandler.draw("boat.glb", position, rotation);
 
         Vector3 playerOnBoat = position;
         playerOnBoat.y += 0.6;
-        ModelHandler.draw("person.glb", playerOnBoat);
+        ModelHandler.draw("person.glb", playerOnBoat, rotation);
 
     }
 
