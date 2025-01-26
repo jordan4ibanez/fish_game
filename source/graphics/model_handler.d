@@ -186,7 +186,7 @@ private:
         animationDatabase.clear();
     }
 
-    public void playAnimation(string modelName, int index) {
+    public void playAnimation(string modelName, int index, int frame) {
         if (modelName !in database) {
             throw new Error(
                 "[ModelManager]: Tried to play animation on non-existent model. " ~ modelName);
@@ -194,6 +194,13 @@ private:
 
         Model* thisModel = database[modelName];
 
+        AnimationContainer thisAnimation = animationDatabase[modelName];
+
+        if (thisAnimation is null) {
+            throw new Error(
+                "[ModelManager]: Tried to play animation on model with no animation. " ~ modelName);
+        }
+        UpdateModelAnimation(*thisModel, thisAnimation.animationData[index], frame);
     }
 
     //* BEGIN INTERNAL API.
