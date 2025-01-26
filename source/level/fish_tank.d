@@ -21,9 +21,11 @@ private:
 
     public void update() {
         if (database.length == 0) {
-            LargeMouthBass newBass = new LargeMouthBass();
-            database[newBass.uuid] = newBass;
-            writeln("spawned new largemouth");
+            foreach (i; 0 .. 100) {
+                LargeMouthBass newBass = new LargeMouthBass();
+                database[newBass.uuid] = newBass;
+                writeln("spawned new largemouth");
+            }
 
         }
 
