@@ -15,6 +15,8 @@ private:
     Vector3 rotation;
 
     int playerHandBoneIndex = -1;
+    int animationFrame = 0;
+    bool inCast = false;
 
     //* BEGIN PUBLIC API.
 
@@ -41,16 +43,13 @@ private:
                 break;
             }
         }
-
     }
 
     public void updateFloating() {
         position.y = Water.getCollisionPoint(position.x, position.z);
         position.y -= 0.1;
 
-        double delta = Delta.getDelta();
-
-        rotation.y += delta;
+        // rotation.y += delta;
     }
 
     public void draw() {
@@ -58,6 +57,9 @@ private:
 
         Vector3 playerOnBoat = position;
         playerOnBoat.y += 0.6;
+
+        ModelHandler.playAnimation("person.glb", 0, animationFrame);
+
         ModelHandler.draw("person.glb", playerOnBoat, rotation);
 
         //? The song and dance you see below is to put the fishing pole in the player's hand.
@@ -69,7 +71,7 @@ private:
             "person.glb");
         ModelAnimation* animation = personAnimationContainer.animationData;
 
-        Transform* transform = &animation.framePoses[0][playerHandBoneIndex];
+        Transform* transform = &animation.framePoses[animationFrame][playerHandBoneIndex];
         Quaternion inRotation = model.bindPose[playerHandBoneIndex].rotation;
         Quaternion outRotation = transform.rotation;
 
@@ -103,5 +105,27 @@ private:
     }
 
     //* BEGIN INTERNAL API.
+
+    void doCastAnimation() {
+        if (!inCast) {
+            return;
+        }
+
+        double delta = Delta.getDelta();
+
+        immutable int max = 230;
+        immutable int middle = 230 / 2;
+
+        if (animationFrame < middle) {
+            animationFrame += 2;
+        } else {
+            animationFrame += 6;
+        }
+        if (animationFrame > max) {
+            animationFrame = max;
+
+            animationFrame = 0;
+        }
+    }
 
 }
