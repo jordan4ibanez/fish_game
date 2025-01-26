@@ -28,7 +28,7 @@ void main() {
 
 	validateRaylibBinding();
 
-	SetTraceLogLevel(TraceLogLevel.LOG_ERROR);
+	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
 	SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 
