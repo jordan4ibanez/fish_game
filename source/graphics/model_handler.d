@@ -203,6 +203,15 @@ private:
         UpdateModelAnimation(*thisModel, thisAnimation.animationData[index], frame);
     }
 
+    public AnimationContainer getAnimationContainer(string modelName) {
+        if (modelName !in animationDatabase) {
+            throw new Error(
+                "[ModelManager]: Tried to get non-existent animation container. " ~ modelName);
+        }
+
+        return animationDatabase[modelName];
+    }
+
     //* BEGIN INTERNAL API.
 
     void destroyModel(string modelName, Model* thisModel) {
