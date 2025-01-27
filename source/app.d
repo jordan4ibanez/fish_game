@@ -9,6 +9,7 @@ import level.fish_definitions;
 import level.fish_tank;
 import level.ground;
 import level.level;
+import level.lure;
 import level.water;
 import raylib;
 import std.conv;
@@ -51,6 +52,8 @@ void main() {
 
 	CameraHandler.initialize();
 
+	Lure.loadLureData();
+
 	ShaderHandler.newShader("water", "shaders/water.vert", "shaders/water.frag");
 	ShaderHandler.newShader("ground", "shaders/ground.vert", "shaders/ground.frag");
 	ShaderHandler.newShader("normal", "shaders/normal.vert", "shaders/normal.frag");
@@ -86,50 +89,103 @@ void main() {
 
 	while (Window.shouldStayOpen()) {
 
-		if (Keyboard.isPressed(KeyboardKey.KEY_F1)) {
-			Window.toggleMaximize();
-		}
+		if (true) {
 
-		if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
-			Window.toggleMouseLock();
-		}
+			if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
+				Window.toggleMouseLock();
+			}
 
-		if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
-			Level.togglePause();
-		}
+			if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
+				Level.togglePause();
+			}
 
-		if (Window.isMouseLocked()) {
-			UpdateCamera(CameraHandler.getPointer(), CameraMode.CAMERA_FREE);
-		}
+			if (Window.isMouseLocked()) {
+				CameraHandler.doFreeCam();
+			}
 
-		Level.update();
+			// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
 
-		// foreach (i; 0 .. 13) {
-		// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
-		// }
+			// if (Keyboard.isPressed(KeyboardKey.KEY_F5)) {
+			// 	renderPerson = !renderPerson;
+			// }
 
-		BeginDrawing();
-		{
+			if (Keyboard.isPressed(KeyboardKey.KEY_F1) || Keyboard.isPressed(KeyboardKey.KEY_F2) || Keyboard.isPressed(
+					KeyboardKey.KEY_F3) || Keyboard.isPressed(KeyboardKey.KEY_KP_1) || Keyboard.isPressed(
+					KeyboardKey.KEY_KP_2) || Keyboard.isPressed(KeyboardKey.KEY_KP_3) || Keyboard.isPressed(
+					KeyboardKey.KEY_ONE) || Keyboard.isPressed(KeyboardKey.KEY_TWO) || Keyboard.isPressed(
+					KeyboardKey.KEY_THREE)) {
 
-			ClearBackground(Colors.SKYBLUE);
-			BeginMode3D(*CameraHandler.getPointer());
-			{
+				ModelHandler.destroy("fishing_rod.glb");
+				ModelHandler.loadModelFromFile("models/fishing_rod.glb");
 
-				Level.draw();
-
-				// float yHeight = Ground.getHeightAtPosition(testPoint.x, testPoint.y);
-
-				// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
-				// DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);
-
-				// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
-
-				// ModelHandler.draw(blah2.model, blah2.position);
+				TextureHandler.deleteTexture("fishing_rod.png");
+				TextureHandler.loadTexture("models/fishing_rod.png");
+				ModelHandler.setModelTexture("fishing_rod.glb", "fishing_rod.png");
 
 			}
-			EndMode3D();
 
-			/*
+			BeginDrawing();
+			{
+				ClearBackground(Colors.SKYBLUE);
+
+				BeginMode3D(*CameraHandler.getPointer());
+				{
+
+					// if (renderPerson) {
+					// ModelHandler.draw("person.glb", Vector3(0, 0, 0));
+					// }
+					ModelHandler.draw("fishing_rod.glb", Vector3(0, 0, 0));
+				}
+				EndMode3D();
+			}
+			EndDrawing();
+
+		} else {
+
+			if (Keyboard.isPressed(KeyboardKey.KEY_F1)) {
+				Window.toggleMaximize();
+			}
+
+			if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
+				Window.toggleMouseLock();
+			}
+
+			if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
+				Level.togglePause();
+			}
+
+			if (Window.isMouseLocked()) {
+				UpdateCamera(CameraHandler.getPointer(), CameraMode.CAMERA_FREE);
+			}
+
+			Level.update();
+
+			// foreach (i; 0 .. 13) {
+			// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
+			// }
+
+			BeginDrawing();
+			{
+
+				ClearBackground(Colors.SKYBLUE);
+				BeginMode3D(*CameraHandler.getPointer());
+				{
+
+					Level.draw();
+
+					// float yHeight = Ground.getHeightAtPosition(testPoint.x, testPoint.y);
+
+					// DrawPlane(Vector3(0, 0, 0), Vector2(1, 1), Colors.BLACK);
+					// DrawSphere(Vector3(testPoint.x, 0, testPoint.y), 0.02, Colors.YELLOW);
+
+					// DrawSphere(Vector3(testPoint.x, yHeight, testPoint.y), 0.02, Colors.RED);
+
+					// ModelHandler.draw(blah2.model, blah2.position);
+
+				}
+				EndMode3D();
+
+				/*
 			? This is the fake copyright info for this build. :P
 			Vector2 windowSize = Window.getSize();
 			Vector2 textSize = FontHandler.getTextSize("© METABASS GENERAL LURES INC.");
@@ -139,62 +195,10 @@ void main() {
 			FontHandler.drawShadowed("PROTOTYPE BUILD. DO NOT DISTRIBUTE.", 2, windowSize.y - textSize.y + 5);
 			*/
 
-			FontHandler.drawShadowed("FPS: " ~ to!string(GetFPS()), 0, -5);
+				FontHandler.drawShadowed("FPS: " ~ to!string(GetFPS()), 0, -5);
+			}
+			EndDrawing();
 		}
-		EndDrawing();
 	}
 
 }
-
-// if (true) {
-
-// 	if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
-// 		Window.toggleMouseLock();
-// 	}
-
-// 	if (Keyboard.isPressed(KeyboardKey.KEY_F3)) {
-// 		Level.togglePause();
-// 	}
-
-// 	if (Window.isMouseLocked()) {
-// 		UpdateCamera(camera, CameraMode.CAMERA_FREE);
-// 	}
-
-// 	// UpdateCamera(camera, CameraMode.CAMERA_ORBITAL);
-
-// 	if (Keyboard.isPressed(KeyboardKey.KEY_F5)) {
-// 		renderPerson = !renderPerson;
-// 	}
-
-// 	if (Keyboard.isPressed(KeyboardKey.KEY_F1) || Keyboard.isPressed(KeyboardKey.KEY_F2) || Keyboard.isPressed(
-// 			KeyboardKey.KEY_F3) || Keyboard.isPressed(KeyboardKey.KEY_KP_1) || Keyboard.isPressed(
-// 			KeyboardKey.KEY_KP_2) || Keyboard.isPressed(KeyboardKey.KEY_KP_3) || Keyboard.isPressed(
-// 			KeyboardKey.KEY_ONE) || Keyboard.isPressed(KeyboardKey.KEY_TWO) || Keyboard.isPressed(
-// 			KeyboardKey.KEY_THREE)) {
-
-// 		ModelHandler.destroy("fishing_rod.glb");
-// 		ModelHandler.loadModelFromFile("models/fishing_rod.glb");
-
-// 		TextureHandler.deleteTexture("fishing_rod.png");
-// 		TextureHandler.loadTexture("models/fishing_rod.png");
-// 		ModelHandler.setModelTexture("fishing_rod.glb", "fishing_rod.png");
-
-// 	}
-
-// 	BeginDrawing();
-// 	{
-// 		ClearBackground(Colors.SKYBLUE);
-
-// 		BeginMode3D(*camera);
-// 		{
-
-// 			if (renderPerson) {
-// 				ModelHandler.draw("person.glb", Vector3(0, 0, 0));
-// 			}
-// 			ModelHandler.draw("fishing_rod.glb", Vector3(0, 0, 0));
-// 		}
-// 		EndMode3D();
-// 	}
-// 	EndDrawing();
-
-// } else {
