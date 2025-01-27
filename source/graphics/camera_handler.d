@@ -39,6 +39,10 @@ private:
         return camera;
     }
 
+    public void doFreeCam() {
+        UpdateCamera(camera, CameraMode.CAMERA_FREE);
+    }
+
     //* BEGIN INTERNAL API.
 
 }
