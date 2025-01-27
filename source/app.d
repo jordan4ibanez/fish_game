@@ -52,11 +52,11 @@ void main() {
 
 	CameraHandler.initialize();
 
-	Lure.loadLureData();
-
 	ShaderHandler.newShader("water", "shaders/water.vert", "shaders/water.frag");
 	ShaderHandler.newShader("ground", "shaders/ground.vert", "shaders/ground.frag");
 	ShaderHandler.newShader("normal", "shaders/normal.vert", "shaders/normal.frag");
+
+	Lure.loadLureData();
 
 	SetTargetFPS(0);
 	SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
@@ -119,7 +119,7 @@ void main() {
 				// ModelHandler.loadModelFromFile("models/fishing_rod.glb");
 
 				TextureHandler.deleteTexture("deep_c_110.png");
-				TextureHandler.loadTexture("models/deep_c_110.png");
+				TextureHandler.loadTexture("models/lures/deep_c_110.png");
 				ModelHandler.setModelTexture("deep_c_110.glb", "deep_c_110.png");
 
 			}
