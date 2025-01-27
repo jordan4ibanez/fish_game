@@ -115,12 +115,12 @@ void main() {
 					KeyboardKey.KEY_ONE) || Keyboard.isPressed(KeyboardKey.KEY_TWO) || Keyboard.isPressed(
 					KeyboardKey.KEY_THREE)) {
 
-				ModelHandler.destroy("fishing_rod.glb");
-				ModelHandler.loadModelFromFile("models/fishing_rod.glb");
+				// ModelHandler.destroy("fishing_rod.glb");
+				// ModelHandler.loadModelFromFile("models/fishing_rod.glb");
 
-				TextureHandler.deleteTexture("fishing_rod.png");
-				TextureHandler.loadTexture("models/fishing_rod.png");
-				ModelHandler.setModelTexture("fishing_rod.glb", "fishing_rod.png");
+				TextureHandler.deleteTexture("deep_c_110.png");
+				TextureHandler.loadTexture("models/deep_c_110.png");
+				ModelHandler.setModelTexture("deep_c_110.glb", "deep_c_110.png");
 
 			}
 
@@ -134,7 +134,7 @@ void main() {
 					// if (renderPerson) {
 					// ModelHandler.draw("person.glb", Vector3(0, 0, 0));
 					// }
-					ModelHandler.draw("fishing_rod.glb", Vector3(0, 0, 0));
+					ModelHandler.draw("deep_c_110.glb", Vector3(0, 0, 0));
 				}
 				EndMode3D();
 			}
