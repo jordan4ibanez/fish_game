@@ -33,6 +33,8 @@ private:
     Vector3 rotation;
     Vector2 oldPoleTipPosition;
 
+    Vector3 playerWaterTarget;
+
     PlayerState state = PlayerState.Menu;
     int playerHandBoneIndex = -1;
 
@@ -147,9 +149,6 @@ private:
         translationSpace = Vector3Add(translationSpace, playerOnBoat);
 
         ModelHandler.draw("fishing_rod.glb", translationSpace, rotationSpace);
-
-        // Draw mesh at socket position with socket angle rotation
-        // DrawMesh(equipModel[i].meshes[0], equipModel[i].materials[1], matrixTransform);
 
         //? The lure gets kind of complicated lol.
 
