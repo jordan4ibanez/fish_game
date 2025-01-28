@@ -10,6 +10,7 @@ import raylib;
 import std.math.trigonometry;
 import std.stdio;
 import utility.delta;
+import utility.window;
 
 enum PlayerState {
     // First person.
@@ -40,16 +41,26 @@ private:
     //!! NOTE:
     // Animation seems to be double the blender keyframes. So frame 30 is 60-ish. 
 
+    bool inittrigger = true;
+
     public void update() {
         double delta = Delta.getDelta();
         doControls();
         updateFloating();
-        cameraPositioning();
+        // cameraPositioning();
+
+        if (inittrigger) {
+            CameraHandler.setPosition(position);
+            inittrigger = false;
+        }
+
+        if (Window.isMouseLocked()) {
+            CameraHandler.doFreeCam();
+        }
 
         if (state == PlayerState.Casting) {
             doCastAnimation();
         }
-        writeln(state);
 
     }
 
@@ -136,7 +147,7 @@ private:
         //? This needs to check for if the player is in first person mode or undewater cam.
         //? Those will use different implementations.
 
-         Lure.setPosition(translationSpace);
+        Lure.setPosition(translationSpace);
 
     }
 
