@@ -9,6 +9,7 @@ static:
 private:
 
     Vector3 position;
+    Vector3 rotation;
 
     //* BEGIN PUBLIC API.
 
@@ -20,11 +21,15 @@ private:
     }
 
     public void draw() {
-        ModelHandler.draw("deep_c_110.glb", position);
+        ModelHandler.draw("deep_c_110.glb", position, rotation);
     }
 
     public void setPosition(Vector3 newPosition) {
         position = newPosition;
+    }
+
+    public void setRotation(Vector3 newRotation) {
+        rotation = newRotation;
     }
 
     //* BEGIN INTERNAL API.
