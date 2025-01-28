@@ -180,12 +180,14 @@ private:
                     break;
                 }
 
-                writeln(poleTipDeltaDistance);
-
                 if (poleTipDeltaDistance > 0) {
 
                     Vector2 poleTipSwingDirection = Vector2Normalize(Vector2Subtract(oldPoleTipPosition,
                             poleTipPosition));
+
+                    float dx = oldPoleTipPosition.x - poleTipPosition.x;
+                    float dy = oldPoleTipPosition.y - poleTipPosition.y;
+                    float yaw = (-atan2(dy, dx)) - (PI / 2);
 
                     oldPoleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
 
@@ -198,6 +200,8 @@ private:
                     lureTranslation.z += swingZ;
 
                     Lure.setPosition(lureTranslation);
+
+                    Lure.setRotation(Vector3(0, yaw, 0));
                 }
             }
             break;
@@ -255,7 +259,6 @@ private:
             break;
         case PlayerState.Casting: {
                 doCastAnimation();
-
             }
             break;
         case PlayerState.CastingArc: {
