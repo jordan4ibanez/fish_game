@@ -214,7 +214,7 @@ private:
             break;
         case PlayerState.Casting: {
                 if (animationFrame == castFrameMax) {
-
+                    // state = PlayerState.CastingArc;
                 }
             }
             break;
