@@ -48,6 +48,8 @@ private:
     immutable int castFrameMax = 230;
     immutable int castFrameMiddle = 230 / 2;
 
+    float centeredYaw;
+
     //* BEGIN PUBLIC API.
 
     //!! NOTE:
@@ -83,6 +85,8 @@ private:
         position.z = groundSize.y / 2.0;
         ModelHandler.playAnimation("person.glb", 0, 0);
         rotation.y = PI / 2;
+
+        centeredYaw = rotation.y;
 
         Model* personModel = ModelHandler.getModelPointer("person.glb");
 
