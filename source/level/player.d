@@ -4,6 +4,7 @@ import graphics.camera_handler;
 import graphics.model_handler;
 import input.keyboard;
 import level.ground;
+import level.lure;
 import level.water;
 import raylib;
 import std.math.trigonometry;
@@ -131,6 +132,12 @@ private:
 
         // Draw mesh at socket position with socket angle rotation
         // DrawMesh(equipModel[i].meshes[0], equipModel[i].materials[1], matrixTransform);
+
+        //? This needs to check for if the player is in first person mode or undewater cam.
+        //? Those will use different implementations.
+
+         Lure.setPosition(translationSpace);
+
     }
 
     //* BEGIN INTERNAL API.
@@ -141,6 +148,15 @@ private:
             if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
                 state = PlayerState.Casting;
                 castTimer = 0;
+            }
+        } else {
+            // This is a weird player animation/state reset thing.
+            if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
+                state = PlayerState.Menu;
+                castTimer = 0;
+                frameTimer = (1 / 60) + 0.001;
+                animationFrame = 0;
+                doCastAnimation();
             }
         }
 

@@ -89,7 +89,7 @@ void main() {
 
 	while (Window.shouldStayOpen()) {
 
-		if (true) {
+		if (false) {
 
 			if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
 				Window.toggleMouseLock();

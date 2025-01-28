@@ -2,12 +2,15 @@ module level.level;
 
 import level.fish_tank;
 import level.ground;
+import level.lure;
 import level.player;
 import level.water;
 
 static final const class Level {
 static:
 private:
+
+    // If you're in a level, this logic container will get called.
 
     bool loaded = false;
     bool paused = false;
@@ -46,6 +49,7 @@ private:
         Ground.draw();
         FishTank.draw();
         Player.draw();
+        Lure.draw();
         Water.draw();
     }
 
