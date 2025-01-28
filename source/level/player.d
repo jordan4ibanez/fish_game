@@ -15,7 +15,7 @@ import utility.window;
 
 enum PlayerState {
     // First person.
-    Browsing,
+    Aiming,
     // To the right. This one also includes the lure flying through the air in CastingArc.
     Casting,
     CastingArc,
@@ -35,7 +35,7 @@ private:
 
     Vector3 playerWaterTarget;
 
-    PlayerState state = PlayerState.Menu;
+    PlayerState state = PlayerState.Aiming;
     int playerHandBoneIndex = -1;
 
     int animationFrame = 0;
@@ -165,7 +165,7 @@ private:
         float poleTipDeltaDistance = Vector2Distance(poleTipPosition, oldPoleTipPosition);
 
         switch (state) {
-        case PlayerState.Browsing, PlayerState.Menu: {
+        case PlayerState.Aiming, PlayerState.Menu: {
                 lureTranslation.y -= 0.1;
                 Lure.setPosition(lureTranslation);
             }
@@ -222,7 +222,7 @@ private:
 
     void doLogic() {
         switch (state) {
-        case PlayerState.Browsing: {
+        case PlayerState.Aiming: {
 
             }
             break;
@@ -252,7 +252,7 @@ private:
 
     void doAnimation() {
         switch (state) {
-        case PlayerState.Browsing: {
+        case PlayerState.Aiming: {
 
             }
             break;
@@ -284,7 +284,7 @@ private:
         double delta = Delta.getDelta();
 
         switch (state) {
-        case PlayerState.Browsing: {
+        case PlayerState.Aiming: {
 
             }
             break;
