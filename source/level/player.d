@@ -178,18 +178,17 @@ private:
             // ModelHandler.draw("fishing_rod.glb", translationSpace, rotationSpace);
 
             Lure.setPosition(lureTranslation);
-        } else {
+        } else if (castTimer >= 1.2) {
 
             // todo: make this do a fake cast arc instead of this.
 
             // writeln(castTimer);
-            if (castTimer >= 1.2) {
-                lureTranslation.y -= 0.1;
+            lureTranslation.y -= 0.1;
 
-                Lure.setPosition(lureTranslation);
+            Lure.setPosition(lureTranslation);
 
-                writeln("flarp", castTimer);
-            }
+            writeln("flarp", castTimer);
+
         }
     }
 
