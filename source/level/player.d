@@ -41,6 +41,7 @@ private:
     double frameTimer = 0;
 
     // Casting variables.
+    bool firstCastFrame = true;
     double castTimer = 0.0;
     immutable int castFrameMax = 230;
     immutable int castFrameMiddle = 230 / 2;
@@ -171,6 +172,16 @@ private:
             }
             break;
         case PlayerState.Casting: {
+
+                // If this is the first cast tick, save and abort.
+                if (firstCastFrame) {
+                    oldPoleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
+                    firstCastFrame = false;
+                    break;
+                }
+
+                writeln(poleTipDeltaDistance);
+
                 if (poleTipDeltaDistance > 0) {
 
                     Vector2 poleTipSwingDirection = Vector2Normalize(Vector2Subtract(oldPoleTipPosition,
@@ -284,6 +295,7 @@ private:
                     frameTimer = (1 / 60) + 0.001;
                     animationFrame = 0;
                     doCastAnimation();
+                    firstCastFrame = true;
                     break;
                 }
 
