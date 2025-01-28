@@ -16,8 +16,9 @@ import utility.window;
 enum PlayerState {
     // First person.
     Browsing,
-    // To the right.
+    // To the right. This one also includes the lure flying through the air in CastingArc.
     Casting,
+    CastingArc,
     // Further back to the left.
     Menu,
     // Underwater lure cam.
