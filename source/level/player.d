@@ -7,6 +7,7 @@ import level.ground;
 import level.lure;
 import level.water;
 import raylib;
+import std.math.algebraic;
 import std.math.trigonometry;
 import std.stdio;
 import utility.delta;
@@ -29,6 +30,7 @@ private:
 
     Vector3 position;
     Vector3 rotation;
+    Vector2 oldPoleTipPosition;
 
     int playerHandBoneIndex = -1;
     int animationFrame = 0;
@@ -144,16 +146,58 @@ private:
         // Draw mesh at socket position with socket angle rotation
         // DrawMesh(equipModel[i].meshes[0], equipModel[i].materials[1], matrixTransform);
 
-        //? This needs to check for if the player is in first person mode or undewater cam.
-        //? Those will use different implementations.
+        Vector3 lureTranslation = translationSpace;
 
-        Lure.setPosition(translationSpace);
+        immutable float poleSize = 1.635;
+        Vector3 directionOfPole = Vector3Multiply(Vector3Normalize(Vector3(matrixTransform.m8, matrixTransform.m9,
+                matrixTransform.m10)), Vector3(poleSize, poleSize, poleSize));
 
+        lureTranslation = Vector3Add(lureTranslation, directionOfPole);
+
+        // This is a trick to simulate the lure swinging during a cast.
+        Vector2 poleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
+        float poleTipDeltaDistance = Vector2Distance(poleTipPosition, oldPoleTipPosition);
+
+        if (poleTipDeltaDistance > 0) {
+
+            Vector2 poleTipSwingDirection = Vector2Normalize(Vector2Subtract(oldPoleTipPosition, poleTipPosition));
+
+            oldPoleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
+
+            lureTranslation.y -= 0.1;
+
+            float swingX = poleTipSwingDirection.x * poleTipDeltaDistance;
+            float swingZ = poleTipSwingDirection.y * poleTipDeltaDistance;
+
+            lureTranslation.x += swingX;
+            lureTranslation.z += swingZ;
+
+            //? This needs to check for if the player is in first person mode or undewater cam.
+            //? Those will use different implementations.
+
+            // ModelHandler.draw("fishing_rod.glb", translationSpace, rotationSpace);
+
+            Lure.setPosition(lureTranslation);
+        } else {
+
+            // todo: make this do a fake cast arc instead of this.
+
+            // writeln(castTimer);
+            if (castTimer >= 1.2) {
+                lureTranslation.y -= 0.1;
+
+                Lure.setPosition(lureTranslation);
+
+                writeln("flarp", castTimer);
+            }
+        }
     }
 
     //* BEGIN INTERNAL API.
 
     void doControls() {
+
+        double delta = Delta.getDelta();
 
         if (state == PlayerState.Menu) {
             if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
@@ -169,6 +213,8 @@ private:
                 animationFrame = 0;
                 doCastAnimation();
             }
+
+            castTimer += delta;
         }
 
     }
