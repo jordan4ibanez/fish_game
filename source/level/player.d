@@ -186,11 +186,6 @@ private:
                     lureTranslation.x += swingX;
                     lureTranslation.z += swingZ;
 
-                    //? This needs to check for if the player is in first person mode or undewater cam.
-                    //? Those will use different implementations.
-
-                    // ModelHandler.draw("fishing_rod.glb", translationSpace, rotationSpace);
-
                     Lure.setPosition(lureTranslation);
                 }
             }
