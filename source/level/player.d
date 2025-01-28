@@ -33,11 +33,17 @@ private:
     Vector3 rotation;
     Vector2 oldPoleTipPosition;
 
-    int playerHandBoneIndex = -1;
-    int animationFrame = 0;
     PlayerState state = PlayerState.Menu;
-    double castTimer = 0.0;
+    int playerHandBoneIndex = -1;
+
+    int animationFrame = 0;
+
     double frameTimer = 0;
+
+    // Casting variables.
+    double castTimer = 0.0;
+    immutable int castFrameMax = 230;
+    immutable int castFrameMiddle = 230 / 2;
 
     //* BEGIN PUBLIC API.
 
@@ -48,9 +54,10 @@ private:
 
     public void update() {
         double delta = Delta.getDelta();
-        doControls();
         updateFloating();
-        // cameraPositioning();
+        doControls();
+        doLogic();
+        doAnimation();
 
         if (inittrigger) {
             CameraHandler.setPosition(position);
@@ -59,10 +66,6 @@ private:
 
         if (Window.isMouseLocked()) {
             CameraHandler.doFreeCam();
-        }
-
-        if (state == PlayerState.Casting) {
-            doCastAnimation();
         }
 
     }
@@ -147,6 +150,8 @@ private:
         // Draw mesh at socket position with socket angle rotation
         // DrawMesh(equipModel[i].meshes[0], equipModel[i].materials[1], matrixTransform);
 
+        //? The lure gets kind of complicated lol.
+
         Vector3 lureTranslation = translationSpace;
 
         immutable float poleSize = 1.635;
@@ -159,64 +164,159 @@ private:
         Vector2 poleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
         float poleTipDeltaDistance = Vector2Distance(poleTipPosition, oldPoleTipPosition);
 
-        if (poleTipDeltaDistance > 0) {
+        switch (state) {
+        case PlayerState.Browsing, PlayerState.Menu: {
+                lureTranslation.y -= 0.1;
+                Lure.setPosition(lureTranslation);
+            }
+            break;
+        case PlayerState.Casting: {
+                if (poleTipDeltaDistance > 0) {
 
-            Vector2 poleTipSwingDirection = Vector2Normalize(Vector2Subtract(oldPoleTipPosition, poleTipPosition));
+                    Vector2 poleTipSwingDirection = Vector2Normalize(Vector2Subtract(oldPoleTipPosition,
+                            poleTipPosition));
 
-            oldPoleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
+                    oldPoleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
 
-            lureTranslation.y -= 0.1;
+                    lureTranslation.y -= 0.1;
 
-            float swingX = poleTipSwingDirection.x * poleTipDeltaDistance;
-            float swingZ = poleTipSwingDirection.y * poleTipDeltaDistance;
+                    float swingX = poleTipSwingDirection.x * poleTipDeltaDistance;
+                    float swingZ = poleTipSwingDirection.y * poleTipDeltaDistance;
 
-            lureTranslation.x += swingX;
-            lureTranslation.z += swingZ;
+                    lureTranslation.x += swingX;
+                    lureTranslation.z += swingZ;
 
-            //? This needs to check for if the player is in first person mode or undewater cam.
-            //? Those will use different implementations.
+                    //? This needs to check for if the player is in first person mode or undewater cam.
+                    //? Those will use different implementations.
 
-            // ModelHandler.draw("fishing_rod.glb", translationSpace, rotationSpace);
+                    // ModelHandler.draw("fishing_rod.glb", translationSpace, rotationSpace);
 
-            Lure.setPosition(lureTranslation);
-        } else if (castTimer >= 1.2) {
+                    Lure.setPosition(lureTranslation);
+                }
+            }
+            break;
+        case PlayerState.CastingArc: {
 
-            // todo: make this do a fake cast arc instead of this.
+            }
+            break;
+        case PlayerState.Water: {
 
-            // writeln(castTimer);
-            lureTranslation.y -= 0.1;
-
-            Lure.setPosition(lureTranslation);
-
-            writeln("flarp", castTimer);
-
+            }
+            break;
+        default: {
+                throw new Error("Oops");
+            }
         }
     }
 
     //* BEGIN INTERNAL API.
 
+    void doLogic() {
+        switch (state) {
+        case PlayerState.Browsing: {
+
+            }
+            break;
+        case PlayerState.Casting: {
+                if (animationFrame == castFrameMax) {
+
+                }
+            }
+            break;
+        case PlayerState.CastingArc: {
+
+            }
+            break;
+        case PlayerState.Menu: {
+
+            }
+            break;
+        case PlayerState.Water: {
+
+            }
+            break;
+        default: {
+                throw new Error("Oops");
+            }
+        }
+    }
+
+    void doAnimation() {
+        switch (state) {
+        case PlayerState.Browsing: {
+
+            }
+            break;
+        case PlayerState.Casting: {
+                doCastAnimation();
+
+            }
+            break;
+        case PlayerState.CastingArc: {
+
+                break;
+            }
+            break;
+        case PlayerState.Menu: {
+
+            }
+            break;
+        case PlayerState.Water: {
+
+            }
+            break;
+        default: {
+                throw new Error("Oops");
+            }
+        }
+    }
+
     void doControls() {
 
         double delta = Delta.getDelta();
 
-        if (state == PlayerState.Menu) {
-            if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
-                state = PlayerState.Casting;
-                castTimer = 0;
-            }
-        } else {
-            // This is a weird player animation/state reset thing.
-            if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
-                state = PlayerState.Menu;
-                castTimer = 0;
-                frameTimer = (1 / 60) + 0.001;
-                animationFrame = 0;
-                doCastAnimation();
-            }
+        switch (state) {
+        case PlayerState.Browsing: {
 
-            castTimer += delta;
+            }
+            break;
+        case PlayerState.Casting: {
+
+                // This is a weird player animation/state reset thing.
+                if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
+                    state = PlayerState.Menu;
+                    castTimer = 0;
+                    frameTimer = (1 / 60) + 0.001;
+                    animationFrame = 0;
+                    doCastAnimation();
+                    break;
+                }
+
+                castTimer += delta;
+
+            }
+            break;
+        case PlayerState.CastingArc: {
+
+            }
+            break;
+        case PlayerState.Menu: {
+                // fixme: this is temporary debugging.
+                if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
+                    state = PlayerState.Casting;
+                    castTimer = 0;
+                }
+
+            }
+            break;
+        case PlayerState.Water: {
+
+            }
+            break;
+        default: {
+                throw new Error("Oops");
+            }
         }
-
     }
 
     void doCastAnimation() {
@@ -226,16 +326,13 @@ private:
             return;
         }
 
-        immutable int max = 230;
-        immutable int middle = 230 / 2;
-
-        if (animationFrame < middle) {
+        if (animationFrame < castFrameMiddle) {
             animationFrame += 2;
         } else {
             animationFrame += 6;
         }
-        if (animationFrame > max) {
-            animationFrame = max;
+        if (animationFrame > castFrameMax) {
+            animationFrame = castFrameMax;
         }
     }
 
