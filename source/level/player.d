@@ -278,7 +278,7 @@ private:
         case PlayerState.Casting: {
 
                 // This is a weird player animation/state reset thing.
-                if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
+                if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
                     state = PlayerState.Menu;
                     castTimer = 0;
                     frameTimer = (1 / 60) + 0.001;
@@ -296,8 +296,8 @@ private:
             }
             break;
         case PlayerState.Menu: {
-                // fixme: this is temporary debugging.
-                if (Keyboard.isPressed(KeyboardKey.KEY_SPACE)) {
+                //todo: fixme: this is temporary debugging.
+                if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
                     state = PlayerState.Casting;
                     castTimer = 0;
                 }
