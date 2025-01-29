@@ -356,8 +356,8 @@ private:
                 immutable float waterLevel = Water.getWaterLevel();
                 Vector3 newCameraPosition = Vector3();
                 newCameraPosition.x = position.x;
-                // This is at the level of the player's neck but it looks better.
-                newCameraPosition.y = waterLevel + 1.8;
+                // This is at the level of the player's chest but it looks better.
+                newCameraPosition.y = waterLevel + 1.6;
                 newCameraPosition.z = position.z;
 
                 CameraHandler.setPosition(newCameraPosition);
