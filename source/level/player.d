@@ -460,7 +460,7 @@ private:
 
                 Vector3 newCameraPosition = Vector3();
                 newCameraPosition.x = position.x + x;
-                newCameraPosition.y = waterLevel + 2;
+                newCameraPosition.y = waterLevel + 1.6;
                 newCameraPosition.z = position.z + z;
 
                 CameraHandler.setPosition(newCameraPosition);
@@ -472,7 +472,7 @@ private:
 
                 Vector3 newTargetPosition = Vector3();
                 newTargetPosition.x = position.x + x;
-                newTargetPosition.y = waterLevel + 1.3;
+                newTargetPosition.y = waterLevel + 1.6;
                 newTargetPosition.z = position.z + z;
 
                 CameraHandler.setTarget(newTargetPosition);
