@@ -34,7 +34,7 @@ private:
     Vector3 rotation;
     Vector2 oldPoleTipPosition;
 
-    PlayerState state = PlayerState.Aiming;
+    PlayerState state = PlayerState.Casting;
     int playerHandBoneIndex = -1;
 
     int animationFrame = 0;
