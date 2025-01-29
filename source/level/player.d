@@ -151,6 +151,8 @@ private:
         matrixTransform = MatrixMultiply(matrixTransform, MatrixTranslate(transform.translation.x, transform
                 .translation.y, transform.translation.z));
 
+        // If the player is in an interactive state, we want the animation components to rotate with their
+        // aiming yaw. So we shall do that.
         switch (state) {
         case PlayerState.Aiming, PlayerState.Casting, PlayerState.CastingArc, PlayerState.Water: {
                 matrixTransform = MatrixMultiply(matrixTransform, MatrixRotateY(
