@@ -66,10 +66,11 @@ private:
         doAnimation();
         doCameraPositioning();
 
-        if (inittrigger) {
-            CameraHandler.setPosition(position);
-            inittrigger = false;
-        }
+        //? This is for debugging in freecam. So you don't have to fly across the map.
+        // if (inittrigger) {
+        //     CameraHandler.setPosition(position);
+        //     inittrigger = false;
+        // }
     }
 
     public void setPosition(float x, float y, float z) {
@@ -300,6 +301,7 @@ private:
                 if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
                     state = PlayerState.Aiming;
                     castTimer = 0;
+                    // This instantly triggers a frame update.
                     frameTimer = (1 / 60) + 0.001;
                     animationFrame = 0;
                     firstCastFrame = true;
