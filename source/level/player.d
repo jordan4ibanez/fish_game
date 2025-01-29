@@ -49,6 +49,8 @@ private:
     immutable double castingDistanceMin = 7;
     immutable double castingDistanceMax = 26;
 
+    double castProgress = 0;
+
     //! Note: these need to be reset when the player changes spots.
     double castingYaw = 0.0;
     double castingDistance = castingDistanceMin;
@@ -65,7 +67,7 @@ private:
 
         updateFloating();
         doControls();
-        doLogic();
+        doLogic(delta);
         doAnimation();
         doCameraPositioning();
 
@@ -236,7 +238,9 @@ private:
             }
             break;
         case PlayerState.CastingArc: {
-
+                DrawLine3D(lureTranslation, getCastTarget(), Colors.BLACK);
+                Vector3 progress = Vector3Lerp(lureTranslation, getCastTarget(), castProgress);
+                DrawSphere(progress, 0.1, Colors.ORANGE);
             }
             break;
         case PlayerState.Water: {
@@ -251,7 +255,7 @@ private:
 
     //* BEGIN INTERNAL API.
 
-    void doLogic() {
+    void doLogic(double delta) {
         switch (state) {
         case PlayerState.Aiming: {
 
@@ -259,12 +263,17 @@ private:
             break;
         case PlayerState.Casting: {
                 if (animationFrame == castFrameMax) {
-                    // state = PlayerState.CastingArc;
+                    state = PlayerState.CastingArc;
+                    castProgress = 0;
                 }
             }
             break;
         case PlayerState.CastingArc: {
-                writeln("in the casting arc state");
+                // writeln("in the casting arc state");
+                // todo: undo the division, this is debugging.
+                castProgress += delta / 10.0;
+
+                writeln(castProgress);
             }
             break;
         case PlayerState.Menu: {
