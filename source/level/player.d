@@ -3,6 +3,7 @@ module level.player;
 import graphics.camera_handler;
 import graphics.model_handler;
 import input.keyboard;
+import input.mouse;
 import level.ground;
 import level.lure;
 import level.water;
@@ -292,6 +293,26 @@ private:
 
                 //todo: Need to get the mouse delta.
 
+                Vector2 mouseDelta = Mouse.getDelta();
+
+                // Begin forwards/backwards lure aiming control.
+
+                double oldCastingDistance = castingDistance;
+
+                castingDistance -= mouseDelta.y / 100.0;
+
+                // Don't let it get too close.
+                if (castingDistance < 3) {
+                    castingDistance = 3;
+                }
+
+                // Don't let it go into the shore.
+                if (lureCollidesWithShore()) {
+                    castingDistance = oldCastingDistance;
+                }
+
+                // Begin side/side radial lure aiming control.
+
                 if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
                     state = PlayerState.Casting;
                     castTimer = 0;
@@ -361,6 +382,14 @@ private:
                 newCameraPosition.z = position.z;
 
                 CameraHandler.setPosition(newCameraPosition);
+
+                //! Debugging.
+                // Vector3 target = getCastTarget();
+                // target.x -= 0.5;
+                // target.y += 0.5;
+                // target.z -= 0.5;
+
+                // CameraHandler.setPosition(target);
 
                 CameraHandler.setTarget(getCastTarget());
 
@@ -453,6 +482,19 @@ private:
         castTarget.y = Water.getCollisionPoint(castTarget.x, castTarget.z);
 
         return castTarget;
+    }
+
+    bool lureCollidesWithShore() {
+
+        double totalYaw = (rotation.y + castingYaw) - (PI / 2);
+
+        float x = (cos(totalYaw) * castingDistance) + position.x;
+        float z = (sin(totalYaw) * castingDistance) + position.z;
+
+        float waterHeight = Water.getCollisionPoint(x, z);
+        float groundHeight = Ground.getCollisionPoint(x, z);
+
+        return (waterHeight - groundHeight) < 0.3;
     }
 
 }
