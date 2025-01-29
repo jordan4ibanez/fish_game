@@ -64,7 +64,7 @@ private:
         doControls();
         doLogic();
         doAnimation();
-        cameraPositioning();
+        doCameraPositioning();
 
         if (inittrigger) {
             CameraHandler.setPosition(position);
@@ -348,7 +348,7 @@ private:
         }
     }
 
-    void cameraPositioning() {
+    void doCameraPositioning() {
         switch (state) {
         case PlayerState.Aiming: {
                 immutable float waterLevel = Water.getWaterLevel();
