@@ -289,6 +289,9 @@ private:
 
         switch (state) {
         case PlayerState.Aiming: {
+
+                //todo: Need to get the mouse delta.
+
                 if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
                     state = PlayerState.Casting;
                     castTimer = 0;
