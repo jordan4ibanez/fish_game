@@ -367,7 +367,7 @@ private:
                     }
                 }
 
-                if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     state = PlayerState.Casting;
                     castTimer = 0;
                 }
@@ -376,7 +376,7 @@ private:
         case PlayerState.Casting: {
 
                 // This is a weird player animation/state reset thing.
-                if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
+                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     state = PlayerState.Aiming;
                     castTimer = 0;
                     // This instantly triggers a frame update.
