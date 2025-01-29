@@ -114,6 +114,7 @@ private:
         ModelHandler.playAnimation("person.glb", 0, animationFrame);
 
         // Make the player turn with the casting angle if they're in an interaction state.
+        // Also, do not render the player if aiming. (first person mode)
         if (!state == PlayerState.Aiming) {
             switch (state) {
             case PlayerState.Casting, PlayerState.CastingArc, PlayerState.Water: {
