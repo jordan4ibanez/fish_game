@@ -198,6 +198,7 @@ private:
         case PlayerState.Aiming, PlayerState.Menu: {
                 lureTranslation.y -= 0.1;
                 Lure.setPosition(lureTranslation);
+                Lure.setRotation(Vector3(0, rotation.y + -castingYaw, 0));
             }
             break;
         case PlayerState.Casting: {
