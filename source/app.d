@@ -58,7 +58,7 @@ void main() {
 
 	Lure.loadLureData();
 
-	SetTargetFPS(0);
+	// SetTargetFPS(0);
 	SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
 
 	// This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
