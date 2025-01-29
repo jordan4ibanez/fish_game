@@ -301,9 +301,11 @@ private:
 
                 castingDistance -= mouseDelta.y / 100.0;
 
-                // Don't let it get too close.
+                // Keep the distance within range.
                 if (castingDistance < 3) {
                     castingDistance = 3;
+                } else if (castingDistance > 26) {
+                    castingDistance = 26;
                 }
 
                 // Don't let it go into the shore.
@@ -311,7 +313,36 @@ private:
                     castingDistance = oldCastingDistance;
                 }
 
+                // writeln(castingDistance);
+
                 // Begin side/side radial lure aiming control.
+
+                double oldCastingYaw = castingYaw;
+
+                castingYaw += mouseDelta.x / 1500.0;
+
+                immutable double maxAngle = (35 * DEG2RAD);
+
+                if (castingYaw < -maxAngle) {
+                    castingYaw = -maxAngle;
+                } else if (castingYaw > maxAngle) {
+                    castingYaw = maxAngle;
+                }
+
+                // Don't let it go into the shore.
+                if (lureCollidesWithShore()) {
+                    // First, try to bump the distance back.
+                    // This hardcode also creates a jolty effect.
+                    castingDistance -= 0.7;
+
+                    castingYaw = oldCastingYaw;
+
+                    if (lureCollidesWithShore()) {
+                        // Welp that failed, move everything back.  
+                        castingYaw = oldCastingYaw;
+                        castingDistance += 0.7;
+                    }
+                }
 
                 if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
                     state = PlayerState.Casting;
