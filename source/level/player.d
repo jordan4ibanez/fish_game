@@ -304,10 +304,10 @@ private:
                 castingDistance -= mouseDelta.y / 100.0;
 
                 // Keep the distance within range.
-                if (castingDistance < 3) {
-                    castingDistance = 3;
-                } else if (castingDistance > 26) {
-                    castingDistance = 26;
+                if (castingDistance < castingDistanceMin) {
+                    castingDistance = castingDistanceMin;
+                } else if (castingDistance > castingDistanceMax) {
+                    castingDistance = castingDistanceMax;
                 }
 
                 // Don't let it go into the shore.
