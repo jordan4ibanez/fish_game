@@ -454,7 +454,9 @@ private:
                 immutable float distance = 3;
                 immutable float waterLevel = Water.getWaterLevel();
 
-                float rotated = rotation.y + (PI / shift);
+                writeln("in casting");
+
+                float rotated = (rotation.y + (PI / shift)) + castingYaw;
                 float x = cos(rotated) * distance;
                 float z = sin(rotated) * distance;
 
