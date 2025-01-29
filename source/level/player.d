@@ -238,8 +238,19 @@ private:
             }
             break;
         case PlayerState.CastingArc: {
+
+                double currentProgressModified = (castProgress * PI);
+                double arcHeight = (sin(currentProgressModified));
+
+                if (abs(arcHeight) < 0.001) {
+                    arcHeight = 0;
+                }
+
+                arcHeight -= Lerp(0.1, 0.0, castProgress);
+
                 DrawLine3D(lureTranslation, getCastTarget(), Colors.BLACK);
                 Vector3 progress = Vector3Lerp(lureTranslation, getCastTarget(), castProgress);
+                progress.y += arcHeight;
                 DrawSphere(progress, 0.1, Colors.ORANGE);
             }
             break;
