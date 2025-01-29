@@ -151,7 +151,16 @@ private:
         matrixTransform = MatrixMultiply(matrixTransform, MatrixTranslate(transform.translation.x, transform
                 .translation.y, transform.translation.z));
 
-        matrixTransform = MatrixMultiply(matrixTransform, MatrixRotateY(rotation.y));
+        switch (state) {
+        case PlayerState.Aiming, PlayerState.Casting, PlayerState.CastingArc, PlayerState.Water: {
+                matrixTransform = MatrixMultiply(matrixTransform, MatrixRotateY(
+                        rotation.y - castingYaw));
+            }
+            break;
+        default: {
+                matrixTransform = MatrixMultiply(matrixTransform, MatrixRotateY(rotation.y));
+            }
+        }
 
         // Transform the socket using the transform of the character (angle and translate)
         matrixTransform = MatrixMultiply(matrixTransform, model.transform);
