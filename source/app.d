@@ -21,7 +21,7 @@ import utility.window;
 void main() {
 
 	scope (exit) {
-		// FontHandler.terminate();
+		FontHandler.terminate();
 		ShaderHandler.terminate();
 		TextureHandler.terminate();
 		ModelHandler.terminate();
