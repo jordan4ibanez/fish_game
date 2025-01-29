@@ -280,11 +280,12 @@ private:
             }
             break;
         case PlayerState.CastingArc: {
-                // writeln("in the casting arc state");
-                // todo: undo the division, this is debugging.
-                castProgress += delta / 10.0;
-
-                writeln(castProgress);
+                if (castProgress < 1.0) {
+                    castProgress += delta;
+                    if (castProgress >= 1.0) {
+                        castProgress = 1.0;
+                    }
+                }
             }
             break;
         case PlayerState.Menu: {
