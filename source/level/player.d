@@ -350,68 +350,82 @@ private:
     }
 
     void cameraPositioning() {
+        switch (state) {
+        case PlayerState.Aiming: {
 
-        // todo: this should probably be a switch lol.
+            }
+            break;
+        case PlayerState.Casting, PlayerState.CastingArc: {
+                immutable float shift = 2.6;
+                immutable float distance = 3;
+                immutable float waterLevel = Water.getWaterLevel();
 
-        // 2.6 for casting and also invert the - +
+                float rotated = rotation.y + (PI / shift);
+                float x = cos(rotated) * distance;
+                float z = sin(rotated) * distance;
+
+                Vector3 newCameraPosition = Vector3();
+                newCameraPosition.x = position.x + x;
+                newCameraPosition.y = waterLevel + 2;
+                newCameraPosition.z = position.z + z;
+
+                CameraHandler.setPosition(newCameraPosition);
+
+                rotated = rotation.y - (PI / shift);
+
+                x = cos(rotated) * distance;
+                z = sin(rotated) * distance;
+
+                Vector3 newTargetPosition = Vector3();
+                newTargetPosition.x = position.x + x;
+                newTargetPosition.y = waterLevel + 2;
+                newTargetPosition.z = position.z + z;
+
+                CameraHandler.setTarget(newTargetPosition);
+            }
+            break;
+        case PlayerState.Menu: {
+                immutable float shiftFront = 5;
+                immutable float shiftBack = 1.05;
+                immutable float distance = 8;
+                immutable float waterLevel = Water.getWaterLevel();
+
+                float rotated = (-rotation.y) - (PI / shiftFront);
+                float x = cos(rotated) * distance;
+                float z = sin(rotated) * distance;
+
+                Vector3 newCameraPosition = Vector3();
+                newCameraPosition.x = position.x + x;
+                newCameraPosition.y = waterLevel + 2;
+                newCameraPosition.z = position.z + z;
+
+                CameraHandler.setPosition(newCameraPosition);
+
+                rotated = (-rotation.y) + (PI / shiftBack);
+
+                x = cos(rotated) * distance;
+                z = sin(rotated) * distance;
+
+                Vector3 newTargetPosition = Vector3();
+                newTargetPosition.x = position.x + x;
+                newTargetPosition.y = waterLevel + 2;
+                newTargetPosition.z = position.z + z;
+
+                CameraHandler.setTarget(newTargetPosition);
+            }
+            break;
+        case PlayerState.Water: {
+
+            }
+            break;
+        default: {
+                throw new Error("Oops");
+            }
+        }
 
         if (state == PlayerState.Menu) {
 
-            immutable float shiftFront = 5;
-            immutable float shiftBack = 1.05;
-            immutable float distance = 8;
-            immutable float waterLevel = Water.getWaterLevel();
-
-            float rotated = (-rotation.y) - (PI / shiftFront);
-            float x = cos(rotated) * distance;
-            float z = sin(rotated) * distance;
-
-            Vector3 newCameraPosition = Vector3();
-            newCameraPosition.x = position.x + x;
-            newCameraPosition.y = waterLevel + 2;
-            newCameraPosition.z = position.z + z;
-
-            CameraHandler.setPosition(newCameraPosition);
-
-            rotated = (-rotation.y) + (PI / shiftBack);
-
-            x = cos(rotated) * distance;
-            z = sin(rotated) * distance;
-
-            Vector3 newTargetPosition = Vector3();
-            newTargetPosition.x = position.x + x;
-            newTargetPosition.y = waterLevel + 2;
-            newTargetPosition.z = position.z + z;
-
-            CameraHandler.setTarget(newTargetPosition);
         } else if (state == PlayerState.Casting) {
-
-            immutable float shift = 2.6;
-            immutable float distance = 3;
-            immutable float waterLevel = Water.getWaterLevel();
-
-            float rotated = rotation.y + (PI / shift);
-            float x = cos(rotated) * distance;
-            float z = sin(rotated) * distance;
-
-            Vector3 newCameraPosition = Vector3();
-            newCameraPosition.x = position.x + x;
-            newCameraPosition.y = waterLevel + 2;
-            newCameraPosition.z = position.z + z;
-
-            CameraHandler.setPosition(newCameraPosition);
-
-            rotated = rotation.y - (PI / shift);
-
-            x = cos(rotated) * distance;
-            z = sin(rotated) * distance;
-
-            Vector3 newTargetPosition = Vector3();
-            newTargetPosition.x = position.x + x;
-            newTargetPosition.y = waterLevel + 2;
-            newTargetPosition.z = position.z + z;
-
-            CameraHandler.setTarget(newTargetPosition);
 
         }
 
