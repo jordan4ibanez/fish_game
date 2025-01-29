@@ -33,8 +33,6 @@ private:
     Vector3 rotation;
     Vector2 oldPoleTipPosition;
 
-    Vector3 playerWaterTarget;
-
     PlayerState state = PlayerState.Aiming;
     int playerHandBoneIndex = -1;
 
@@ -48,7 +46,9 @@ private:
     immutable int castFrameMax = 230;
     immutable int castFrameMiddle = 230 / 2;
 
-    float centeredYaw;
+    //! Note: these need to be reset when the player changes spots.
+    double castingYaw = 0.0;
+    double castingDistance = 3.0;
 
     //* BEGIN PUBLIC API.
 
@@ -59,20 +59,17 @@ private:
 
     public void update() {
         double delta = Delta.getDelta();
+
         updateFloating();
         doControls();
         doLogic();
         doAnimation();
+        cameraPositioning();
 
         if (inittrigger) {
             CameraHandler.setPosition(position);
             inittrigger = false;
         }
-
-        if (Window.isMouseLocked()) {
-            CameraHandler.doFreeCam();
-        }
-
     }
 
     public void setPosition(float x, float y, float z) {
@@ -85,8 +82,6 @@ private:
         position.z = groundSize.y / 2.0;
         ModelHandler.playAnimation("person.glb", 0, 0);
         rotation.y = PI / 2;
-
-        centeredYaw = rotation.y;
 
         Model* personModel = ModelHandler.getModelPointer("person.glb");
 
@@ -114,7 +109,9 @@ private:
 
         ModelHandler.playAnimation("person.glb", 0, animationFrame);
 
-        ModelHandler.draw("person.glb", playerOnBoat, rotation);
+        if (!state == PlayerState.Aiming) {
+            ModelHandler.draw("person.glb", playerOnBoat, rotation);
+        }
 
         //? The song and dance you see below is to put the fishing pole in the player's hand.
         //? Thankfully modern x86_64 cpus do this trivialy, but it's a pain in the butt.
@@ -167,6 +164,8 @@ private:
         // This is a trick to simulate the lure swinging during a cast.
         Vector2 poleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
         float poleTipDeltaDistance = Vector2Distance(poleTipPosition, oldPoleTipPosition);
+
+        DrawSphere(getCastTarget(), 0.1, Colors.RED);
 
         switch (state) {
         case PlayerState.Aiming, PlayerState.Menu: {
@@ -352,6 +351,16 @@ private:
     void cameraPositioning() {
         switch (state) {
         case PlayerState.Aiming: {
+                immutable float waterLevel = Water.getWaterLevel();
+                Vector3 newCameraPosition = Vector3();
+                newCameraPosition.x = position.x;
+                // This is at the level of the player's neck but it looks better.
+                newCameraPosition.y = waterLevel + 1.8;
+                newCameraPosition.z = position.z;
+
+                CameraHandler.setPosition(newCameraPosition);
+
+                CameraHandler.setTarget(getCastTarget());
 
             }
             break;
@@ -428,7 +437,20 @@ private:
         } else if (state == PlayerState.Casting) {
 
         }
+    }
 
+    // This will compose the imaginary yaw and distance into the real world position.
+    Vector3 getCastTarget() {
+        Vector3 castTarget;
+
+        double totalYaw = (rotation.y + castingYaw) - (PI / 2);
+
+        castTarget.x = (cos(totalYaw) * castingDistance) + position.x;
+        castTarget.z = (sin(totalYaw) * castingDistance) + position.z;
+
+        castTarget.y = Water.getCollisionPoint(castTarget.x, castTarget.z);
+
+        return castTarget;
     }
 
 }
