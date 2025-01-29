@@ -46,10 +46,12 @@ private:
     double castTimer = 0.0;
     immutable int castFrameMax = 230;
     immutable int castFrameMiddle = 230 / 2;
+    immutable double castingDistanceMin = 7;
+    immutable double castingDistanceMax = 26;
 
     //! Note: these need to be reset when the player changes spots.
     double castingYaw = 0.0;
-    double castingDistance = 3.0;
+    double castingDistance = castingDistanceMin;
 
     //* BEGIN PUBLIC API.
 
