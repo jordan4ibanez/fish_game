@@ -14,6 +14,10 @@ private:
         return GetMouseDelta();
     }
 
+    public bool isButtonPressed(MouseButton button) {
+        return IsMouseButtonPressed(button);
+    }
+
     //* BEGIN INTERNAL API.
 
 }
