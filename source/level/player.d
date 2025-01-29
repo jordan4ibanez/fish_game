@@ -288,18 +288,20 @@ private:
 
         switch (state) {
         case PlayerState.Aiming: {
-
+                if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
+                    state = PlayerState.Casting;
+                    castTimer = 0;
+                }
             }
             break;
         case PlayerState.Casting: {
 
                 // This is a weird player animation/state reset thing.
                 if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
-                    state = PlayerState.Menu;
+                    state = PlayerState.Aiming;
                     castTimer = 0;
                     frameTimer = (1 / 60) + 0.001;
                     animationFrame = 0;
-                    doCastAnimation();
                     firstCastFrame = true;
                     break;
                 }
@@ -313,11 +315,6 @@ private:
             }
             break;
         case PlayerState.Menu: {
-                //todo: fixme: this is temporary debugging.
-                if (Keyboard.isPressed(KeyboardKey.KEY_B)) {
-                    state = PlayerState.Casting;
-                    castTimer = 0;
-                }
 
             }
             break;
