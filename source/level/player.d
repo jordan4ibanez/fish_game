@@ -113,8 +113,19 @@ private:
 
         ModelHandler.playAnimation("person.glb", 0, animationFrame);
 
+        // Make the player turn with the casting angle if they're in an interaction state.
         if (!state == PlayerState.Aiming) {
-            ModelHandler.draw("person.glb", playerOnBoat, rotation);
+            switch (state) {
+            case PlayerState.Casting, PlayerState.CastingArc, PlayerState.Water: {
+                    Vector3 combinedRotation = rotation;
+                    combinedRotation.y -= castingYaw;
+                    ModelHandler.draw("person.glb", playerOnBoat, combinedRotation);
+                }
+                break;
+            default: {
+                    ModelHandler.draw("person.glb", playerOnBoat, rotation);
+                }
+            }
         }
 
         //? The song and dance you see below is to put the fishing pole in the player's hand.
