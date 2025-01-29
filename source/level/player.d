@@ -293,8 +293,6 @@ private:
         switch (state) {
         case PlayerState.Aiming: {
 
-                //todo: Need to get the mouse delta.
-
                 Vector2 mouseDelta = Mouse.getDelta();
 
                 // Begin forwards/backwards lure aiming control.
