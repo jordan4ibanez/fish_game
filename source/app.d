@@ -91,6 +91,8 @@ void main() {
 
 		if (false) {
 
+			//? Debugging models/textures.
+
 			if (Keyboard.isPressed(KeyboardKey.KEY_F2)) {
 				Window.toggleMouseLock();
 			}
@@ -141,6 +143,8 @@ void main() {
 			EndDrawing();
 
 		} else {
+
+			//? Normal gameplay.
 
 			if (Keyboard.isPressed(KeyboardKey.KEY_F1)) {
 				Window.toggleMaximize();
