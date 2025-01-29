@@ -451,7 +451,7 @@ private:
             break;
         case PlayerState.Casting, PlayerState.CastingArc: {
                 immutable float shift = 2.6;
-                immutable float distance = 3;
+                immutable float distance = 2;
                 immutable float waterLevel = Water.getWaterLevel();
 
                 float rotated = (rotation.y + (PI / shift)) + castingYaw;
@@ -472,7 +472,7 @@ private:
 
                 Vector3 newTargetPosition = Vector3();
                 newTargetPosition.x = position.x + x;
-                newTargetPosition.y = waterLevel + 2;
+                newTargetPosition.y = waterLevel + 1.3;
                 newTargetPosition.z = position.z + z;
 
                 CameraHandler.setTarget(newTargetPosition);
