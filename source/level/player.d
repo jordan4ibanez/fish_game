@@ -100,7 +100,7 @@ private:
         position.y = Water.getCollisionPoint(position.x, position.z);
         position.y -= 0.1;
 
-        // rotation.y += delta;
+        // rotation.y += Delta.getDelta();
     }
 
     public void draw() {
