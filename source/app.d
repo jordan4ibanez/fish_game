@@ -154,9 +154,9 @@ void main() {
 				Level.togglePause();
 			}
 
-			if (Window.isMouseLocked()) {
-				UpdateCamera(CameraHandler.getPointer(), CameraMode.CAMERA_FREE);
-			}
+			// if (Window.isMouseLocked()) {
+			// 	UpdateCamera(CameraHandler.getPointer(), CameraMode.CAMERA_FREE);
+			// }
 
 			Level.update();
 
