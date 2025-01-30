@@ -314,6 +314,11 @@ private:
             break;
         case PlayerState.CastingArc: {
 
+                // Try to interpolate to a straightened line.
+                foreach (ref v; lineData) {
+                    v.y -= delta;
+                }
+
                 if (castProgressDistance >= castingDistance) {
                     castProgressDistance = castingDistance;
                     // state = PlayerState.Water;
