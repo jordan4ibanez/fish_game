@@ -58,6 +58,7 @@ private:
 
     double lineCreationProgress = 0;
     Vector3[] lineData;
+    double lineFallRestTimer = 0;
 
     //! Note: these need to be reset when the player changes spots.
     double castingYaw = 0.0;
@@ -334,7 +335,14 @@ private:
 
                 if (castProgressDistance >= castingDistance) {
                     castProgressDistance = castingDistance;
-                    // state = PlayerState.Water;
+                    lineFallRestTimer += delta;
+
+                    // I worked hard on these line physics so you get to watch them. >:)
+                    if (lineFallRestTimer >= 1.5) {
+                        state = PlayerState.Water;
+                        // todo: don't delete the line data.
+                        lineData = null;
+                    }
                 } else {
 
                     double increase = delta * 12.0;
@@ -352,22 +360,11 @@ private:
                     currentRotation.x += Delta.getDelta() * castTumblePitch;
 
                     Lure.setRotation(currentRotation);
+
+                    lineFallRestTimer = 0;
                 }
 
                 castProgress = castProgressDistance / castingDistance;
-
-                if (castProgressDistance == castingDistance) {
-                    // writeln("line falls here");
-                }
-
-                // writeln(castProgress);
-
-                // if (castProgress < 1.0) {
-                //     castProgress += delta;
-                //     if (castProgress >= 1.0) {
-                //         castProgress = 1.0;
-                //     }
-                // }
             }
             break;
         case PlayerState.Menu: {
