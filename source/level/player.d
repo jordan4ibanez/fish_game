@@ -56,6 +56,9 @@ private:
     double castProgressDistance = 0;
     double castProgress = 0;
 
+    double lineCreationProgress = 0;
+    Vector3[] lineData;
+
     //! Note: these need to be reset when the player changes spots.
     double castingYaw = 0.0;
     double castingDistance = castingDistanceMin;
