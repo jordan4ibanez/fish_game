@@ -20,6 +20,11 @@ private:
         ModelHandler.setModelShader("deep_c_110.glb", "normal");
     }
 
+
+    public void reel() {
+        
+    }
+
     public void draw() {
         ModelHandler.draw("deep_c_110.glb", position, rotation);
     }

@@ -373,7 +373,7 @@ private:
             break;
         case PlayerState.Water: {
                 if (Mouse.isButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    writeln("lure reeling");
+                    Lure.reel();
                 }
             }
             break;
