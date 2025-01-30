@@ -256,18 +256,25 @@ private:
 
                 arcHeight -= Lerp(0.1, 0.0, castProgress);
 
-                DrawLine3D(lureTranslation, getCastTarget(), Colors.BLACK);
                 Vector3 progress = Vector3Lerp(lureTranslation, getCastTarget(), castProgress);
                 progress.y += arcHeight;
 
                 Lure.setPosition(progress);
 
-                Vector3 currentRotation = Lure.getRotation();
+                // Draw the line.
 
-                currentRotation.y += Delta.getDelta() * castTumbleYaw;
-                currentRotation.x += Delta.getDelta() * castTumblePitch;
+                if (lineData.length > 0) {
+                    DrawLine3D(lureTranslation, lineData[0], Colors.BLACK);
+                    foreach (i; 0 .. (lineData.length) - 1) {
+                        Vector3 current = lineData[i];
+                        Vector3 next = lineData[i + 1];
 
-                Lure.setRotation(currentRotation);
+                        DrawLine3D(current, next, Colors.BLACK);
+                    }
+                    DrawLine3D(lineData[(lineData.length) - 1], progress, Colors.BLACK);
+                } else {
+                    DrawLine3D(lureTranslation, progress, Colors.BLACK);
+                }
 
                 // DrawSphere(progress, 0.1, Colors.ORANGE);
             }
