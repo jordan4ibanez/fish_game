@@ -322,7 +322,7 @@ private:
                 foreach (i, ref v; lineData) {
                     double current = cast(double) i + 1;
 
-                    double application = current / 1.5;
+                    double application = current * 0.1;
 
                     v.y -= delta * application;
                     if (v.y <= waterLevel) {
