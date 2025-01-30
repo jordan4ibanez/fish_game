@@ -321,7 +321,6 @@ private:
                 // Try to interpolate to a line that's falling onto the water.
                 foreach (i, ref v; lineData) {
                     double current = cast(double) i + 1;
-
                     double application = current * 0.1;
 
                     v.y -= delta * application;
