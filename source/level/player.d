@@ -298,6 +298,10 @@ private:
                     auto rnd = Random(unpredictableSeed());
                     castTumblePitch = uniform(0.1, 10.0, rnd);
                     castTumbleYaw = uniform(0.1, 10.0, rnd);
+
+                    lineCreationProgress = 0;
+                    lineData = new Vector3[](0);
+                    lineCreationProgress = 0;
                 }
             }
             break;
