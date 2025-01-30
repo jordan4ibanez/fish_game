@@ -36,6 +36,10 @@ private:
         return rotation;
     }
 
+    public Vector3 getPosition() {
+        return position;
+    }
+
     //* BEGIN INTERNAL API.
 
 }
