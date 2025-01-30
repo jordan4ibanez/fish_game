@@ -49,6 +49,7 @@ private:
     immutable double castingDistanceMin = 7;
     immutable double castingDistanceMax = 26;
 
+    double castProgressDistance = 0;
     double castProgress = 0;
 
     //! Note: these need to be reset when the player changes spots.
@@ -280,12 +281,24 @@ private:
             }
             break;
         case PlayerState.CastingArc: {
-                if (castProgress < 1.0) {
-                    castProgress += delta;
-                    if (castProgress >= 1.0) {
-                        castProgress = 1.0;
-                    }
+
+                castProgressDistance += delta * 12.0;
+
+                if (castProgressDistance >= castingDistance) {
+                    castProgressDistance = castingDistance;
+                    state = PlayerState.Water;
                 }
+
+                castProgress = castProgressDistance / castingDistance;
+
+                writeln(castProgress);
+
+                // if (castProgress < 1.0) {
+                //     castProgress += delta;
+                //     if (castProgress >= 1.0) {
+                //         castProgress = 1.0;
+                //     }
+                // }
             }
             break;
         case PlayerState.Menu: {
@@ -392,6 +405,7 @@ private:
                 if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
                     state = PlayerState.Casting;
                     castTimer = 0;
+                    castProgressDistance = 0;
                 }
             }
             break;
