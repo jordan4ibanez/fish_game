@@ -10,6 +10,7 @@ import level.water;
 import raylib;
 import std.math.algebraic;
 import std.math.trigonometry;
+import std.random;
 import std.stdio;
 import utility.delta;
 import utility.window;
@@ -48,6 +49,9 @@ private:
     immutable int castFrameMiddle = 230 / 2;
     immutable double castingDistanceMin = 10;
     immutable double castingDistanceMax = 26;
+
+    double castTumblePitch = 0;
+    double castTumbleYaw = 0;
 
     double castProgressDistance = 0;
     double castProgress = 0;
@@ -252,7 +256,17 @@ private:
                 DrawLine3D(lureTranslation, getCastTarget(), Colors.BLACK);
                 Vector3 progress = Vector3Lerp(lureTranslation, getCastTarget(), castProgress);
                 progress.y += arcHeight;
-                DrawSphere(progress, 0.1, Colors.ORANGE);
+
+                Lure.setPosition(progress);
+
+                Vector3 currentRotation = Lure.getRotation();
+
+                currentRotation.y += Delta.getDelta() * castTumbleYaw;
+                currentRotation.x += Delta.getDelta() * castTumblePitch;
+
+                Lure.setRotation(currentRotation);
+
+                // DrawSphere(progress, 0.1, Colors.ORANGE);
             }
             break;
         case PlayerState.Water: {
@@ -277,6 +291,10 @@ private:
                 if (animationFrame == castFrameMax) {
                     state = PlayerState.CastingArc;
                     castProgress = 0;
+
+                    auto rnd = Random(unpredictableSeed());
+                    castTumblePitch = uniform(0.1, 10.0, rnd);
+                    castTumbleYaw = uniform(0.1, 10.0, rnd);
                 }
             }
             break;
@@ -291,7 +309,7 @@ private:
 
                 castProgress = castProgressDistance / castingDistance;
 
-                writeln(castProgress);
+                // writeln(castProgress);
 
                 // if (castProgress < 1.0) {
                 //     castProgress += delta;
