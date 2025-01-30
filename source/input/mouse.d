@@ -18,6 +18,10 @@ private:
         return IsMouseButtonPressed(button);
     }
 
+    public bool isButtonDown(MouseButton button) {
+        return IsMouseButtonDown(button);
+    }
+
     //* BEGIN INTERNAL API.
 
 }
