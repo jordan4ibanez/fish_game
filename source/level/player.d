@@ -307,14 +307,33 @@ private:
             break;
         case PlayerState.CastingArc: {
 
-                castProgressDistance += delta * 12.0;
-
                 if (castProgressDistance >= castingDistance) {
                     castProgressDistance = castingDistance;
-                    state = PlayerState.Water;
+                    // state = PlayerState.Water;
+                } else {
+
+                    double increase = delta * 12.0;
+                    castProgressDistance += increase;
+                    lineCreationProgress += increase;
+
+                    if (lineCreationProgress >= 1.0) {
+                        lineData ~= Lure.getPosition();
+                        lineCreationProgress = 0;
+                    }
+
+                    Vector3 currentRotation = Lure.getRotation();
+
+                    currentRotation.y += Delta.getDelta() * castTumbleYaw;
+                    currentRotation.x += Delta.getDelta() * castTumblePitch;
+
+                    Lure.setRotation(currentRotation);
                 }
 
                 castProgress = castProgressDistance / castingDistance;
+
+                if (castProgressDistance == castingDistance) {
+                    // writeln("line falls here");
+                }
 
                 // writeln(castProgress);
 
