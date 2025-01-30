@@ -316,10 +316,11 @@ private:
 
                 immutable float waterLevel = Water.getWaterLevel();
 
-                immutable double max = cast(double)(cast(int) lineData.length);
+                // immutable double max = cast(double)(cast(int) lineData.length);
 
                 // Try to interpolate to a line that's falling onto the water.
                 foreach (i, ref v; lineData) {
+                    // todo: test out messing with the max to make a cool looking falling line.
                     double current = cast(double) i + 1;
                     double application = current * 0.1;
 
