@@ -283,7 +283,7 @@ private:
             }
             break;
         case PlayerState.Water: {
-
+                DrawLine3D(lureTranslation, Lure.getPosition(), Colors.BLACK);
             }
             break;
         default: {
