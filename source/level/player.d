@@ -46,7 +46,7 @@ private:
     double castTimer = 0.0;
     immutable int castFrameMax = 230;
     immutable int castFrameMiddle = 230 / 2;
-    immutable double castingDistanceMin = 7;
+    immutable double castingDistanceMin = 10;
     immutable double castingDistanceMax = 26;
 
     double castProgressDistance = 0;
