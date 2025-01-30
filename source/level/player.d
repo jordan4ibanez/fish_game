@@ -314,9 +314,20 @@ private:
             break;
         case PlayerState.CastingArc: {
 
-                // Try to interpolate to a straightened line.
-                foreach (ref v; lineData) {
-                    v.y -= delta;
+                immutable float waterLevel = Water.getWaterLevel();
+
+                immutable double max = cast(double)(cast(int) lineData.length);
+
+                // Try to interpolate to a line that's falling onto the water.
+                foreach (i, ref v; lineData) {
+                    double current = cast(double) i + 1;
+
+                    double application = current / 1.5;
+
+                    v.y -= delta * application;
+                    if (v.y <= waterLevel) {
+                        v.y = waterLevel;
+                    }
                 }
 
                 if (castProgressDistance >= castingDistance) {
