@@ -196,6 +196,8 @@ private:
         Vector3 directionOfPole = Vector3Multiply(Vector3Normalize(Vector3(matrixTransform.m8, matrixTransform.m9,
                 matrixTransform.m10)), Vector3(poleSize, poleSize, poleSize));
 
+        // todo: fix these variable names, this is a mess.
+        // todo: this is supposed to be the pole tip position.
         lureTranslation = Vector3Add(lureTranslation, directionOfPole);
 
         // This is a trick to simulate the lure swinging during a cast.
