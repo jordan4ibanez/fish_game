@@ -32,6 +32,10 @@ private:
         rotation = newRotation;
     }
 
+    public Vector3 getRotation() {
+        return rotation;
+    }
+
     //* BEGIN INTERNAL API.
 
 }
