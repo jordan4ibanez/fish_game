@@ -342,9 +342,9 @@ private:
                         state = PlayerState.Water;
                         // todo: don't delete the line data.
                         lineData = null;
-                        Vector3 lureRotation = Lure.getRotation();
-                        lureRotation.x = 0;
-                        Lure.setRotation(lureRotation);
+                        // Vector3 lureRotation = Lure.getRotation();
+                        // lureRotation.x = 0;
+                        // Lure.setRotation(lureRotation);
                     }
                 } else {
 
