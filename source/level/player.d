@@ -205,7 +205,10 @@ private:
         Vector2 poleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
         float poleTipDeltaDistance = Vector2Distance(poleTipPosition, oldPoleTipPosition);
 
-        DrawSphere(getCastTarget(), 0.1, Colors.RED);
+        // Only draw the target when aiming.
+        if (state == PlayerState.Aiming) {
+            DrawSphere(getCastTarget(), 0.1, Colors.RED);
+        }
 
         switch (state) {
         case PlayerState.Aiming, PlayerState.Menu: {
