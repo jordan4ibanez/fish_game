@@ -26,6 +26,12 @@ private:
     // Lure reeling behavioral logic.
     double swimAnimation = 0;
     double reelSpeed = 0;
+    double lureFloatVelocity = 0;
+
+    // If the lure hits something,I don't want to explode the player's ears.
+    // So I set it to only be allowed to trigger the "thunk" noise every 0.25 seconds.
+    double hitThingSoundTimer = 0;
+    immutable double frequencySoundHitThings = 0.25;
 
     //* BEGIN PUBLIC API.
 
