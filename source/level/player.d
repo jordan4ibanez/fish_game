@@ -486,15 +486,15 @@ private:
         case PlayerState.Casting: {
 
                 // This is a weird player animation/state reset thing.
-                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    state = PlayerState.Aiming;
-                    castTimer = 0;
-                    // This instantly triggers a frame update.
-                    frameTimer = (1 / 60) + 0.001;
-                    animationFrame = 0;
-                    firstCastFrame = true;
-                    break;
-                }
+                // if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                //     state = PlayerState.Aiming;
+                //     castTimer = 0;
+                //     // This instantly triggers a frame update.
+                //     frameTimer = (1 / 60) + 0.001;
+                //     animationFrame = 0;
+                //     firstCastFrame = true;
+                //     break;
+                // }
 
                 castTimer += delta;
 
@@ -502,15 +502,15 @@ private:
             break;
         case PlayerState.CastingArc: {
 
-                if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
-                    state = PlayerState.Aiming;
-                    castTimer = 0;
-                    // This instantly triggers a frame update.
-                    frameTimer = (1 / 60) + 0.001;
-                    animationFrame = 0;
-                    firstCastFrame = true;
-                    break;
-                }
+                // if (Mouse.isButtonPressed(MouseButton.MOUSE_BUTTON_LEFT)) {
+                //     state = PlayerState.Aiming;
+                //     castTimer = 0;
+                //     // This instantly triggers a frame update.
+                //     frameTimer = (1 / 60) + 0.001;
+                //     animationFrame = 0;
+                //     firstCastFrame = true;
+                //     break;
+                // }
 
             }
             break;
