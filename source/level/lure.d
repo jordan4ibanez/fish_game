@@ -120,13 +120,14 @@ private:
 
         double reelSpeedInTime = reelSpeed * delta;
         velocity = Vector3Multiply(velocity, Vector3(reelSpeedInTime, reelSpeedInTime, reelSpeedInTime));
+        immutable double lureMaxFloatVelocity = 0.5;
 
         // Lure floats back up smoothly when not reeling.
         if (!reeling) {
-            lureFloatVelocity += delta * 0.25;
+            lureFloatVelocity += delta * 0.5;
 
-            if (lureFloatVelocity >= 0.25) {
-                lureFloatVelocity = 0.25;
+            if (lureFloatVelocity >= lureMaxFloatVelocity) {
+                lureFloatVelocity = lureMaxFloatVelocity;
             }
             double diveAmount = (1 - (rotationAnimated.x / targetAngle)) * lureFloatVelocity;
             velocity.y += diveAmount * delta;
