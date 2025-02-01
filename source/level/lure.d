@@ -88,9 +88,7 @@ private:
         if (swimAnimation >= PI * 2) {
             swimAnimation -= PI * 2;
         }
-
         double swimAngle = cos(swimAnimation) / 2.0;
-
         rotationAnimated.y = rotation.y + swimAngle;
 
         reeling = false;
