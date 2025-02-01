@@ -91,6 +91,22 @@ private:
         double swimAngle = cos(swimAnimation) / 2.0;
         rotationAnimated.y = rotation.y + swimAngle;
 
+        //? The lure uses a combination of animated rotation along with static rotation to not make the player motion sick.
+
+        Vector3 velocity = Vector3();
+        double lureInternalYaw = rotation.y - (PI / 2);
+
+        writeln(lureInternalYaw);
+
+        velocity.x = cos(lureInternalYaw);
+        velocity.z = sin(-lureInternalYaw);
+
+        double reelSpeedInTime = reelSpeed * delta;
+
+        velocity = Vector3Multiply(velocity, Vector3(reelSpeedInTime, reelSpeedInTime, reelSpeedInTime));
+
+        position += velocity;
+
         reeling = false;
     }
 
