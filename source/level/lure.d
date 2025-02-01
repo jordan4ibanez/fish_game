@@ -117,6 +117,19 @@ private:
         double reelSpeedInTime = reelSpeed * delta;
         velocity = Vector3Multiply(velocity, Vector3(reelSpeedInTime, reelSpeedInTime, reelSpeedInTime));
 
+        // Lure floats back up smoothly when not reeling.
+        if (!reeling) {
+            lureFloatVelocity += delta * 0.25;
+
+            if (lureFloatVelocity >= 0.25) {
+                lureFloatVelocity = 0.25;
+            }
+            double diveAmount = (1 - (rotationAnimated.x / targetAngle)) * lureFloatVelocity;
+            velocity.y += diveAmount * delta;
+        }
+
+        // todo: make this thing start going up as you get within a certain 2d distance of the pole tip.
+
         position += velocity;
 
         reeling = false;
