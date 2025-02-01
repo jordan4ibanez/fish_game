@@ -2,7 +2,9 @@ module level.lure;
 
 import graphics.model_handler;
 import graphics.texture_handler;
+import level.player;
 import raylib;
+import std.math.trigonometry;
 import std.stdio;
 import utility.delta;
 
@@ -15,6 +17,12 @@ private:
 
     Vector3 position;
     Vector3 rotation;
+    // The actual rotation is stored in rotation.
+    // The modified animation rotation is in rotation animated.
+    Vector3 rotationAnimated;
+
+    // Lure reeling behavioral logic.
+    double swimAnimation = 0;
 
     //* BEGIN PUBLIC API.
 
@@ -35,21 +43,32 @@ private:
         immutable double restingAngle = 0;
         immutable double targetAngle = DEG2RAD * 25;
 
+        //? This is the prototype logic for the deep-c 110 and deep-c 220 lures.
         if (reeling) {
-            double newAngle = lerp(rotation.x, targetAngle, delta * 2.0);
+            double newAngle = lerp(rotationAnimated.x, targetAngle, delta * 2.0);
             if (newAngle == float.nan) {
                 newAngle = targetAngle;
             }
-            rotation.x = newAngle;
+            rotationAnimated.x = newAngle;
         } else {
-
-            double newAngle = lerp(rotation.x, restingAngle, delta * 2.0);
+            double newAngle = lerp(rotationAnimated.x, restingAngle, delta * 2.0);
             if (newAngle == float.nan) {
                 newAngle = targetAngle;
             }
-            rotation.x = newAngle;
-
+            rotationAnimated.x = newAngle;
         }
+
+        // The steeper the lure gets the faster it swims.
+        double swimSpeed = rotationAnimated.x / targetAngle;
+
+        swimAnimation += delta * 12 * swimSpeed;
+        if (swimAnimation >= PI * 2) {
+            swimAnimation -= PI * 2;
+        }
+
+        double swimAngle = cos(swimAnimation) / 2.0;
+
+        rotationAnimated.y = rotation.y + swimAngle;
 
         reeling = false;
     }
@@ -59,7 +78,7 @@ private:
     }
 
     public void draw() {
-        ModelHandler.draw("deep_c_110.glb", position, rotation);
+        ModelHandler.draw("deep_c_110.glb", position, rotationAnimated);
     }
 
     public void setPosition(Vector3 newPosition) {
@@ -68,6 +87,7 @@ private:
 
     public void setRotation(Vector3 newRotation) {
         rotation = newRotation;
+        rotationAnimated = newRotation;
     }
 
     public Vector3 getRotation() {
