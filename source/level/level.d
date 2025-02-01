@@ -43,6 +43,7 @@ private:
         Water.update();
         FishTank.update();
         Player.update();
+        Lure.update();
     }
 
     public void draw() {
