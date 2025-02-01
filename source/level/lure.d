@@ -150,6 +150,10 @@ private:
             // + 0.1 to simulate a "bounce"
             position.y = groundHeightAtPosition;
 
+            if (hitThingSoundTimer > frequencySoundHitThings) {
+                hitThingSoundTimer = 0;
+                writeln("hit ground sound");
+            }
             lureFloatVelocity = 0;
         }
 
