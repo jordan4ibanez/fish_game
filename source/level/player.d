@@ -352,6 +352,7 @@ private:
                         double x = position.x - lurePosition.x;
                         double z = position.z - lurePosition.z;
                         double lureYaw = atan2(x, z);
+                        Lure.setRotation(Vector3(0, lureYaw, 0));
                     }
                 } else {
 
