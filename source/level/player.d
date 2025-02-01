@@ -102,6 +102,10 @@ private:
         return poleTipRealtimePosition;
     }
 
+    public void triggerEmptyReelCompletion() {
+        state = state.Aiming;
+    }
+
     public void setDefaultPosition() {
         Vector2 groundSize = Ground.getSizeFloating();
         position.x = groundSize.x / 2.0;
