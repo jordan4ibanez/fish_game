@@ -46,6 +46,14 @@ private:
 
         immutable double reelTargetSpeed = 1;
         immutable double reelAcceleration = 7;
+
+        // Firstly, the lure needs to face the direction of the player's pole tip internally.
+        Vector3 poleTipPosition = Player.getPoleTipPosition();
+        double x = poleTipPosition.x - position.x;
+        double z = poleTipPosition.z - position.z;
+        double lureYaw = atan2(x, z);
+        rotation.y = lureYaw;
+
         //? This is the prototype logic for the deep-c 110 and deep-c 220 lures.
         if (reeling) {
             double newAngle = lerp(rotationAnimated.x, targetAngle, delta * 2.0);
