@@ -83,8 +83,8 @@ private:
 
         // The steeper the lure gets the faster it swims.
         double swimSpeed = rotationAnimated.x / targetAngle;
-
-        swimAnimation += delta * 12 * swimSpeed;
+        double swimSpeedMultiplier = 20;
+        swimAnimation += delta * swimSpeedMultiplier * swimSpeed;
         if (swimAnimation >= PI * 2) {
             swimAnimation -= PI * 2;
         }
