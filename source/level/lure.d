@@ -101,6 +101,7 @@ private:
 
         //? The lure uses a combination of animated rotation along with static rotation to not make the player motion sick.
 
+        // The horizontal movement of the Deep-C 110 and Deep-C 220.
         Vector3 velocity = Vector3();
         double lureInternalYaw = rotation.y - (PI / 2);
 
