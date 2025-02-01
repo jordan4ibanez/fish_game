@@ -107,8 +107,14 @@ private:
         velocity.x = cos(lureInternalYaw);
         velocity.z = sin(-lureInternalYaw);
 
-        double reelSpeedInTime = reelSpeed * delta;
+        // Lure dives down when reeled.
+        if (reeling) {
+            double diveAmount = (rotationAnimated.x / targetAngle) * 25;
+            velocity.y -= diveAmount * delta;
+            lureFloatVelocity = 0;
+        }
 
+        double reelSpeedInTime = reelSpeed * delta;
         velocity = Vector3Multiply(velocity, Vector3(reelSpeedInTime, reelSpeedInTime, reelSpeedInTime));
 
         position += velocity;
