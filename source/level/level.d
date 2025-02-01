@@ -44,6 +44,7 @@ private:
         FishTank.update();
         Player.update();
         Lure.update();
+        Player.cameraUpdate();
     }
 
     public void draw() {

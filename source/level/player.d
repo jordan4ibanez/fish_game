@@ -81,13 +81,16 @@ private:
         doControls();
         doLogic(delta);
         doAnimation();
-        doCameraPositioning();
 
         //? This is for debugging in freecam. So you don't have to fly across the map.
         // if (inittrigger) {
         //     CameraHandler.setPosition(position);
         //     inittrigger = false;
         // }
+    }
+
+    public void cameraUpdate() {
+        doCameraPositioning();
     }
 
     public void setPosition(float x, float y, float z) {
