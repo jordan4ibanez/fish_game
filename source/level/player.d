@@ -93,6 +93,10 @@ private:
         position = Vector3(x, y, z);
     }
 
+    public Vector3 getPosition() {
+        return position;
+    }
+
     public void setDefaultPosition() {
         Vector2 groundSize = Ground.getSizeFloating();
         position.x = groundSize.x / 2.0;
