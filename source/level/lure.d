@@ -2,6 +2,7 @@ module level.lure;
 
 import graphics.model_handler;
 import graphics.texture_handler;
+import level.ground;
 import level.player;
 import level.water;
 import raylib;
