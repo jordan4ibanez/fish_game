@@ -34,6 +34,7 @@ private:
     Vector3 position;
     Vector3 rotation;
     Vector2 oldPoleTipPosition;
+    Vector3 poleTipRealtimePosition;
 
     PlayerState state = PlayerState.Aiming;
     int playerHandBoneIndex = -1;
@@ -206,6 +207,7 @@ private:
         // todo: fix these variable names, this is a mess.
         // todo: this is supposed to be the pole tip position.
         lureTranslation = Vector3Add(lureTranslation, directionOfPole);
+        poleTipRealtimePosition = lureTranslation;
 
         // This is a trick to simulate the lure swinging during a cast.
         Vector2 poleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
