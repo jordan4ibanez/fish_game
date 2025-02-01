@@ -49,6 +49,8 @@ private:
     immutable int castFrameMiddle = 230 / 2;
     immutable double castingDistanceMin = 10;
     immutable double castingDistanceMax = 30;
+    // This is how wide of a triangulation you can cast.
+    immutable double maxAngle = (40 * DEG2RAD);
 
     double castTumblePitch = 0;
     double castTumbleYaw = 0;
@@ -459,8 +461,6 @@ private:
                 double oldCastingYaw = castingYaw;
 
                 castingYaw += mouseDelta.x / 1500.0;
-
-                immutable double maxAngle = (35 * DEG2RAD);
 
                 if (castingYaw < -maxAngle) {
                     castingYaw = -maxAngle;
