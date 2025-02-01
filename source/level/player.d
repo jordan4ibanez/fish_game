@@ -98,6 +98,10 @@ private:
         return position;
     }
 
+    public Vector3 getPoleTipPosition() {
+        return poleTipRealtimePosition;
+    }
+
     public void setDefaultPosition() {
         Vector2 groundSize = Ground.getSizeFloating();
         position.x = groundSize.x / 2.0;
