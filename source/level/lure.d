@@ -49,6 +49,10 @@ private:
 
         double delta = Delta.getDelta();
 
+        if (hitThingSoundTimer < 1) {
+            hitThingSoundTimer += delta;
+        }
+
         immutable double restingAngle = 0;
         immutable double targetAngle = DEG2RAD * 25;
 
