@@ -48,7 +48,7 @@ private:
     immutable int castFrameMax = 230;
     immutable int castFrameMiddle = 230 / 2;
     immutable double castingDistanceMin = 10;
-    immutable double castingDistanceMax = 26;
+    immutable double castingDistanceMax = 30;
 
     double castTumblePitch = 0;
     double castTumbleYaw = 0;
