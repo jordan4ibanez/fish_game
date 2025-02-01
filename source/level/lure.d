@@ -104,9 +104,6 @@ private:
         // The horizontal movement of the Deep-C 110 and Deep-C 220.
         Vector3 velocity = Vector3();
         double lureInternalYaw = rotation.y - (PI / 2);
-
-        writeln(lureInternalYaw);
-
         velocity.x = cos(lureInternalYaw);
         velocity.z = sin(-lureInternalYaw);
 
