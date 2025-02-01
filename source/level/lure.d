@@ -167,7 +167,9 @@ private:
             lureFloatVelocity = 0;
         }
 
-        
+        if (distanceFromTip2d < 0.5) {
+            Player.triggerEmptyReelCompletion();
+        }
 
         reeling = false;
     }
