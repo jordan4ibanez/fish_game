@@ -135,11 +135,11 @@ private:
         // When you get within 5 units of the pole, you start to reel straight up towards the water.
         Vector2 lurePosition2d = Vector2(position.x, position.z);
         Vector2 poleTipPosition2d = Vector2(poleTipPosition.x, poleTipPosition.z);
-        double distanceFromTip = Vector2Distance(lurePosition2d, poleTipPosition2d);
-        if (reeling && distanceFromTip < 5) {
+        double distanceFromTip2d = Vector2Distance(lurePosition2d, poleTipPosition2d);
+        if (reeling && distanceFromTip2d < 5) {
 
             // This calculation is not even remotely accurate but it works.
-            double pitch = (poleTipPosition.y - position.y) / (distanceFromTip * 2);
+            double pitch = (poleTipPosition.y - position.y) / (distanceFromTip2d * 2);
             pitch = pitch * Vector2Length(Vector2(velocity.x, velocity.z));
             velocity.y = pitch;
         }
@@ -166,6 +166,8 @@ private:
             }
             lureFloatVelocity = 0;
         }
+
+        
 
         reeling = false;
     }
