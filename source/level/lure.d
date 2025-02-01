@@ -23,6 +23,7 @@ private:
 
     // Lure reeling behavioral logic.
     double swimAnimation = 0;
+    double reelSpeed = 0;
 
     //* BEGIN PUBLIC API.
 
@@ -50,12 +51,24 @@ private:
                 newAngle = targetAngle;
             }
             rotationAnimated.x = newAngle;
+
+            reelSpeed += delta * reelAcceleration;
+
+            if (reelSpeed >= reelTargetSpeed) {
+                reelSpeed = reelTargetSpeed;
+            }
         } else {
             double newAngle = lerp(rotationAnimated.x, restingAngle, delta * 2.0);
             if (newAngle == float.nan) {
                 newAngle = targetAngle;
             }
             rotationAnimated.x = newAngle;
+
+            reelSpeed -= delta * reelAcceleration;
+
+            if (reelSpeed <= 0) {
+                reelSpeed = 0;
+            }
         }
 
         // The steeper the lure gets the faster it swims.
