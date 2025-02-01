@@ -109,6 +109,7 @@ private:
         frameTimer = (1 / 60) + 0.001;
         animationFrame = 0;
         firstCastFrame = true;
+        Lure.setOutOfWater();
     }
 
     public void setDefaultPosition() {
