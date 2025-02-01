@@ -3,12 +3,15 @@ module level.lure;
 import graphics.model_handler;
 import graphics.texture_handler;
 import raylib;
+import std.stdio;
+import utility.delta;
 
 static final const class Lure {
 static:
 private:
 
     bool inWater = false;
+    bool reeling = false;
 
     Vector3 position;
     Vector3 rotation;
@@ -27,11 +30,32 @@ private:
             return;
         }
 
+        double delta = Delta.getDelta();
 
+        immutable double restingAngle = 0;
+        immutable double targetAngle = DEG2RAD * 25;
+
+        if (reeling) {
+            double newAngle = lerp(rotation.x, targetAngle, delta * 2.0);
+            if (newAngle == float.nan) {
+                newAngle = targetAngle;
+            }
+            rotation.x = newAngle;
+        } else {
+
+            double newAngle = lerp(rotation.x, restingAngle, delta * 2.0);
+            if (newAngle == float.nan) {
+                newAngle = targetAngle;
+            }
+            rotation.x = newAngle;
+
+        }
+
+        reeling = false;
     }
 
     public void reel() {
-
+        reeling = true;
     }
 
     public void draw() {
