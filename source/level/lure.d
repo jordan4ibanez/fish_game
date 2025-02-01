@@ -143,6 +143,16 @@ private:
             position.y = waterHeighAtPosition;
             lureFloatVelocity = 0;
         }
+
+        // Do not let the lure sink through the ground.
+        double groundHeightAtPosition = Ground.getCollisionPoint(position.x, position.z);
+        if (position.y <= groundHeightAtPosition) {
+            // + 0.1 to simulate a "bounce"
+            position.y = groundHeightAtPosition;
+
+            lureFloatVelocity = 0;
+        }
+
         reeling = false;
     }
 
