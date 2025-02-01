@@ -629,6 +629,15 @@ private:
             }
             break;
         case PlayerState.Water: {
+                // todo: fish focus thing.
+                Vector3 lurePosition = Lure.getPosition();
+                CameraHandler.setTarget(lurePosition);
+
+                lurePosition.x -= 1;
+                lurePosition.y += 1;
+                lurePosition.z -= 1;
+
+                CameraHandler.setPosition(lurePosition);
 
             }
             break;
