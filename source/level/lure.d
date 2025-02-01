@@ -56,7 +56,7 @@ private:
 
         //? This is the prototype logic for the deep-c 110 and deep-c 220 lures.
         if (reeling) {
-            double newAngle = lerp(rotationAnimated.x, targetAngle, delta * 2.0);
+            double newAngle = lerp(rotationAnimated.x, targetAngle, delta * reelAcceleration);
             if (newAngle == float.nan) {
                 newAngle = targetAngle;
             }
@@ -68,7 +68,7 @@ private:
                 reelSpeed = reelTargetSpeed;
             }
         } else {
-            double newAngle = lerp(rotationAnimated.x, restingAngle, delta * 2.0);
+            double newAngle = lerp(rotationAnimated.x, restingAngle, delta * reelAcceleration);
             if (newAngle == float.nan) {
                 newAngle = targetAngle;
             }
