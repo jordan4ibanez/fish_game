@@ -44,6 +44,8 @@ private:
         immutable double restingAngle = 0;
         immutable double targetAngle = DEG2RAD * 25;
 
+        immutable double reelTargetSpeed = 1;
+        immutable double reelAcceleration = 7;
         //? This is the prototype logic for the deep-c 110 and deep-c 220 lures.
         if (reeling) {
             double newAngle = lerp(rotationAnimated.x, targetAngle, delta * 2.0);
