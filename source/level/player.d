@@ -345,9 +345,13 @@ private:
                         state = PlayerState.Water;
                         // todo: don't delete the line data.
                         lineData = null;
-                        // Vector3 lureRotation = Lure.getRotation();
-                        // lureRotation.x = 0;
-                        // Lure.setRotation(lureRotation);
+
+                        // When the state changes into the water state, we do some "magic" to snap everything into place.
+
+                        Vector3 lurePosition = Lure.getPosition();
+                        double x = position.x - lurePosition.x;
+                        double z = position.z - lurePosition.z;
+                        double lureYaw = atan2(x, z);
                     }
                 } else {
 
