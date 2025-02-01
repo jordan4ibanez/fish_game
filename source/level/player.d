@@ -103,7 +103,12 @@ private:
     }
 
     public void triggerEmptyReelCompletion() {
-        state = state.Aiming;
+        state = PlayerState.Aiming;
+        castTimer = 0;
+        // This instantly triggers a frame update.
+        frameTimer = (1 / 60) + 0.001;
+        animationFrame = 0;
+        firstCastFrame = true;
     }
 
     public void setDefaultPosition() {
