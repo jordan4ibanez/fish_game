@@ -8,6 +8,8 @@ static final const class Lure {
 static:
 private:
 
+    bool inWater = false;
+
     Vector3 position;
     Vector3 rotation;
 
@@ -20,9 +22,16 @@ private:
         ModelHandler.setModelShader("deep_c_110.glb", "normal");
     }
 
+    public void update() {
+        if (!inWater) {
+            return;
+        }
+
+
+    }
 
     public void reel() {
-        
+
     }
 
     public void draw() {
@@ -43,6 +52,14 @@ private:
 
     public Vector3 getPosition() {
         return position;
+    }
+
+    public void setInWater() {
+        inWater = true;
+    }
+
+    public void setOutOfWater() {
+        inWater = false;
     }
 
     //* BEGIN INTERNAL API.
