@@ -132,6 +132,13 @@ private:
 
         position += velocity;
 
+        // Do not let the lure fly (literally) out of the water.
+        double waterHeighAtPosition = Water.getCollisionPoint(position.x, position.z);
+
+        if (position.y >= waterHeighAtPosition) {
+            position.y = waterHeighAtPosition;
+            lureFloatVelocity = 0;
+        }
         reeling = false;
     }
 
