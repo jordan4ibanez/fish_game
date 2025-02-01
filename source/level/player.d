@@ -102,7 +102,7 @@ private:
 
         foreach (i; 0 .. personModel.boneCount) {
             if (personModel.bones[i].name[0 .. 9] == "MiddleI.R") {
-                writeln("index ", i);
+                // writeln("index ", i);
                 playerHandBoneIndex = i;
                 break;
             }
