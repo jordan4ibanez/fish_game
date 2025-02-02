@@ -20,14 +20,13 @@ private:
     //* BEGIN PUBLIC API.
 
     public void update() {
-        // if (database.length == 0) {
-        //     foreach (i; 0 .. 100) {
-        //         LargeMouthBass newBass = new LargeMouthBass();
-        //         database[newBass.uuid] = newBass;
-        //         // writeln("spawned new largemouth");
-        //     }
-
-        // }
+        if (database.length == 0) {
+            // foreach (i; 0 .. 100) {
+            LargeMouthBass newBass = new LargeMouthBass();
+            database[newBass.uuid] = newBass;
+            writeln("spawned new largemouth");
+            // }
+        }
 
         double delta = Delta.getDelta();
 
