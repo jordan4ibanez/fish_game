@@ -2,6 +2,7 @@ module level.fish_definitions;
 
 import core.stdc.tgmath;
 import level.ground;
+import level.lure;
 import level.water;
 import raylib;
 import std.conv;
@@ -227,14 +228,20 @@ abstract class Fish {
 
     void update(double delta) {
 
-        if (state != oldState) {
+        // if (state != oldState) {
             // writeln("in state: ", state);
-        }
+        // }
 
         turnToTarget(delta);
         moveToTarget(delta);
 
         oldState = state;
+
+        // This is just a prototype game after all. The fish doesn't even think, it just goes to the lure.
+        if (Lure.isInWater()) {
+            lookTarget = Lure.getPosition();
+            state = FishState.Following;
+        }
 
         switch (state) {
         case FishState.Idle: {

@@ -204,6 +204,10 @@ private:
         inWater = true;
     }
 
+    public bool isInWater() {
+        return inWater;
+    }
+
     public void setOutOfWater() {
         inWater = false;
     }
