@@ -81,6 +81,10 @@ private:
         }
     }
 
+    public Vector3 whereDatFish() {
+        return database[1].position;
+    }
+
     //* BEGIN INTERNAL API.
 
 }
