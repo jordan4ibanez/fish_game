@@ -53,7 +53,7 @@ abstract class Fish {
 
     double accelerationRelaxed = 1;
 
-    bool tightTurn = false;
+    byte tightTurn = 0;
 
     string __model = "undefined";
 
@@ -73,7 +73,7 @@ abstract class Fish {
         behaviorTimer = 0;
         retrigger = false;
         recalculateTimer = true;
-        tightTurn = false;
+        tightTurn = 0;
     }
 
     void boundsCheck() {
@@ -152,8 +152,10 @@ abstract class Fish {
         }
 
         float lookSpeed = relaxedLookSpeed;
-        if (tightTurn) {
+        if (tightTurn == 1) {
             lookSpeed *= 3;
+        } else if (tightTurn == 2) {
+            lookSpeed *= 12;
         }
 
         targetYaw = Lerp(currentYaw, targetYaw, delta * lookSpeed);
@@ -332,7 +334,7 @@ abstract class Fish {
         behaviorTimer -= delta;
 
         if (recalculateTimer) {
-            tightTurn = false;
+            tightTurn = 0;
             recalculateTimer = false;
             behaviorTimer = giveRandomDouble(8.0, 15.0);
             selectRandomTargetPosition();
@@ -348,7 +350,7 @@ abstract class Fish {
             selectRandomTargetPosition();
             resetStateData();
         } else if (distance < 3.0) {
-            tightTurn = true;
+            tightTurn = 1;
         }
 
         if (behaviorTimer <= 0.0) {
@@ -359,7 +361,7 @@ abstract class Fish {
     }
 
     void following(double delta) {
-
+        tightTurn = 2;
     }
 
     void fight(double delta) {
