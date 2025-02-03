@@ -661,8 +661,11 @@ private:
             }
             break;
         case PlayerState.Water: {
+                import level.fish_tank;
+
                 // todo: fish focus thing.
                 Vector3 lurePosition = Lure.getPosition();
+
                 CameraHandler.setTarget(lurePosition);
 
                 lurePosition.x -= 1;
@@ -670,6 +673,8 @@ private:
                 lurePosition.z -= 1;
 
                 CameraHandler.setPosition(lurePosition);
+
+                // CameraHandler.setTarget(FishTank.whereDatFish());
 
             }
             break;
