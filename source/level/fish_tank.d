@@ -40,43 +40,43 @@ private:
 
             ModelHandler.draw(fish.model(), fish.position, fish.rotation);
 
-            float groundYHeight = Ground.getCollisionPoint(fish.position.x, fish.position.z);
-            DrawCircle3D(Vector3(fish.position.x, groundYHeight, fish.position.z), 1, Vector3(1, 0, 0), 0, Colors
-                    .RED);
-            DrawSphere(Vector3(fish.position.x, groundYHeight, fish.position.z), 0.1, Colors.RED);
+            // float groundYHeight = Ground.getCollisionPoint(fish.position.x, fish.position.z);
+            // DrawCircle3D(Vector3(fish.position.x, groundYHeight, fish.position.z), 1, Vector3(1, 0, 0), 0, Colors
+            //         .RED);
+            // DrawSphere(Vector3(fish.position.x, groundYHeight, fish.position.z), 0.1, Colors.RED);
 
-            float waterYHeight = Water.getCollisionPoint(fish.position.x, fish.position.z);
+            // float waterYHeight = Water.getCollisionPoint(fish.position.x, fish.position.z);
 
-            DrawCircle3D(Vector3(fish.position.x, waterYHeight, fish.position.z), 1, Vector3(1, 0, 0), 0, Colors
-                    .GREEN);
-            DrawSphere(Vector3(fish.position.x, waterYHeight, fish.position.z), 0.01, Colors.GREEN);
+            // DrawCircle3D(Vector3(fish.position.x, waterYHeight, fish.position.z), 1, Vector3(1, 0, 0), 0, Colors
+            //         .GREEN);
+            // DrawSphere(Vector3(fish.position.x, waterYHeight, fish.position.z), 0.01, Colors.GREEN);
 
             // Collision point upper.
-            DrawSphere(Vector3Add(fish.position, Vector3(0, fish.collisionVertical, 0)), 0.01, Colors
-                    .BLUE);
+            // DrawSphere(Vector3Add(fish.position, Vector3(0, fish.collisionVertical, 0)), 0.01, Colors
+            //         .BLUE);
             // Collision point lower.
-            DrawSphere(Vector3Subtract(fish.position, Vector3(0, fish.collisionVertical, 0)), 0.01, Colors
-                    .GREEN);
+            // DrawSphere(Vector3Subtract(fish.position, Vector3(0, fish.collisionVertical, 0)), 0.01, Colors
+            //         .GREEN);
 
-            DrawSphere(fish.lookTarget, 1.5, Colors.ORANGE);
+            // DrawSphere(fish.lookTarget, 1.5, Colors.ORANGE);
 
-            switch (fish.state) {
-            case (FishState.Idle): {
-                    DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.BLACK);
-                    break;
-                }
-            case (FishState.Looking): {
-                    DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.WHITE);
-                    break;
-                }
-            case (FishState.RandomTarget): {
-                    DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.BLUE);
-                    break;
-                }
-            default: {
-                    DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.YELLOW);
-                }
-            }
+            // switch (fish.state) {
+            // case (FishState.Idle): {
+            //         DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.BLACK);
+            //         break;
+            //     }
+            // case (FishState.Looking): {
+            //         DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.WHITE);
+            //         break;
+            //     }
+            // case (FishState.RandomTarget): {
+            //         DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.BLUE);
+            //         break;
+            //     }
+            // default: {
+            //         DrawSphere(Vector3Add(fish.position, Vector3(0, 1, 0)), 0.5, Colors.YELLOW);
+            //     }
+            // }
 
         }
     }
