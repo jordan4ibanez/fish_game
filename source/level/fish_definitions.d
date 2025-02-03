@@ -369,6 +369,10 @@ abstract class Fish {
 
     void following(double delta) {
         tightTurn = 2;
+
+        if (movementSpeed < 4) {
+            movementSpeed += delta * 2;
+        }
     }
 
     void fight(double delta) {
