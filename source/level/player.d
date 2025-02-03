@@ -564,19 +564,19 @@ private:
 
         double delta = Delta.getDelta();
 
-        if (animationFrame < castFrameMiddle) {
-            frameTimer += delta * 1.5;
-        } else {
-            frameTimer += delta * 3.0;
-        }
+        frameTimer += delta;
 
-        if (frameTimer < 1.0 / 120.0) {
+        if (frameTimer < 1.0 / 60.0) {
             return;
         }
 
-        frameTimer -= 1.0 / 120.0;
+        frameTimer -= 1.0 / 60.0;
 
-        animationFrame += 1;
+        if (animationFrame < castFrameMiddle) {
+            animationFrame += 2;
+        } else {
+            animationFrame += 4;
+        }
 
         if (animationFrame > castFrameMax) {
             animationFrame = castFrameMax;
