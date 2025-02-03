@@ -57,8 +57,6 @@ abstract class Fish {
 
     string __model = "undefined";
 
-    // todo: lure watch
-
     this() {
         uuid = UUID.next();
 
@@ -154,11 +152,14 @@ abstract class Fish {
         float lookSpeed = relaxedLookSpeed;
         if (tightTurn == 1) {
             lookSpeed *= 3;
-        } else if (tightTurn == 2) {
-            lookSpeed *= 12;
         }
-
+        double oldTargetYaw = targetYaw;
         targetYaw = Lerp(currentYaw, targetYaw, delta * lookSpeed);
+
+        // TightTurn 2 basically just looks straight at it.
+        if (tightTurn == 2) {
+            targetYaw = oldTargetYaw;
+        }
 
         // Raymath can cause Lerp to go into negative or positive infinity.
         // NaN check is because I want to make sure it doesn't crash.
