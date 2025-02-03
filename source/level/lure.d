@@ -113,9 +113,10 @@ private:
 
         // Lure dives down when reeled.
         if (reeling) {
-            double diveAmount = (rotationAnimated.x / targetAngle) * 25;
-            velocity.y -= diveAmount * delta;
+            double diveAmount = (rotationAnimated.x / targetAngle);
+            velocity.y -= diveAmount;
             lureFloatVelocity = 0;
+
         }
 
         double reelSpeedInTime = reelSpeed * delta;
