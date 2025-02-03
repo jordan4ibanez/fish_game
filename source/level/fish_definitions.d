@@ -231,7 +231,7 @@ abstract class Fish {
     void update(double delta) {
 
         // if (state != oldState) {
-            // writeln("in state: ", state);
+        // writeln("in state: ", state);
         // }
 
         turnToTarget(delta);
@@ -243,6 +243,12 @@ abstract class Fish {
         if (Lure.isInWater()) {
             lookTarget = Lure.getPosition();
             state = FishState.Following;
+        } else if (state == FishState.Following) {
+            if (giveRandomDouble(0.0, 1.0) > 0.5) {
+                state = FishState.Idle;
+            } else {
+                state = FishState.RandomTarget;
+            }
         }
 
         switch (state) {
