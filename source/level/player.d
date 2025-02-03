@@ -561,17 +561,23 @@ private:
     }
 
     void doCastAnimation() {
+
         double delta = Delta.getDelta();
-        frameTimer += delta;
-        if (frameTimer < 1 / 60) {
+
+        if (animationFrame < castFrameMiddle) {
+            frameTimer += delta * 1.5;
+        } else {
+            frameTimer += delta * 3.0;
+        }
+
+        if (frameTimer < 1.0 / 120.0) {
             return;
         }
 
-        if (animationFrame < castFrameMiddle) {
-            animationFrame += 2;
-        } else {
-            animationFrame += 6;
-        }
+        frameTimer -= 1.0 / 120.0;
+
+        animationFrame += 1;
+
         if (animationFrame > castFrameMax) {
             animationFrame = castFrameMax;
         }
