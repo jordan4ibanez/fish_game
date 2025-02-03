@@ -23,6 +23,7 @@ private:
         if (database.length == 0) {
             // foreach (i; 0 .. 100) {
             LargeMouthBass newBass = new LargeMouthBass();
+            writeln("I am uuid: ", newBass.uuid);
             database[newBass.uuid] = newBass;
             writeln("spawned new largemouth");
             // }
