@@ -70,7 +70,6 @@ private:
     }
 
     public void loadModelFromFile(string location) {
-        Model* thisModel = new Model();
 
         // Extract the file name from the location.
         string fileName = () {
@@ -83,14 +82,18 @@ private:
             return outputFileName;
         }();
 
-        *thisModel = LoadModel(toStringz(location));
+        Model* thisModel = new Model();
+
+        auto cStr = location.toStringz();
+
+        *thisModel = LoadModel(cStr);
 
         if (!IsModelValid(*thisModel)) {
             throw new Error("[ModelHandler]: Invalid model loaded from file. " ~ location);
         }
 
         int animationCount;
-        ModelAnimation* thisAnimationData = LoadModelAnimations(toStringz(location), &animationCount);
+        ModelAnimation* thisAnimationData = LoadModelAnimations(cStr, &animationCount);
         AnimationContainer thisModelAnimation = new AnimationContainer();
         thisModelAnimation.animationCount = animationCount;
         thisModelAnimation.animationData = thisAnimationData;
@@ -228,10 +231,10 @@ private:
             UnloadModel(*thisModel);
         } else {
             UnloadModel(*thisModel);
-
             AnimationContainer thisAnimations = animationDatabase[modelName];
             if (thisAnimations !is null && thisAnimations.hasAnimation) {
-                UnloadModelAnimation(*thisAnimations.animationData);
+                UnloadModelAnimations(thisAnimations.animationData, animationDatabase[modelName]
+                        .animationCount);
             }
         }
     }

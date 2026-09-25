@@ -168,13 +168,14 @@ private:
         //? Thankfully modern x86_64 cpus do this trivialy, but it's a pain in the butt.
 
         Model* model = ModelHandler.getModelPointer("person.glb");
-
         AnimationContainer personAnimationContainer = ModelHandler.getAnimationContainer(
             "person.glb");
         ModelAnimation* animation = personAnimationContainer.animationData;
 
         Transform* transform = &animation.framePoses[animationFrame][playerHandBoneIndex];
+
         Quaternion inRotation = model.bindPose[playerHandBoneIndex].rotation;
+
         Quaternion outRotation = transform.rotation;
 
         // Calculate socket rotation (angle between bone in initial pose and same bone in current animation frame)

@@ -40,7 +40,9 @@ private:
     }
 
     public void terminate() {
-        UnloadFont(*font);
+        if (font !is null) {
+            UnloadFont(*font);
+        }
         font = null;
     }
 
