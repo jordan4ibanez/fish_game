@@ -7,43 +7,43 @@ import utility.delta;
 
 static final const class Window {
 static:
-private:
 
+private:
     bool maximized = false;
     bool mouseLocked = false;
 
-    //* BEGIN PUBLIC API.
+public:
 
-    public int getWidth() {
+    int getWidth() {
         return GetRenderWidth();
     }
 
-    public int getHeight() {
+    int getHeight() {
         return GetRenderHeight();
     }
 
-    public Vector2 getSize() {
+    Vector2 getSize() {
         return Vector2(getWidth(), getHeight());
     }
 
-    public bool shouldStayOpen() {
+    bool shouldStayOpen() {
         // This calls the update system to automatically make common utilities run.
         updateSystem();
 
         return !WindowShouldClose();
     }
 
-    public void maximize() {
+    void maximize() {
         maximized = true;
         MaximizeWindow();
     }
 
-    public void unmaximize() {
+    void unmaximize() {
         maximized = false;
         RestoreWindow();
     }
 
-    public void toggleMaximize() {
+    void toggleMaximize() {
         if (maximized) {
             unmaximize();
         } else {
@@ -51,17 +51,17 @@ private:
         }
     }
 
-    public void lockMouse() {
+    void lockMouse() {
         mouseLocked = true;
         DisableCursor();
     }
 
-    public void unlockMouse() {
+    void unlockMouse() {
         mouseLocked = false;
         EnableCursor();
     }
 
-    public void toggleMouseLock() {
+    void toggleMouseLock() {
         if (mouseLocked) {
             unlockMouse();
         } else {
@@ -69,11 +69,11 @@ private:
         }
     }
 
-    public bool isMouseLocked() {
+    bool isMouseLocked() {
         return mouseLocked;
     }
 
-    //* BEGIN INTERNAL API.
+private:
 
     void updateSystem() {
         Delta.__calculateDelta();

@@ -8,16 +8,14 @@ import level.water;
 
 static final const class Level {
 static:
-private:
+public:
 
     // If you're in a level, this logic container will get called.
 
     bool loaded = false;
     bool paused = false;
 
-    //* BEGIN PUBLIC API.
-
-    public void load(string levelDirectory) {
+    void load(string levelDirectory) {
         if (loaded) {
             throw new Error("[Level]: Unload the level first.");
         }
@@ -29,12 +27,12 @@ private:
         loaded = true;
     }
 
-    public void unload() {
+    void unload() {
         throw new Error("[Level]: unloading not implemented");
         loaded = false;
     }
 
-    public void update() {
+    void update() {
         if (paused) {
             return;
         }
@@ -47,7 +45,7 @@ private:
         Player.cameraUpdate();
     }
 
-    public void draw() {
+    void draw() {
         Ground.draw();
         FishTank.draw();
         Player.draw();
@@ -55,10 +53,8 @@ private:
         Water.draw();
     }
 
-    public void togglePause() {
+    void togglePause() {
         paused = !paused;
     }
-
-    //* BEGIN INTERNAL API.
 
 }

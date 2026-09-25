@@ -16,7 +16,7 @@ import utility.delta;
 
 static final const class Ground {
 static:
-private:
+public:
 
     float[][] mapData;
     int mapWidth = 0;
@@ -32,13 +32,11 @@ private:
 
     immutable float groundScale = 7.0;
 
-    //* BEGIN PUBLIC API.
-
-    public void draw() {
+    void draw() {
         ModelHandler.draw("ground", Vector3(0, 0, 0));
     }
 
-    public void load(string levelLocation) {
+    void load(string levelLocation) {
         if (loaded) {
             throw new Error("Clean up the ground.");
         }
@@ -60,37 +58,37 @@ private:
         loaded = true;
     }
 
-    public void setWaterLevel(float newWaterLevel) {
+    void setWaterLevel(float newWaterLevel) {
         ShaderHandler.setFloatUniformFloat("ground", waterHeightUniformLocation, newWaterLevel);
     }
 
-    public Tuple!(int, int) getSize() {
+    Tuple!(int, int) getSize() {
         return tuple(mapWidth, mapHeight);
     }
 
-    public Vector2 getSizeFloating() {
+    Vector2 getSizeFloating() {
         return Vector2(mapWidth, mapHeight);
     }
 
-    public float getWidth() {
+    float getWidth() {
         return mapWidth;
     }
 
-    public float getHeight() {
+    float getHeight() {
         return mapHeight;
     }
 
-    public float getCollisionPoint(float x, float y) {
+    float getCollisionPoint(float x, float y) {
         return heightCalculation(Vector2(x, y));
     }
 
-    public void update() {
+    void update() {
         immutable float delta = Delta.getDelta();
         groundShimmerRoll += delta / 2.0;
         ShaderHandler.setFloatUniformFloat("ground", shimmerRollUniformLocation, groundShimmerRoll);
     }
 
-    //* BEGIN INTERNAL API.
+private:
 
     float getHeightAtNode(int x, int y) {
         return mapData[x][y];

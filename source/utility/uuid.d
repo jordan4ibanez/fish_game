@@ -2,19 +2,15 @@ module utility.uuid;
 
 static final const class UUID {
 static:
-private:
+public:
 
-    //? Don't use this for network security lol.
-
-    ulong currentID = 1;
-
-    //* BEGIN PUBLIC API.
-
-    public ulong next() {
+    ulong next() {
         return tickAndGive();
     }
 
-    //* BEGIN INTERNAL API.
+private:
+
+    ulong currentID = 1;
 
     ulong tickAndGive() {
         ulong current = currentID;

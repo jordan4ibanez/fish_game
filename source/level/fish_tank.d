@@ -10,16 +10,14 @@ import utility.delta;
 
 static final const class FishTank {
 static:
-private:
+public:
 
     //? This stores all the fish in the level.
     // <>< <>< <>< <><
 
     Fish[ulong] database;
 
-    //* BEGIN PUBLIC API.
-
-    public void update() {
+    void update() {
         if (database.length == 0) {
             // foreach (i; 0 .. 100) {
             LargeMouthBass newBass = new LargeMouthBass();
@@ -36,7 +34,7 @@ private:
         }
     }
 
-    public void draw() {
+    void draw() {
         foreach (uuid, fish; database) {
 
             ModelHandler.draw(fish.model(), fish.position, fish.rotation);
@@ -82,10 +80,8 @@ private:
         }
     }
 
-    public Vector3 whereDatFish() {
+    Vector3 whereDatFish() {
         return database[1].position;
     }
-
-    //* BEGIN INTERNAL API.
 
 }

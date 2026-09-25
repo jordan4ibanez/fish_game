@@ -5,13 +5,11 @@ import std.string;
 
 static final const class ShaderHandler {
 static:
-private:
+public:
 
     Shader*[string] database;
 
-    //* BEGIN PUBLIC API.
-
-    public void newShader(string shaderName, string vertCodeLocation, string fragCodeLocation) {
+    void newShader(string shaderName, string vertCodeLocation, string fragCodeLocation) {
 
         if (shaderName in database) {
             throw new Error("[ShaderHandler]: Tried to overwrite shader " ~ shaderName);
@@ -27,7 +25,7 @@ private:
         database[shaderName] = thisShader;
     }
 
-    public int getUniformLocation(string shaderName, string uniformName) {
+    int getUniformLocation(string shaderName, string uniformName) {
         if (shaderName !in database) {
             throw new Error(
                 "[ShaderHandler]: Tried to get non-existent shader. " ~ shaderName);
@@ -43,7 +41,7 @@ private:
         return val;
     }
 
-    public Shader* getShaderPointer(string shaderName) {
+    Shader* getShaderPointer(string shaderName) {
         if (shaderName !in database) {
             throw new Error(
                 "[ShaderHandler]: Tried to get non-existent shader pointer. " ~ shaderName);
@@ -51,7 +49,7 @@ private:
         return database[shaderName];
     }
 
-    public void setFloatUniformFloat(string shaderName, int location, float value) {
+    void setFloatUniformFloat(string shaderName, int location, float value) {
         if (shaderName !in database) {
             throw new Error(
                 "[ShaderHandler]: Tried to set uniform in non-existent shader. " ~ shaderName);
@@ -61,7 +59,7 @@ private:
             ShaderUniformDataType.SHADER_UNIFORM_FLOAT);
     }
 
-    public void terminate() {
+    void terminate() {
         foreach (shaderName, thisShader; database) {
             UnloadShader(*thisShader);
         }
@@ -69,5 +67,4 @@ private:
         database.clear();
     }
 
-    //* BEGIN INTERNAL API.
 }

@@ -67,14 +67,14 @@ private:
     double castingYaw = 0.0;
     double castingDistance = castingDistanceMin;
 
-    //* BEGIN PUBLIC API.
-
     //!! NOTE:
     // Animation seems to be double the blender keyframes. So frame 30 is 60-ish. 
 
     bool inittrigger = true;
 
-    public void update() {
+public:
+
+    void update() {
         double delta = Delta.getDelta();
 
         updateFloating();
@@ -89,23 +89,23 @@ private:
         // }
     }
 
-    public void cameraUpdate() {
+    void cameraUpdate() {
         doCameraPositioning();
     }
 
-    public void setPosition(float x, float y, float z) {
+    void setPosition(float x, float y, float z) {
         position = Vector3(x, y, z);
     }
 
-    public Vector3 getPosition() {
+    Vector3 getPosition() {
         return position;
     }
 
-    public Vector3 getPoleTipPosition() {
+    Vector3 getPoleTipPosition() {
         return poleTipRealtimePosition;
     }
 
-    public void triggerEmptyReelCompletion() {
+    void triggerEmptyReelCompletion() {
         state = PlayerState.Aiming;
         castTimer = 0;
         // This instantly triggers a frame update.
@@ -115,7 +115,7 @@ private:
         Lure.setOutOfWater();
     }
 
-    public void setDefaultPosition() {
+    void setDefaultPosition() {
         Vector2 groundSize = Ground.getSizeFloating();
         position.x = groundSize.x / 2.0;
         position.z = groundSize.y / 2.0;
@@ -133,14 +133,14 @@ private:
         }
     }
 
-    public void updateFloating() {
+    void updateFloating() {
         position.y = Water.getCollisionPoint(position.x, position.z);
         position.y -= 0.1;
 
         // rotation.y += Delta.getDelta();
     }
 
-    public void draw() {
+    void draw() {
         ModelHandler.draw("boat.glb", position, rotation);
 
         Vector3 playerOnBoat = position;
@@ -321,7 +321,7 @@ private:
         }
     }
 
-    //* BEGIN INTERNAL API.
+private:
 
     void doLogic(double delta) {
         switch (state) {

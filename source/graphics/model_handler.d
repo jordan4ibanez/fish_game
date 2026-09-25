@@ -15,15 +15,13 @@ class AnimationContainer {
 
 static final const class ModelHandler {
 static:
-private:
+public:
 
     Model*[string] database;
     bool[string] isCustomDatabase;
     AnimationContainer[string] animationDatabase;
 
-    //* BEGIN PUBLIC API.
-
-    public void draw(
+    void draw(
         string modelName, Vector3 position, Vector3 rotation = Vector3(0, 0, 0),
         float scale = 1.0, Color color = Colors.WHITE) {
 
@@ -42,7 +40,7 @@ private:
         DrawModelEx(*thisModel, position, axisRotation, RAD2DEG * angle, Vector3(scale, scale, scale), color);
     }
 
-    public void newModelFromMesh(string modelName, float[] vertices, float[] textureCoordinates, bool dynamic = false) {
+    void newModelFromMesh(string modelName, float[] vertices, float[] textureCoordinates, bool dynamic = false) {
 
         if (modelName in database) {
             throw new Error(
@@ -69,7 +67,7 @@ private:
         isCustomDatabase[modelName] = true;
     }
 
-    public void loadModelFromFile(string location) {
+    void loadModelFromFile(string location) {
 
         // Extract the file name from the location.
         string fileName = () {
@@ -104,7 +102,7 @@ private:
         animationDatabase[fileName] = thisModelAnimation;
     }
 
-    public void setModelTexture(string modelName, string textureName) {
+    void setModelTexture(string modelName, string textureName) {
 
         if (modelName !in database) {
             throw new Error(
@@ -119,7 +117,7 @@ private:
         }
     }
 
-    public void setModelShader(string modelName, string shaderName) {
+    void setModelShader(string modelName, string shaderName) {
 
         if (modelName !in database) {
             throw new Error(
@@ -133,7 +131,7 @@ private:
         }
     }
 
-    public Model* getModelPointer(string modelName) {
+    Model* getModelPointer(string modelName) {
         if (modelName !in database) {
             throw new Error(
                 "[ModelManager]: Tried to set get non-existent model pointer [" ~ modelName ~ "]");
@@ -142,7 +140,7 @@ private:
         return database[modelName];
     }
 
-    public void updateModelPositionsInGPU(string modelName) {
+    void updateModelPositionsInGPU(string modelName) {
         if (modelName !in database) {
             throw new Error(
                 "[ModelManager]: Tried to update non-existent model [" ~ modelName ~ "]");
@@ -166,7 +164,7 @@ private:
         }
     }
 
-    public void destroy(string modelName) {
+    void destroy(string modelName) {
         if (modelName !in database) {
             throw new Error("[ModelManager]: Tried to destroy non-existent model. " ~ modelName);
         }
@@ -180,7 +178,7 @@ private:
         animationDatabase.remove(modelName);
     }
 
-    public void terminate() {
+    void terminate() {
         foreach (modelName, thisModel; database) {
             destroyModel(modelName, thisModel);
         }
@@ -189,7 +187,7 @@ private:
         animationDatabase.clear();
     }
 
-    public void playAnimation(string modelName, int index, int frame) {
+    void playAnimation(string modelName, int index, int frame) {
         if (modelName !in database) {
             throw new Error(
                 "[ModelManager]: Tried to play animation on non-existent model. " ~ modelName);
@@ -206,7 +204,7 @@ private:
         UpdateModelAnimation(*thisModel, thisAnimation.animationData[index], frame);
     }
 
-    public AnimationContainer getAnimationContainer(string modelName) {
+    AnimationContainer getAnimationContainer(string modelName) {
         if (modelName !in animationDatabase) {
             throw new Error(
                 "[ModelManager]: Tried to get non-existent animation container. " ~ modelName);
@@ -215,7 +213,7 @@ private:
         return animationDatabase[modelName];
     }
 
-    //* BEGIN INTERNAL API.
+private:
 
     void destroyModel(string modelName, Model* thisModel) {
         // If we were using the D runtime to make this model, we'll customize

@@ -12,7 +12,7 @@ import utility.delta;
 
 static final const class Lure {
 static:
-private:
+public:
 
     bool inWater = false;
     bool reeling = false;
@@ -33,16 +33,14 @@ private:
     double hitThingSoundTimer = 0;
     immutable double frequencySoundHitThings = 0.25;
 
-    //* BEGIN PUBLIC API.
-
-    public void loadLureData() {
+    void loadLureData() {
         ModelHandler.loadModelFromFile("models/lures/deep_c_110.glb");
         TextureHandler.loadTexture("models/lures/deep_c_110.png");
         ModelHandler.setModelTexture("deep_c_110.glb", "deep_c_110.png");
         ModelHandler.setModelShader("deep_c_110.glb", "normal");
     }
 
-    public void update() {
+    void update() {
         if (!inWater) {
             return;
         }
@@ -176,43 +174,41 @@ private:
         reeling = false;
     }
 
-    public void reel() {
+    void reel() {
         reeling = true;
     }
 
-    public void draw() {
+    void draw() {
         ModelHandler.draw("deep_c_110.glb", position, rotationAnimated);
     }
 
-    public void setPosition(Vector3 newPosition) {
+    void setPosition(Vector3 newPosition) {
         position = newPosition;
     }
 
-    public void setRotation(Vector3 newRotation) {
+    void setRotation(Vector3 newRotation) {
         rotation = newRotation;
         rotationAnimated = newRotation;
     }
 
-    public Vector3 getRotation() {
+    Vector3 getRotation() {
         return rotation;
     }
 
-    public Vector3 getPosition() {
+    Vector3 getPosition() {
         return position;
     }
 
-    public void setInWater() {
+    void setInWater() {
         inWater = true;
     }
 
-    public bool isInWater() {
+    bool isInWater() {
         return inWater;
     }
 
-    public void setOutOfWater() {
+    void setOutOfWater() {
         inWater = false;
     }
-
-    //* BEGIN INTERNAL API.
 
 }

@@ -7,16 +7,14 @@ import std.string;
 
 static final const class FontHandler {
 static:
-private:
+public:
 
     // Roboto condensed medium looks pretty close to the Bass Rise font, kind of.
     Font* font = null;
     immutable float spacing = -1;
     float currentFontSize = 1;
 
-    //* BEGIN PUBLIC API.
-
-    public void initialize() {
+    void initialize() {
         font = new Font();
 
         dstring codePointString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-+={[]}|" ~
@@ -26,30 +24,29 @@ private:
             toStringz("font/roboto_condensed.ttf"), 64, cast(int*) codePointString, 0);
     }
 
-    public Vector2 getTextSize(string text) {
+    Vector2 getTextSize(string text) {
         return MeasureTextEx(*font, toStringz(text), currentFontSize, spacing);
     }
 
-    public void draw(string text, float x, float y, Color color = Colors.BLACK) {
+    void draw(string text, float x, float y, Color color = Colors.BLACK) {
         DrawTextEx(*font, toStringz(text), Vector2(x, y), currentFontSize, spacing, color);
     }
 
-    public void drawShadowed(string text, float x, float y, Color foregroundColor = Colors.WHITE) {
+    void drawShadowed(string text, float x, float y, Color foregroundColor = Colors.WHITE) {
         DrawTextEx(*font, toStringz(text), Vector2(x, y), currentFontSize, spacing, Colors.BLACK);
         DrawTextEx(*font, toStringz(text), Vector2(x - 1, y - 1), currentFontSize, spacing, foregroundColor);
     }
 
-    public void terminate() {
+    void terminate() {
         if (font !is null) {
             UnloadFont(*font);
         }
         font = null;
     }
 
-    public void __update() {
+    void __update() {
         // This allows the font to look slightly off, like it's a texture font.
         currentFontSize = font.baseSize * (GUI.getGUIScale() * 0.75);
     }
-    //* BEGIN INTERNAL API.
 
 }

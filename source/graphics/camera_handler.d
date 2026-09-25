@@ -4,13 +4,11 @@ import raylib;
 
 static final const class CameraHandler {
 static:
-private:
+public:
 
     Camera* camera = null;
 
-    //* BEGIN PUBLIC API.
-
-    public void initialize() {
+    void initialize() {
         camera = new Camera();
         camera.position = Vector3(0, 4, 4);
         camera.up = Vector3(0, 1, 0);
@@ -19,30 +17,28 @@ private:
         camera.projection = CameraProjection.CAMERA_PERSPECTIVE;
     }
 
-    public void setPosition(Vector3 newPosition) {
+    void setPosition(Vector3 newPosition) {
         camera.position = newPosition;
     }
 
-    public void setTarget(Vector3 newTarget) {
+    void setTarget(Vector3 newTarget) {
         camera.target = newTarget;
     }
 
-    public float getFOV() {
+    float getFOV() {
         return camera.fovy;
     }
 
-    public void setFOV(float newFOV) {
+    void setFOV(float newFOV) {
         camera.fovy = newFOV;
     }
 
-    public Camera* getPointer() {
+    Camera* getPointer() {
         return camera;
     }
 
-    public void doFreeCam() {
+    void doFreeCam() {
         UpdateCamera(camera, CameraMode.CAMERA_FREE);
     }
-
-    //* BEGIN INTERNAL API.
 
 }

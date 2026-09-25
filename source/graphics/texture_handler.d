@@ -8,13 +8,11 @@ import std.string;
 
 static final const class TextureHandler {
 static:
-private:
+public:
 
     Texture2D*[string] database;
 
-    //* BEGIN PUBLIC API.
-
-    public void loadTexture(string location) {
+    void loadTexture(string location) {
 
         // Extract the file name from the location.
         string fileName = () {
@@ -44,7 +42,7 @@ private:
         database[fileName] = thisTexture;
     }
 
-    public Texture2D* getTexturePointer(string textureName) {
+    Texture2D* getTexturePointer(string textureName) {
         if (textureName !in database) {
             throw new Error("[TextureManager]: Texture does not exist. " ~ textureName);
         }
@@ -52,7 +50,7 @@ private:
         return database[textureName];
     }
 
-    public void deleteTexture(string textureName) {
+    void deleteTexture(string textureName) {
         if (textureName !in database) {
             throw new Error(
                 "[TextureManager]: Texture does not exist. Cannot delete. " ~ textureName);
@@ -63,7 +61,7 @@ private:
         database.remove(textureName);
     }
 
-    public void terminate() {
+    void terminate() {
         foreach (textureName, thisTexture; database) {
             UnloadTexture(*thisTexture);
         }
@@ -71,5 +69,4 @@ private:
         database.clear();
     }
 
-    //* BEGIN INTERNAL API.
 }

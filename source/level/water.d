@@ -17,7 +17,7 @@ import utility.delta;
 
 static final const class Water {
 static:
-private:
+public:
 
     // water is 0.25 unit quads.
     // Level size x * 4 and y * 4
@@ -50,17 +50,15 @@ private:
 
     //? Water frequently updates, so this is implemented in a special way.
 
-    //* BEGIN PUBLIC API.
-
-    public void draw() {
+    void draw() {
         ModelHandler.draw("water", Vector3(0, 0, 0), Vector3(0, 0, 0), 1.0, Color(200, 200, 200, 200));
     }
 
-    public float getWaterLevel() {
+    float getWaterLevel() {
         return waterLevel;
     }
 
-    public void load() {
+    void load() {
 
         Tuple!(int, int) groundSize = Ground.getSize();
 
@@ -107,7 +105,7 @@ private:
     double waveSpeed = 0.5;
     byte skip = 0;
 
-    public void update() {
+    void update() {
 
         immutable delta = Delta.getDelta();
 
@@ -170,11 +168,11 @@ private:
         ModelHandler.updateModelPositionsInGPU("water");
     }
 
-    public float getCollisionPoint(float x, float y) {
+    float getCollisionPoint(float x, float y) {
         return heightCalculation(Vector2(x, y));
     }
 
-    //* BEGIN INTERNAL API.
+private:
 
     float getHeightAtNode(int x, int y) {
         return waterData[x][y];
