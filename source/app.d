@@ -17,6 +17,7 @@ import std.stdio;
 import std.string;
 import std.typecons;
 import utility.window;
+import audio.sounds;
 
 void main() {
 
@@ -52,6 +53,8 @@ void main() {
         throw new Error("The system is too old.");
     default:
     }
+
+    Sounds.load();
 
     CameraHandler.initialize();
 
