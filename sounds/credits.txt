@@ -1,2 +1,6 @@
 lure_scrape_ground
 https://freesound.org/people/Squidems/sounds/709965/
+
+casting_woosh
+https://freesound.org/people/florianreichelt/sounds/683101/
+
