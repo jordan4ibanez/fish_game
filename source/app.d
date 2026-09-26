@@ -26,7 +26,7 @@ void main() {
         ShaderHandler.terminate();
         TextureHandler.terminate();
         ModelHandler.terminate();
-        Sounds.terminate();
+        SoundManager.terminate();
         CloseAudioDevice();
         CloseWindow();
     }
@@ -55,7 +55,7 @@ void main() {
     default:
     }
 
-    Sounds.load();
+    SoundManager.load();
 
     CameraHandler.initialize();
 

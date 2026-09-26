@@ -166,7 +166,7 @@ public:
             if (hitThingSoundTimer > frequencySoundHitThings) {
                 hitThingSoundTimer = 0;
 
-                Sounds.playPitched("lure_scrape_ground_" ~ to!string(uniform(1, 4)) ~ ".ogg", 0.5);
+                SoundManager.playPitched("lure_scrape_ground_" ~ to!string(uniform(1, 4)) ~ ".ogg", 0.5);
 
             }
             lureFloatVelocity = 0;
