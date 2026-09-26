@@ -8,6 +8,7 @@ import level.ground;
 import level.lure;
 import level.water;
 import raylib;
+import std.math : floor;
 import std.math.algebraic;
 import std.math.trigonometry;
 import std.random;
@@ -39,9 +40,7 @@ private:
     PlayerState state = PlayerState.Aiming;
     int playerHandBoneIndex = -1;
 
-    int animationFrame = 0;
-
-    double frameTimer = 0;
+    double animationFrame = 0f;
 
     // Casting variables.
     bool firstCastFrame = true;
@@ -109,7 +108,6 @@ public:
         state = PlayerState.Aiming;
         castTimer = 0;
         // This instantly triggers a frame update.
-        frameTimer = (1 / 60) + 0.001;
         animationFrame = 0;
         firstCastFrame = true;
         Lure.setOutOfWater();
@@ -146,7 +144,7 @@ public:
         Vector3 playerOnBoat = position;
         playerOnBoat.y += 0.6;
 
-        ModelHandler.playAnimation("person.glb", 0, animationFrame);
+        ModelHandler.playAnimation("person.glb", 0, cast(int) floor(animationFrame));
 
         // Make the player turn with the casting angle if they're in an interaction state.
         // Also, do not render the player if aiming. (first person mode)
@@ -172,7 +170,8 @@ public:
             "person.glb");
         ModelAnimation* animation = personAnimationContainer.animationData;
 
-        Transform* transform = &animation.framePoses[animationFrame][playerHandBoneIndex];
+        Transform* transform = &animation.framePoses[cast(int) floor(
+                animationFrame)][playerHandBoneIndex];
 
         Quaternion inRotation = model.bindPose[playerHandBoneIndex].rotation;
 
@@ -561,22 +560,16 @@ private:
         }
     }
 
+    const targetFrameTime = 1.0 / 60.0;
+
     void doCastAnimation() {
 
         double delta = Delta.getDelta();
 
-        frameTimer += delta;
-
-        if (frameTimer < 1.0 / 60.0) {
-            return;
-        }
-
-        frameTimer -= 1.0 / 60.0;
-
         if (animationFrame < castFrameMiddle) {
-            animationFrame += 2;
+            animationFrame += 100 * delta;
         } else {
-            animationFrame += 6;
+            animationFrame += 300 * delta;
         }
 
         if (animationFrame >= castFrameMax) {
