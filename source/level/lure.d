@@ -1,6 +1,6 @@
 module level.lure;
 
-import audio.sounds;
+import audio.sound_manager;
 import graphics.model_handler;
 import graphics.texture_handler;
 import level.ground;

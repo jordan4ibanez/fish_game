@@ -1,4 +1,4 @@
-import audio.sounds;
+import audio.sound_manager;
 import core.stdc.tgmath;
 import graphics.camera_handler;
 import graphics.font_handler;
