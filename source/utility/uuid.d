@@ -10,7 +10,7 @@ public:
 
 private:
 
-    ulong currentID = 1;
+    ulong currentID = 0;
 
     ulong tickAndGive() {
         ulong current = currentID;
