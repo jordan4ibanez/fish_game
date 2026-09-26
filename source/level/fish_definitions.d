@@ -241,6 +241,7 @@ abstract class Fish {
         oldState = state;
 
         // This is just a prototype game after all. The fish doesn't even think, it just goes to the lure.
+
         if (Lure.isInWater()) {
             lookTarget = Lure.getPosition();
             state = FishState.Following;
@@ -370,9 +371,43 @@ abstract class Fish {
     void following(double delta) {
         tightTurn = 2;
 
-        if (movementSpeed < 4) {
-            movementSpeed += delta * 2;
+        auto distance = Vector3Distance(this.position, Lure.getPosition());
+
+        if (distance < 0.5) {
+            movementSpeed -= delta * 30;
+            if (movementSpeed < 0) {
+                movementSpeed = 0;
+            }
+            // writeln("stage 3");
+        } else if (distance < 1) {
+            if (movementSpeed > 2) {
+                movementSpeed -= delta * 10;
+            } else if (movementSpeed > 0) {
+                movementSpeed -= delta * 5;
+
+            }
+            if (movementSpeed < 0) {
+                movementSpeed = 0;
+            }
+            // writeln("stage 2");
+
+        } else if (distance < 3) {
+            if (movementSpeed > 2) {
+                movementSpeed -= delta * 10;
+            } else if (movementSpeed <= 1) {
+                movementSpeed += delta * 2;
+            }
+            if (movementSpeed < 0) {
+                movementSpeed = 0;
+            }
+            // writeln("stage 1");
+
+        } else {
+            if (movementSpeed < 4) {
+                movementSpeed += delta * 2;
+            }
         }
+
     }
 
     void fight(double delta) {
