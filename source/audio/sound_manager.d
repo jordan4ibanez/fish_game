@@ -44,7 +44,7 @@ private class SoundPool {
     }
 }
 
-static final const class Sounds {
+static final const class SoundManager {
 static:
 private:
 
