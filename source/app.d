@@ -25,6 +25,7 @@ void main() {
         ShaderHandler.terminate();
         TextureHandler.terminate();
         ModelHandler.terminate();
+        CloseAudioDevice();
         CloseWindow();
     }
 
@@ -42,6 +43,8 @@ void main() {
     CloseWindow();
 
     InitWindow(monitorWidth / 2, monitorHeight / 2, "Fish Game");
+
+    InitAudioDevice();
 
     switch (rlGetVersion()) {
     case rlGlVersion.RL_OPENGL_11, rlGlVersion.RL_OPENGL_21, rlGlVersion.RL_OPENGL_ES_20:
