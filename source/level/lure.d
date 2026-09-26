@@ -97,16 +97,17 @@ public:
 
         // The steeper the lure gets the faster it swims.
         double swimSpeed = rotationAnimated.x / targetAngle;
-        double swimSpeedMultiplier = 20;
+        double swimSpeedMultiplier = 40;
         swimAnimation += delta * swimSpeedMultiplier * swimSpeed;
         if (swimAnimation >= PI * 2) {
             swimAnimation -= PI * 2;
         }
-        double swimAngle = cos(swimAnimation) / 2.0;
+        double swimAngle = cos(swimAnimation) / 3.0;
         rotationAnimated.y = rotation.y + swimAngle;
 
         if ((swimAngle > 0 && oldSwimAngle < 0) || (swimAngle < 0 && oldSwimAngle > 0)) {
             writeln("rattle");
+            SoundManager.play("diver_lure_rattle_" ~ to!string(uniform(1, 4)) ~ ".ogg", 0.4, 0.9);
         }
 
         oldSwimAngle = swimAngle;
