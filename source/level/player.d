@@ -249,6 +249,7 @@ public:
                 if (firstCastFrame) {
                     oldPoleTipPosition = Vector2(lureTranslation.x, lureTranslation.z);
                     firstCastFrame = false;
+                    SoundManager.play("reel_open_bail.ogg");
                     break;
                 }
 
