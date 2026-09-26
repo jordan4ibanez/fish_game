@@ -5,6 +5,7 @@ import graphics.camera_handler;
 import graphics.model_handler;
 import input.keyboard;
 import input.mouse;
+import level.fish_tank;
 import level.ground;
 import level.lure;
 import level.water;
@@ -676,19 +677,24 @@ private:
             }
             break;
         case PlayerState.Water: {
-                import level.fish_tank;
 
-                // todo: fish focus thing.
                 Vector3 lurePosition = Lure.getPosition();
+
+                Fish fish = FishTank.getFish(0);
 
                 CameraHandler.setTarget(lurePosition);
 
-                lurePosition.x -= 1;
-                lurePosition.y += 1;
-                lurePosition.z -= 1;
+                auto dir = (fish.getPosition() - lurePosition).Vector3Normalize()
+                    .Vector3Add(Vector3(0.1, 0.1, 0.1));
 
-                CameraHandler.setPosition(lurePosition);
+                CameraHandler.setPosition(fish.getPosition()
+                        .Vector3Add(dir));
 
+                // CameraHandler.setTarget(lurePosition);
+                // lurePosition.x -= 1;
+                // lurePosition.y += 1;
+                // lurePosition.z -= 1;
+                // CameraHandler.setPosition(lurePosition);
                 // CameraHandler.setTarget(FishTank.whereDatFish());
 
             }
