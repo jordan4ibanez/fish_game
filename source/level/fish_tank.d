@@ -1,7 +1,7 @@
 module level.fish_tank;
 
+public import level.fish_definitions;
 import graphics.model_handler;
-import level.fish_definitions;
 import level.ground;
 import level.water;
 import raylib;
@@ -80,8 +80,8 @@ public:
         }
     }
 
-    Vector3 whereDatFish() {
-        return database[1].position;
+    Fish getFish(int index) {
+        return database[index];
     }
 
 }
