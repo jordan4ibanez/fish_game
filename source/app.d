@@ -1,3 +1,4 @@
+import audio.sounds;
 import core.stdc.tgmath;
 import graphics.camera_handler;
 import graphics.font_handler;
@@ -17,7 +18,6 @@ import std.stdio;
 import std.string;
 import std.typecons;
 import utility.window;
-import audio.sounds;
 
 void main() {
 
@@ -26,6 +26,7 @@ void main() {
         ShaderHandler.terminate();
         TextureHandler.terminate();
         ModelHandler.terminate();
+        Sounds.terminate();
         CloseAudioDevice();
         CloseWindow();
     }
