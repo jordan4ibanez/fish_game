@@ -3,18 +3,54 @@ module audio.sounds;
 import raylib;
 import std.file;
 import std.path;
+import std.random;
 import std.stdio;
 import std.string;
+
+private class SoundPool {
+    Sound master;
+    // Allows up to 4 overlapping instances at once.
+    Sound[4] voices;
+    size_t nextVoice = 0;
+
+    // Load master and setup aliases pointing to the same RAM buffer.
+    this(string filePath) {
+        auto cStr = filePath.toStringz();
+        master = LoadSound(cStr);
+        foreach (i; 0 .. voices.length) {
+            voices[i] = LoadSoundAlias(master);
+        }
+    }
+
+    void play(float volume, float pitch) {
+        Sound voice = voices[nextVoice];
+        SetSoundVolume(voice, volume);
+        SetSoundPitch(voice, pitch);
+        PlaySound(voice);
+        nextVoice = (nextVoice + 1) % voices.length;
+    }
+
+    // Play with a subtle random pitch shift.
+    void playPitched(float volume, float pitchVariance) {
+        float randomPitch = uniform(1.0f - pitchVariance, 1.0f + pitchVariance);
+        play(volume, randomPitch);
+    }
+
+    void unload() {
+        foreach (ref v; voices) {
+            UnloadSoundAlias(v);
+        }
+        UnloadSound(master);
+    }
+}
 
 static final const class Sounds {
 static:
 private:
 
-    Sound[string] database;
+    SoundPool[string] database;
 
 public:
-
-    // todo: this needs a ring buffer or something.
 
     void load() {
         writeln("Loading sounds");
@@ -30,17 +66,31 @@ public:
                 if (fileName in database) {
                     throw new Exception(fileName ~ " is a duplicate! Hit in: " ~ fullPath);
                 } else {
-                    database[fileName] = LoadSound(fullPath.toStringz);
+                    database[fileName] = new SoundPool(fullPath);
                 }
             }
         }
     }
 
-    void play(string name) {
+    void terminate() {
+        foreach (pool; database) {
+            pool.unload();
+        }
+    }
+
+    void play(string name, float volume = 1.0f, float pitch = 1.0f) {
         if (name !in database) {
             throw new Error(name ~ " is not a sound.");
         }
-        PlaySound(database[name]);
+        database[name].play(volume, pitch);
+    }
+
+    void playPitched(string name, float volume = 1.0f, float pitchVariance = 0.1f) {
+        if (name !in database) {
+            throw new Error(name ~ " is not a sound.");
+        }
+        database[name].playPitched(volume, pitchVariance);
+
     }
 
 }
