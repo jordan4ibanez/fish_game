@@ -62,6 +62,7 @@ private:
     double lineCreationProgress = 0;
     Vector3[] lineData;
     double lineFallRestTimer = 0;
+    bool lureSplashPlayed = false;
 
     //! Note: these need to be reset when the player changes spots.
     double castingYaw = 0.0;
@@ -367,6 +368,11 @@ private:
                     castProgressDistance = castingDistance;
                     lineFallRestTimer += delta;
 
+                    if (!lureSplashPlayed) {
+                        SoundManager.play("lure_hit_water.ogg", 0.1);
+                        lureSplashPlayed = true;
+                    }
+
                     // I worked hard on these line physics so you get to watch them. >:)
                     if (lineFallRestTimer >= 1.5) {
                         state = PlayerState.Water;
@@ -512,6 +518,7 @@ private:
                     state = PlayerState.Casting;
                     castTimer = 0;
                     castProgressDistance = 0;
+                    lureSplashPlayed = false;
                 }
             }
             break;
