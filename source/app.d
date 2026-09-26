@@ -35,7 +35,7 @@ void main() {
 
     SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
 
-    SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+    SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE | ConfigFlags.FLAG_VSYNC_HINT);
 
     // This is a hack to get the resolution.
     InitWindow(1, 1, "");
@@ -65,7 +65,7 @@ void main() {
 
     Lure.loadLureData();
 
-    SetTargetFPS(30);
+    SetTargetFPS(0);
     // SetWindowState(ConfigFlags.FLAG_VSYNC_HINT);
 
     // This is a very simple game. We don't want this optimized at all. Can make simpler geometry with it.
