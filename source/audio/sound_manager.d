@@ -1,4 +1,4 @@
-module audio.sounds;
+module audio.sound_manager;
 
 import raylib;
 import std.file;
