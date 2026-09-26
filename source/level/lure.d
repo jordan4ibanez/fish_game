@@ -30,6 +30,7 @@ public:
     double swimAnimation = 0;
     double reelSpeed = 0;
     double lureFloatVelocity = 0;
+    double oldSwimAngle = 0;
 
     // If the lure hits something,I don't want to explode the player's ears.
     // So I set it to only be allowed to trigger the "thunk" noise every 0.25 seconds.
@@ -103,6 +104,12 @@ public:
         }
         double swimAngle = cos(swimAnimation) / 2.0;
         rotationAnimated.y = rotation.y + swimAngle;
+
+        if ((swimAngle > 0 && oldSwimAngle < 0) || (swimAngle < 0 && oldSwimAngle > 0)) {
+            writeln("rattle");
+        }
+
+        oldSwimAngle = swimAngle;
 
         //? The lure uses a combination of animated rotation along with static rotation to not make the player motion sick.
 
