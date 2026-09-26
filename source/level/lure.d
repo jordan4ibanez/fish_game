@@ -1,12 +1,15 @@
 module level.lure;
 
+import audio.sounds;
 import graphics.model_handler;
 import graphics.texture_handler;
 import level.ground;
 import level.player;
 import level.water;
 import raylib;
+import std.conv;
 import std.math.trigonometry;
+import std.random;
 import std.stdio;
 import utility.delta;
 
@@ -162,6 +165,9 @@ public:
 
             if (hitThingSoundTimer > frequencySoundHitThings) {
                 hitThingSoundTimer = 0;
+
+                Sounds.play("lure_scrape_ground_" ~ to!string(uniform(1, 4)) ~ ".ogg");
+
                 writeln("hit ground sound");
             }
             lureFloatVelocity = 0;
