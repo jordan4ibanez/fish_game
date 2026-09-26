@@ -34,7 +34,7 @@ public:
     // If the lure hits something,I don't want to explode the player's ears.
     // So I set it to only be allowed to trigger the "thunk" noise every 0.25 seconds.
     double hitThingSoundTimer = 0;
-    immutable double frequencySoundHitThings = 0.25;
+    immutable double frequencySoundHitThings = 0.3;
 
     void loadLureData() {
         ModelHandler.loadModelFromFile("models/lures/deep_c_110.glb");
@@ -166,9 +166,8 @@ public:
             if (hitThingSoundTimer > frequencySoundHitThings) {
                 hitThingSoundTimer = 0;
 
-                Sounds.play("lure_scrape_ground_" ~ to!string(uniform(1, 4)) ~ ".ogg");
+                Sounds.playPitched("lure_scrape_ground_" ~ to!string(uniform(1, 4)) ~ ".ogg", 0.5);
 
-                writeln("hit ground sound");
             }
             lureFloatVelocity = 0;
         }
