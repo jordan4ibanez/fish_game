@@ -106,8 +106,7 @@ public:
         rotationAnimated.y = rotation.y + swimAngle;
 
         if ((swimAngle > 0 && oldSwimAngle < 0) || (swimAngle < 0 && oldSwimAngle > 0)) {
-            writeln("rattle");
-            SoundManager.play("diver_lure_rattle_" ~ to!string(uniform(1, 4)) ~ ".ogg", 0.4, 0.9);
+            SoundManager.play("diver_lure_rattle_" ~ to!string(uniform(1, 4)) ~ ".ogg", 0.3, 0.9);
         }
 
         oldSwimAngle = swimAngle;
