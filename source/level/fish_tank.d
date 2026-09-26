@@ -21,8 +21,8 @@ public:
         if (database.length == 0) {
             // foreach (i; 0 .. 100) {
             LargeMouthBass newBass = new LargeMouthBass();
-            writeln("I am uuid: ", newBass.uuid);
-            database[newBass.uuid] = newBass;
+            writeln("I am uuid: ", newBass.getUUID());
+            database[newBass.getUUID()] = newBass;
             writeln("spawned new largemouth");
             // }
         }
@@ -37,7 +37,7 @@ public:
     void draw() {
         foreach (uuid, fish; database) {
 
-            ModelHandler.draw(fish.model(), fish.position, fish.rotation);
+            ModelHandler.draw(fish.model(), fish.getPosition(), fish.getRotation());
 
             // float groundYHeight = Ground.getCollisionPoint(fish.position.x, fish.position.z);
             // DrawCircle3D(Vector3(fish.position.x, groundYHeight, fish.position.z), 1, Vector3(1, 0, 0), 0, Colors
