@@ -1,5 +1,6 @@
 module level.player;
 
+import audio.sound_manager;
 import graphics.camera_handler;
 import graphics.model_handler;
 import input.keyboard;
@@ -566,10 +567,16 @@ private:
 
         double delta = Delta.getDelta();
 
+        auto oldState = animationFrame;
+
         if (animationFrame < castFrameMiddle) {
             animationFrame += 100 * delta;
         } else {
             animationFrame += 300 * delta;
+        }
+
+        if (oldState < castFrameMiddle && animationFrame >= castFrameMiddle) {
+            SoundManager.play("casting_woosh.ogg");
         }
 
         if (animationFrame >= castFrameMax) {
