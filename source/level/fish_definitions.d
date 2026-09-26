@@ -25,6 +25,7 @@ FishState randomState() {
 }
 
 abstract class Fish {
+private:
     // Vector3 oldPosition = Vector3(0, 0, 0);
     Vector3 position = Vector3(0, 0, 0);
     // Pitch and yaw.
@@ -56,6 +57,7 @@ abstract class Fish {
     byte tightTurn = 0;
 
     string __model = "undefined";
+public:
 
     this() {
         uuid = UUID.next();
@@ -72,6 +74,18 @@ abstract class Fish {
         retrigger = false;
         recalculateTimer = true;
         tightTurn = 0;
+    }
+
+    ulong getUUID() {
+        return this.uuid;
+    }
+
+    Vector3 getPosition() {
+        return this.position;
+    }
+
+    Vector3 getRotation() {
+        return this.rotation;
     }
 
     void boundsCheck() {
