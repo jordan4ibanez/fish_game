@@ -576,10 +576,10 @@ private:
         if (animationFrame < castFrameMiddle) {
             animationFrame += 2;
         } else {
-            animationFrame += 4;
+            animationFrame += 6;
         }
 
-        if (animationFrame > castFrameMax) {
+        if (animationFrame >= castFrameMax) {
             animationFrame = castFrameMax;
         }
     }
