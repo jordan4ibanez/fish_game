@@ -682,13 +682,18 @@ private:
 
                 Fish fish = FishTank.getFish(0);
 
-                CameraHandler.setTarget(lurePosition);
+                auto fishYaw = ((RAD2DEG * fish.getRotation().y) + 195) * DEG2RAD;
 
-                auto dir = (fish.getPosition() - lurePosition).Vector3Normalize()
-                    .Vector3Add(Vector3(0.1, 0.1, 0.1));
+                auto fishDir = Vector3(sin(fishYaw), 0.0f, cos(fishYaw));
 
-                CameraHandler.setPosition(fish.getPosition()
-                        .Vector3Add(dir));
+                CameraHandler.setPosition(fish.getPosition().Vector3Add(fishDir));
+
+                // Now rotate this 180 degrees.
+                fishYaw += PI;
+                writeln(fishYaw);
+                fishDir = Vector3(sin(fishYaw), 0.0f, cos(fishYaw));
+
+                CameraHandler.setTarget(fish.getPosition().Vector3Add(fishDir));
 
                 // CameraHandler.setTarget(lurePosition);
                 // lurePosition.x -= 1;
